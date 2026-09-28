@@ -1,0 +1,2596 @@
+{
+  "title": {
+    "vi": "Làm chủ AWS Machine Learning",
+    "en": "Master AWS Machine Learning"
+  },
+  "exam": {
+    "code": "MLA-C02",
+    "format": "beta",
+    "questions": 85,
+    "minutes": 170,
+    "verified": "2026-09-28",
+    "source": "https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/"
+  },
+  "domains": [
+    {
+      "id": 1,
+      "weight": 28,
+      "title": {
+        "vi": "Chuẩn bị dữ liệu",
+        "en": "Data preparation"
+      }
+    },
+    {
+      "id": 2,
+      "weight": 24,
+      "title": {
+        "vi": "Phát triển mô hình",
+        "en": "Model development"
+      }
+    },
+    {
+      "id": 3,
+      "weight": 24,
+      "title": {
+        "vi": "Triển khai & điều phối",
+        "en": "Deployment & orchestration"
+      }
+    },
+    {
+      "id": 4,
+      "weight": 24,
+      "title": {
+        "vi": "Vận hành & bảo mật",
+        "en": "Operations & security"
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "data-lake",
+      "domain": 1,
+      "title": {
+        "vi": "Từ dữ liệu thô đến tập huấn luyện",
+        "en": "From raw data to training datasets"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        7,
+        15,
+        22,
+        25,
+        57,
+        61
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Mỗi dịch vụ giải quyết một việc khác nhau",
+            "en": "Choose the tool for the job"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Amazon S3 lưu các file dữ liệu. AWS Glue Data Catalog lưu thông tin mô tả như cấu trúc cột và vị trí file; Catalog không chứa bản ghi thay cho S3.",
+                  "en": "Amazon S3 stores data files. AWS Glue Data Catalog describes their columns and locations; it does not store the records instead of S3."
+                },
+                {
+                  "vi": "Amazon Athena chạy SQL trực tiếp trên dữ liệu S3, phù hợp khi bạn chưa cần một kho dữ liệu riêng.",
+                  "en": "Amazon Athena runs SQL directly over S3 data, useful when a separate data warehouse is unnecessary."
+                },
+                {
+                  "vi": "Redshift Spectrum giúp truy vấn dữ liệu S3 từ Redshift, đặc biệt khi cần kết hợp với các bảng đã có trong kho dữ liệu.",
+                  "en": "Redshift Spectrum queries S3 from Redshift, particularly when joining it with existing warehouse tables."
+                },
+                {
+                  "vi": "AWS Glue phù hợp cho công việc trích xuất, biến đổi và nạp dữ liệu (ETL) được quản lý. EMR phù hợp khi cần kiểm soát môi trường Spark nhiều hơn.",
+                  "en": "AWS Glue provides managed extract-transform-load (ETL) processing. EMR fits workloads needing more control over the Spark environment."
+                },
+                {
+                  "vi": "SageMaker Processing chạy bước xử lý dữ liệu trong quy trình ML, chẳng hạn chuẩn bị dữ liệu trước khi huấn luyện.",
+                  "en": "SageMaker Processing runs data-processing steps within ML workflows, such as preparation before training."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Chọn định dạng để giảm lượng dữ liệu phải đọc",
+            "en": "Formats and partitions"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Parquet lưu theo cột. Nếu truy vấn chỉ cần 3 trong 50 cột, hệ thống có thể đọc phần liên quan thay vì toàn bộ mỗi dòng.",
+                  "en": "Parquet stores data by column. A query needing 3 of 50 columns can read relevant portions instead of entire rows."
+                },
+                {
+                  "vi": "Phân vùng theo ngày giúp bỏ qua những ngày không nằm trong điều kiện truy vấn. Điều này chỉ có ích khi truy vấn dùng được cột phân vùng.",
+                  "en": "Date partitions let queries skip irrelevant dates when their filters use the partition column."
+                },
+                {
+                  "vi": "Tránh tạo quá nhiều file nhỏ: thời gian liệt kê và điều phối file có thể lớn hơn thời gian tính toán.",
+                  "en": "Avoid excessive small files: listing and scheduling overhead can exceed computation time."
+                },
+                {
+                  "vi": "RecordIO-Protobuf là định dạng đầu vào mà một số thuật toán yêu cầu. Không cần chuyển cả kho dữ liệu sang định dạng này nếu các công việc khác không dùng đến.",
+                  "en": "RecordIO-Protobuf is required by certain algorithms. There is no need to convert the whole data lake if other workloads do not use it."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Giảm phần pipeline phải tự xây",
+            "en": "Reduce operational work"
+          },
+          "text": {
+            "vi": "Aurora zero-ETL giúp đồng bộ dữ liệu từ những nguồn được hỗ trợ sang Redshift gần thời gian thực. Bạn vẫn cần kiểm tra phiên bản cơ sở dữ liệu, Region và các điều kiện tích hợp. Nếu đã có code Spark và muốn chạy nó như một bước trong quy trình ML, hãy cân nhắc SageMaker Spark Processing trước khi duy trì một cluster chạy thường trực.",
+            "en": "Aurora zero-ETL replicates supported sources into Redshift near real time, reducing custom replication pipelines. Check engine versions, Regions and integration prerequisites. For existing Spark code in an ML workflow, consider Spark Processing before operating a persistent cluster."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Một nhóm phân tích cần truy vấn nhật ký lưu trong S3 vào mỗi buổi sáng. Có thể dùng Glue Data Catalog để quản lý cấu trúc bảng, lưu dữ liệu dưới dạng Parquet và phân vùng theo ngày, rồi truy vấn bằng Athena. Nếu nhóm đã dùng Redshift và cần kết hợp bảng trong kho dữ liệu với dữ liệu trên S3, Redshift Spectrum sẽ phù hợp hơn.",
+        "en": "A team needs morning SQL over S3 logs: use Catalog, Athena and date-partitioned Parquet. If it already uses Redshift and must join warehouse tables to S3, Spectrum is a better fit."
+      },
+      "trap": {
+        "vi": "Đừng chọn dịch vụ chỉ vì thấy từ “serverless”. Firehose đưa dữ liệu đến nơi lưu trữ, Athena chạy truy vấn, còn Glue xử lý dữ liệu. Hãy xác định công việc cần làm trước khi chọn công cụ.",
+        "en": "“Serverless” does not make all tools interchangeable. Firehose delivers, Athena queries and Glue transforms; match the constraint."
+      },
+      "cards": [
+        {
+          "id": "data-lake-1",
+          "front": {
+            "vi": "Bạn cần chạy truy vấn SQL trực tiếp trên dữ liệu trong S3, nhưng chưa có kho dữ liệu Redshift. Nên dùng dịch vụ nào?",
+            "en": "Which AWS service lets you query data in S3 with SQL when you do not have a Redshift warehouse?"
+          },
+          "back": {
+            "vi": "Dùng Amazon Athena. AWS Glue Data Catalog mô tả cấu trúc dữ liệu để Athena đọc; nếu lưu dạng Parquet, truy vấn chỉ cần quét các cột liên quan.",
+            "en": "Athena; Catalog describes schemas and Parquet reduces column scanning."
+          }
+        },
+        {
+          "id": "data-lake-2",
+          "front": {
+            "vi": "Dữ liệu từ Aurora cần được đồng bộ gần thời gian thực sang Redshift. Nếu không cần xử lý tùy chỉnh, cách nào ít phải viết code nhất?",
+            "en": "You need near-real-time replication from Aurora to Redshift without custom transformations. Which approach requires the least custom code?"
+          },
+          "back": {
+            "vi": "Dùng Aurora zero-ETL integration với Redshift, sau khi kiểm tra phiên bản cơ sở dữ liệu và Region có hỗ trợ. Bạn không phải tự xây pipeline sao chép dữ liệu.",
+            "en": "Zero-ETL when the source and Region support it."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
+        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/zero-etl.html"
+      ]
+    },
+    {
+      "id": "streaming",
+      "domain": 1,
+      "title": {
+        "vi": "Luồng dữ liệu và cửa sổ thời gian",
+        "en": "Streams and time windows"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        7,
+        36
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Phân biệt tiếp nhận, xử lý và chuyển dữ liệu",
+            "en": "Ingest, process, deliver"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Kinesis Data Streams tiếp nhận luồng sự kiện và cho phép ứng dụng đọc lại trong thời hạn lưu trữ.",
+                  "en": "Kinesis Data Streams ingests events and lets consumers replay them within the retention period."
+                },
+                {
+                  "vi": "Data Firehose gom dữ liệu rồi chuyển đến nơi lưu trữ. Với cấu hình phù hợp, nó có thể đổi JSON sang Parquet.",
+                  "en": "Data Firehose buffers and delivers data to storage. Suitable configurations can convert JSON to Parquet."
+                },
+                {
+                  "vi": "Managed Service for Apache Flink xử lý phép tính cần nhớ trạng thái giữa các sự kiện, như đếm số click trong 5 phút gần nhất.",
+                  "en": "Managed Service for Apache Flink handles computations retaining state across events, such as clicks during the last five minutes."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Muốn “xử lý đúng một lần” phải kiểm tra cả đầu ra",
+            "en": "Exactly once is end to end"
+          },
+          "text": {
+            "vi": "Checkpoint lưu trạng thái để Flink phục hồi sau lỗi mà không tính lại sai kết quả. Tuy nhiên, cơ chế này không tự bảo đảm mọi hệ thống đích chỉ nhận dữ liệu một lần. Bạn còn phải kiểm tra connector và cách ghi. Ví dụ, dùng mã tài liệu ổn định khi ghi vào OpenSearch giúp việc ghi lại cùng một sự kiện không tạo thêm bản sao. Không nên dùng bộ nhớ tạm của Lambda làm nơi duy nhất giữ trạng thái cửa sổ.",
+            "en": "Checkpoints persist processing state for recovery. Flink supports exactly-once state consistency; destination guarantees also depend on connectors and write semantics. With OpenSearch, stable document IDs can make repeated writes idempotent. Lambda memory is not durable state for continuous windows."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Phân biệt thời điểm xảy ra và thời điểm nhận sự kiện",
+            "en": "Event time and late data"
+          },
+          "text": {
+            "vi": "Một sự kiện có thể xảy ra lúc 10:00 nhưng đến hệ thống lúc 10:03. Event time là thời điểm xảy ra; arrival time là thời điểm nhận. Watermark giúp hệ thống ước lượng dữ liệu đã tiến đến mốc thời gian nào, còn allowed lateness quy định cách xử lý sự kiện đến muộn. Cửa sổ trượt 5 phút nhìn lại 5 phút gần nhất ở mỗi lần tính; nó khác cửa sổ không chồng lấn (tumbling window).",
+            "en": "Event time differs from arrival time. Watermarks track event-time progress; allowed lateness determines how late events are handled. Use five-minute sliding windows when each result must reflect the preceding five minutes, rather than non-overlapping tumbling windows."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Giả sử cần cập nhật số lượt nhấp mỗi phút, nhưng mỗi lần phải tính trên dữ liệu của 5 phút gần nhất. Dùng Kinesis để tiếp nhận sự kiện, rồi dùng Flink với cửa sổ dài 5 phút và bước trượt 1 phút để tính kết quả. Khi ghi sang S3 hoặc OpenSearch, cần kiểm tra cách xử lý sự kiện được phát lại để tránh ghi trùng.",
+        "en": "Count clicks every minute over the preceding five minutes: Kinesis → Flink five-minute windows sliding each minute → S3 and OpenSearch. Test replay and duplicate writes at each sink."
+      },
+      "trap": {
+        "vi": "Khả năng chuyển JSON thành Parquet của Firehose không có nghĩa dịch vụ này thực hiện được mọi phép tổng hợp cần ghi nhớ trạng thái, chẳng hạn đếm sự kiện theo cửa sổ thời gian.",
+        "en": "Firehose JSON-to-Parquet conversion does not imply arbitrary stateful aggregation."
+      },
+      "cards": [
+        {
+          "id": "streaming-1",
+          "front": {
+            "vi": "Bạn cần liên tục tính tổng dữ liệu trong 5 phút gần nhất và giữ trạng thái tính toán giữa các sự kiện. Dịch vụ AWS nào giúp giảm việc quản lý hạ tầng?",
+            "en": "Which managed AWS service can continuously aggregate the last five minutes of events while maintaining processing state?"
+          },
+          "back": {
+            "vi": "Amazon Managed Service for Apache Flink. Flink hỗ trợ xử lý luồng có trạng thái và cửa sổ thời gian; bạn không phải tự quản lý cụm máy chạy Flink.",
+            "en": "Managed Service for Apache Flink."
+          }
+        },
+        {
+          "id": "streaming-2",
+          "front": {
+            "vi": "Đã bật checkpoint trong Flink thì có thể khẳng định dữ liệu được ghi đúng một lần ở mọi hệ thống đích chưa?",
+            "en": "Does enabling Flink checkpoints guarantee exactly-once writes to every destination?"
+          },
+          "back": {
+            "vi": "Chưa. Checkpoint bảo vệ trạng thái xử lý trong Flink. Để tránh ghi trùng ở đích, còn cần connector phù hợp hoặc cách ghi idempotent: ghi lại cùng một sự kiện vẫn cho cùng kết quả.",
+            "en": "No; use suitable transactional connectors or idempotent writes."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/managed-flink/latest/java/how-it-works.html"
+      ]
+    },
+    {
+      "id": "preparation",
+      "domain": 1,
+      "title": {
+        "vi": "Dữ liệu sạch và tránh rò rỉ nhãn",
+        "en": "Clean data and target leakage"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        8,
+        17,
+        41,
+        45
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Phát hiện thông tin mà mô hình không thể biết lúc dự đoán",
+            "en": "Leakage is not ordinary correlation"
+          },
+          "text": {
+            "vi": "Một đặc trưng chỉ hợp lệ khi đã có tại thời điểm mô hình cần đưa ra dự đoán. Ví dụ, số tiền đã giải ngân tiết lộ quyết định cho vay, nên không được dùng để dự đoán quyết định đó. Điểm xác thực gần tuyệt đối là dấu hiệu cần kiểm tra, không phải bằng chứng mô hình chắc chắn tốt. Data Wrangler có target leakage analysis để hỗ trợ phát hiện, nhưng kỹ sư vẫn phải hiểu ý nghĩa nghiệp vụ và thời điểm dữ liệu được tạo.",
+            "en": "A feature is valid only if available at prediction time. A disbursed loan amount reveals an approval decision; near-perfect accuracy may signal leakage. Data Wrangler target leakage analysis helps identify suspicious features, but business meaning and data timestamps must also be checked."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chia dữ liệu đúng trước khi xử lý",
+            "en": "Split before fitting transforms"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Chia dữ liệu thành train, xác thực và test theo cách phản ánh thực tế sử dụng. Nếu dự đoán tương lai, nên giữ thứ tự thời gian.",
+                  "en": "Split into training, validation and test sets in a way reflecting deployment. For future prediction, preserve temporal order."
+                },
+                {
+                  "vi": "Chỉ dùng tập train để tính giá trị điền dữ liệu thiếu, tham số chuẩn hóa hoặc lựa chọn đặc trưng.",
+                  "en": "Use only training data to fit imputation values, scaling parameters or feature selection."
+                },
+                {
+                  "vi": "Áp dụng nguyên các tham số đã học lên xác thực và test. Không tính lại chúng bằng dữ liệu của hai tập này.",
+                  "en": "Apply the learned parameters unchanged to validation and test; do not refit using those datasets."
+                },
+                {
+                  "vi": "Nếu một khách hàng có nhiều dòng dữ liệu, cân nhắc chia theo khách hàng để tránh cùng một người xuất hiện ở cả train và test.",
+                  "en": "If customers have multiple records, consider customer-grouped splits to avoid the same person appearing in training and test."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Kiểm tra chất lượng trước khi huấn luyện",
+            "en": "Quality and augmentation"
+          },
+          "text": {
+            "vi": "Trước huấn luyện, hãy kiểm tra cấu trúc dữ liệu, tỷ lệ thiếu, phân phối và giá trị không hợp lệ. Với xử lý dữ liệu lớn, có thể dùng Processing để đưa bước này vào pipeline ML. Khi tăng cường dữ liệu ảnh bằng xoay, lật hoặc thay đổi kích thước, phải chắc rằng nhãn vẫn đúng. Không biến đổi tập test chỉ để làm kết quả mô hình trông tốt hơn.",
+            "en": "Track schema, missingness, distributions and validity before training. Processing suits large transformations integrated with pipelines. For images, resize, flip or rotate only when label meaning is preserved; do not augment a test set to conceal model weaknesses."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Để dự đoán giá nhà cho tháng tiếp theo, có thể dùng 8 năm đầu làm tập huấn luyện, năm thứ 9 làm tập xác thực và năm thứ 10 làm tập kiểm thử. Chỉ học cách điền giá trị thiếu từ tập huấn luyện. Nếu chia ngẫu nhiên toàn bộ dữ liệu, thông tin từ tương lai có thể khiến kết quả đánh giá tốt hơn thực tế.",
+        "en": "Predict next-month home prices: train on eight years, validate on year nine and test on year ten; fit the imputer on train. Compare with a random split to expose time-related optimism."
+      },
+      "trap": {
+        "vi": "Một đặc trưng có tương quan với nhãn chưa chắc gây rò rỉ dữ liệu; đó có thể là tín hiệu hữu ích. Cần loại thông tin mà hệ thống sẽ không thể biết tại thời điểm đưa ra dự đoán.",
+        "en": "Removing every label-correlated feature destroys useful signal. Remove information unavailable at inference time."
+      },
+      "cards": [
+        {
+          "id": "preparation-1",
+          "front": {
+            "vi": "Một đặc trưng chỉ được tạo sau thời điểm mô hình phải đưa ra dự đoán. Vì sao không nên dùng đặc trưng đó để huấn luyện?",
+            "en": "Why should you exclude a feature that only becomes available after the model must make its prediction?"
+          },
+          "back": {
+            "vi": "Đó là rò rỉ thông tin mục tiêu (target leakage): mô hình được nhìn thấy thông tin chưa tồn tại khi dự đoán thực tế. Cần bỏ đặc trưng này hoặc tính lại từ dữ liệu có sẵn tại thời điểm dự đoán.",
+            "en": "Target leakage; remove it or rebuild it from information available at prediction time."
+          }
+        },
+        {
+          "id": "preparation-2",
+          "front": {
+            "vi": "Nên xác định tham số chuẩn hóa dữ liệu trước hay sau khi chia tập huấn luyện và tập kiểm tra?",
+            "en": "Should you fit data-normalization parameters before or after splitting the training and test datasets?"
+          },
+          "back": {
+            "vi": "Chia dữ liệu trước, rồi chỉ tính tham số chuẩn hóa trên tập huấn luyện. Sau đó dùng nguyên các tham số ấy cho tập xác thực và test để tránh làm lộ thông tin từ hai tập này.",
+            "en": "After splitting, fit only on train."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html"
+      ]
+    },
+    {
+      "id": "feature-store",
+      "domain": 1,
+      "title": {
+        "vi": "Feature Store và lịch sử đúng thời điểm",
+        "en": "Feature Store and point-in-time history"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        3,
+        48
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Chọn online store hay offline store?",
+            "en": "Online and offline"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Online store phục vụ tra cứu đặc trưng với độ trễ thấp, chẳng hạn lấy thông tin khách hàng ngay khi xử lý một giao dịch.",
+                  "en": "The online store serves low-latency feature lookups, such as customer features during a transaction."
+                },
+                {
+                  "vi": "Offline store lưu lịch sử trên S3 để huấn luyện, phân tích hoặc suy luận theo lô. Nếu chỉ cần lịch sử, không phải bật thêm online store.",
+                  "en": "The offline store retains S3 history for training, analytics or batch inference. History-only workloads do not need an online store."
+                },
+                {
+                  "vi": "Record identifier xác định đối tượng, ví dụ khách hàng nào. Event time cho biết giá trị đặc trưng thuộc thời điểm nào.",
+                  "en": "The record identifier identifies the entity, such as a customer. Event time identifies when the feature value applies."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Thêm đặc trưng mới vào dữ liệu lịch sử",
+            "en": "Adding a column does not backfill history"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Cập nhật định nghĩa feature group để bổ sung tên và kiểu dữ liệu của đặc trưng mới.",
+                  "en": "Update the feature-group definition with the new feature name and data type."
+                },
+                {
+                  "vi": "Tính giá trị đặc trưng cho những bản ghi lịch sử cần bổ sung. Việc thêm cột không tự tạo ra các giá trị này.",
+                  "en": "Compute the feature values for historical records. Adding the column does not generate those values."
+                },
+                {
+                  "vi": "Nạp các bản ghi có giá trị mới và thời điểm sự kiện đúng. Không lấy thông tin hiện tại để giả làm thông tin đã biết trong quá khứ.",
+                  "en": "Ingest records with new values and correct event times. Do not present current information as knowledge available in the past."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Phân biệt số bản ghi và số đặc trưng",
+            "en": "Table format and scale"
+          },
+          "text": {
+            "vi": "Offline store hỗ trợ các định dạng bảng Glue và Iceberg. Iceberg phù hợp với nhiều thao tác quản lý bảng phân tích lớn. Tuy nhiên, một triệu bản ghi không có nghĩa là một triệu cột đặc trưng trong một feature group. Khi đọc đề hoặc thiết kế hệ thống, cần làm rõ đang nói tới số hàng hay số cột và kiểm tra quota hiện hành.",
+            "en": "The offline store supports Glue and Iceberg formats. Iceberg supports large-table operations and management; distinguish row count from feature/column count. Over a million records does not mean a million features in one feature group. Check current quotas before designing a wide schema."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Khi dự đoán cho ngày 1/6, đặc trưng “tổng chi tiêu trong 30 ngày” chỉ được tính từ những giao dịch xảy ra trước ngày đó. Nếu ghép dữ liệu huấn luyện với giá trị mới nhất tính đến hôm nay, mô hình sẽ vô tình biết thông tin của tương lai, dù Feature Store vẫn hoạt động đúng.",
+        "en": "A “30-day spend” feature predicting June 1 must use transactions before June 1. Joining today’s latest value causes leakage even when Feature Store works correctly."
+      },
+      "trap": {
+        "vi": "Kho online phục vụ việc đọc nhanh giá trị đặc trưng; kho offline lưu dữ liệu để phân tích và huấn luyện. Thêm một đặc trưng mới không tự động tính và bổ sung giá trị cho các bản ghi cũ.",
+        "en": "Online storage does not replace offline history; adding a feature does not backfill records."
+      },
+      "cards": [
+        {
+          "id": "feature-store-1",
+          "front": {
+            "vi": "Bạn cần lưu toàn bộ lịch sử đặc trưng để huấn luyện theo lô, nhưng không cần tra cứu tức thời. Nên chọn loại lưu trữ nào của Feature Store?",
+            "en": "Which Feature Store storage option should you use for historical features needed for batch training, without real-time lookups?"
+          },
+          "back": {
+            "vi": "Chọn offline store trên S3. Online store phục vụ tra cứu độ trễ thấp, nên không cần bật nếu bài toán chỉ dùng dữ liệu lịch sử.",
+            "en": "Offline store on S3."
+          }
+        },
+        {
+          "id": "feature-store-2",
+          "front": {
+            "vi": "Bạn thêm một đặc trưng mới vào Feature Store và muốn các bản ghi lịch sử cũng có giá trị của nó. Cần làm những gì?",
+            "en": "After adding a new feature to Feature Store, what must you do to populate it for historical records?"
+          },
+          "back": {
+            "vi": "Trước hết cập nhật định nghĩa feature group để thêm đặc trưng. Sau đó tính các giá trị lịch sử và nạp lại bản ghi với thời điểm sự kiện phù hợp; sửa schema không tự bổ sung dữ liệu cũ.",
+            "en": "Update the schema, then compute and ingest historical values."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html"
+      ]
+    },
+    {
+      "id": "privacy",
+      "domain": 1,
+      "title": {
+        "vi": "PII, văn bản và dữ liệu đa phương thức",
+        "en": "PII, text and multimodal data"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        18,
+        24,
+        55,
+        59
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Chọn dịch vụ theo loại dữ liệu đầu vào",
+            "en": "Match the input modality"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Textract lấy chữ và cấu trúc từ tài liệu quét, chẳng hạn ảnh hợp đồng.",
+                  "en": "Textract extracts text and structure from scanned documents, such as contract images."
+                },
+                {
+                  "vi": "Comprehend phân tích văn bản: tìm thực thể, cảm xúc và các loại thông tin cá nhân (PII) được hỗ trợ.",
+                  "en": "Comprehend analyzes text for entities, sentiment and supported types of personally identifiable information (PII)."
+                },
+                {
+                  "vi": "Transcribe chuyển lời nói trong âm thanh thành văn bản. Nó không phải công cụ phù hợp nếu thông tin cần giữ là tiếng chim hoặc tiếng máy móc.",
+                  "en": "Transcribe converts speech into text. It is not the right representation when the important signal is birdsong or machinery noise."
+                },
+                {
+                  "vi": "Embedding đa phương thức có thể biểu diễn trực tiếp âm thanh hoặc hình ảnh để tìm nội dung tương tự mà không phải chuyển mọi thứ thành chữ.",
+                  "en": "Multimodal embeddings can directly represent audio or images for similarity search without converting everything to text."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Không mặc định mọi loại thông tin đều được nhận diện",
+            "en": "PII detection has a supported scope"
+          },
+          "text": {
+            "vi": "Dịch vụ phát hiện PII chỉ nhận diện những loại thông tin nằm trong phạm vi hỗ trợ. Comprehend hiện có loại VEHICLE_IDENTIFICATION_NUMBER cho VIN; với loại mã khác, hãy kiểm tra tài liệu trước khi tự viết regex. Nếu phải dùng regex, cần kiểm thử độ dài, tập ký tự và các trường hợp nhận nhầm. Ngoài ra, kiểm tra ngôn ngữ đầu vào vì khả năng nhận diện PII không áp dụng giống nhau cho mọi ngôn ngữ.",
+            "en": "Do not assume every identifier has a built-in PII entity type. For identifiers such as VINs, check the supported entity list and use an appropriate detector or regex if absent. Validate length, allowed characters and false positives. Retain only necessary information after redaction."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Che thông tin nhạy cảm trước khi đưa vào mô hình",
+            "en": "Reduce pipeline exposure"
+          },
+          "text": {
+            "vi": "Hãy phát hiện và che PII trước khi tạo embedding hoặc huấn luyện. Mã hóa S3 bằng KMS bảo vệ dữ liệu lưu trữ, nhưng khi giải mã thì nội dung nhạy cảm vẫn còn. Quy tắc xử lý PII cần áp dụng cả cho log và tập kiểm tra, vì chúng thường chứa bản sao của dữ liệu gốc. Chỉ giữ lại thông tin thực sự cần cho nhiệm vụ.",
+            "en": "Detect and redact PII before embedding or training. S3 KMS encryption protects stored data but does not remove PII from content. Apply the same policy to logs and test sets, which can contain copies of sensitive data."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Với giấy đăng ký xe viết bằng ngôn ngữ được hỗ trợ, dùng Textract để trích xuất chữ, sau đó dùng Comprehend để phát hiện và che thông tin cá nhân. Comprehend có loại thực thể VEHICLE_IDENTIFICATION_NUMBER để nhận diện số VIN. Chỉ đưa bản đã che thông tin vào dữ liệu huấn luyện, đồng thời tránh ghi bản gốc vào nhật ký gỡ lỗi.",
+        "en": "Registration cards in a supported language: Textract extracts text → Comprehend PII redaction with VEHICLE_IDENTIFICATION_NUMBER → redacted training storage. Keep originals out of debug logs. Comprehend currently includes a built-in VIN entity type."
+      },
+      "trap": {
+        "vi": "Trích xuất chữ từ ảnh, phân tích cảm xúc, phát hiện thông tin cá nhân và tạo vector biểu diễn là những công việc khác nhau. Một dịch vụ phù hợp với công việc này chưa chắc phù hợp với công việc còn lại.",
+        "en": "OCR, sentiment, PII and embeddings solve different problems."
+      },
+      "cards": [
+        {
+          "id": "privacy-1",
+          "front": {
+            "vi": "Bạn đã có phản hồi khách hàng ở dạng văn bản và muốn xác định cảm xúc tích cực hay tiêu cực mà không tự huấn luyện mô hình. Dùng dịch vụ nào?",
+            "en": "Which AWS service can identify positive or negative sentiment in customer text without training your own model?"
+          },
+          "back": {
+            "vi": "Dùng Amazon Comprehend để phân tích cảm xúc. Với tài liệu dạng ảnh quét, cần trích văn bản trước; Comprehend không thay bước OCR đó.",
+            "en": "Amazon Comprehend."
+          }
+        },
+        {
+          "id": "privacy-2",
+          "front": {
+            "vi": "Mã hóa tập dữ liệu có giúp loại thông tin cá nhân khỏi nội dung đưa vào huấn luyện không?",
+            "en": "Does encrypting a dataset remove personal information from the content used for training?"
+          },
+          "back": {
+            "vi": "Không. Mã hóa bảo vệ dữ liệu khi lưu hoặc truyền, nhưng sau giải mã thì thông tin cá nhân vẫn còn. Bạn phải phát hiện rồi che hoặc loại bỏ thông tin đó trước khi huấn luyện.",
+            "en": "No. Detect and redact or remove sensitive content."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/comprehend/latest/dg/how-pii.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/embeddings-models.html"
+      ]
+    },
+    {
+      "id": "rag-index",
+      "domain": 1,
+      "title": {
+        "vi": "RAG: chia đoạn, embedding và truy xuất",
+        "en": "RAG: chunks, embeddings and retrieval"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        28,
+        30,
+        39,
+        52,
+        58,
+        60
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Một lượt hỏi đáp RAG diễn ra như thế nào?",
+            "en": "The RAG pipeline"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Chuẩn bị tài liệu: nạp nguồn, chia thành các đoạn và tạo embedding — vector biểu diễn nội dung.",
+                  "en": "Prepare documents: ingest sources, split them into chunks and create embeddings, which are vector representations of content."
+                },
+                {
+                  "vi": "Lưu vector vào chỉ mục để hệ thống tìm những đoạn liên quan khi có câu hỏi.",
+                  "en": "Store vectors in an index so the system can find relevant chunks for a query."
+                },
+                {
+                  "vi": "Lấy các đoạn phù hợp rồi đưa chúng vào prompt làm tài liệu tham khảo cho mô hình.",
+                  "en": "Retrieve suitable passages and include them in the prompt as evidence for the model."
+                },
+                {
+                  "vi": "Mô hình sinh câu trả lời dựa trên câu hỏi và ngữ cảnh được cung cấp. RAG không thay đổi trọng số của mô hình.",
+                  "en": "The model generates a response from the query and supplied context. RAG does not change model weights."
+                },
+                {
+                  "vi": "Áp dụng quyền truy cập khi truy xuất: người dùng chỉ được nhận nội dung mà họ có quyền xem.",
+                  "en": "Enforce retrieval access controls so users receive only material they are authorized to see."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Ba cách chia tài liệu thường gặp",
+            "en": "Choose a chunking strategy"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Fixed chunking chia theo kích thước cố định. Cách này đơn giản nhưng có thể cắt ngang một ý hoặc tách tiêu đề khỏi phần giải thích.",
+                  "en": "Fixed chunking uses fixed sizes. It is simple but can cut through an idea or separate headings from explanations."
+                },
+                {
+                  "vi": "Semantic chunking tìm chỗ chuyển ý để chia đoạn. Nếu muốn lọc theo tên section, bạn còn cần gắn metadata tương ứng trong lúc nạp dữ liệu.",
+                  "en": "Semantic chunking splits at changes in meaning. Filtering by section name additionally requires metadata supplied during ingestion."
+                },
+                {
+                  "vi": "Hierarchical chunking dùng đoạn con nhỏ để tìm chính xác, rồi trả thêm ngữ cảnh từ đoạn cha lớn hơn.",
+                  "en": "Hierarchical chunking uses smaller children for precise retrieval and larger parents for surrounding context."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Đánh giá riêng phần tìm tài liệu và phần viết câu trả lời",
+            "en": "Evaluate each stage"
+          },
+          "text": {
+            "vi": "Retrieve-only đánh giá chất lượng nội dung được tìm ra, không đánh giá cách mô hình diễn đạt. Nếu muốn biết câu trả lời có bám nguồn hay không, cần đánh giá cả truy xuất lẫn sinh phản hồi. Reranking chỉ sắp xếp lại các ứng viên đã tìm được; nó không cứu được tài liệu chưa xuất hiện trong tập ứng viên. Khi đổi cách chia đoạn, hãy kiểm tra giới hạn của API: có thể phải tạo data source hoặc index mới rồi nạp lại tài liệu.",
+            "en": "Retrieve-only evaluation measures retrieved material, not answer style. Evaluate retrieval and generation when checking answer groundedness. Reranking reorders candidates; it cannot recover documents absent from the candidate set. Changing chunking may require a new data source/index and re-ingestion; check API constraints."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Trong một chương sách, định nghĩa và phần giải thích có thể nằm cách xa nhau. Chia tài liệu theo cấu trúc cha–con cho phép tìm đúng ý bằng đoạn con nhỏ, rồi lấy thêm đoạn cha để cung cấp đủ ngữ cảnh. Hãy đánh giá bằng những câu hỏi đã biết đoạn tài liệu cần tìm trước khi chỉ tăng độ dài ngữ cảnh.",
+        "en": "A chapter separates definitions from exercises: small children locate the concept, while parents provide explanatory context. Evaluate queries with ground-truth context before simply increasing token counts."
+      },
+      "trap": {
+        "vi": "Tìm kiếm vector chỉ giúp tìm nội dung có liên quan, không bảo đảm câu trả lời đúng. Vẫn phải kiểm soát chất lượng nguồn, quyền truy cập và mức độ câu trả lời bám sát tài liệu.",
+        "en": "Vector search does not guarantee truth; source quality, access controls and grounding still matter."
+      },
+      "cards": [
+        {
+          "id": "rag-index-1",
+          "front": {
+            "vi": "RAG tìm được đoạn liên quan nhưng câu trả lời vẫn thiếu phần giải thích ở xung quanh. Nên thử cách chia tài liệu nào?",
+            "en": "RAG retrieves a relevant passage but misses the surrounding explanation. Which chunking strategy should you try?"
+          },
+          "back": {
+            "vi": "Thử hierarchical chunking: tìm bằng đoạn con nhỏ, sau đó cung cấp đoạn cha lớn hơn để giữ ngữ cảnh. Cần đánh giá lại trên bộ câu hỏi thực tế, vì thêm ngữ cảnh không luôn làm câu trả lời tốt hơn.",
+            "en": "Try hierarchical chunking and evaluate parent context."
+          }
+        },
+        {
+          "id": "rag-index-2",
+          "front": {
+            "vi": "Khi dùng RAG để bổ sung tài liệu mới cho câu trả lời, trọng số của mô hình nền có thay đổi không?",
+            "en": "Does supplying new documents through RAG change the foundation model’s weights?"
+          },
+          "back": {
+            "vi": "Không. RAG lấy thông tin từ nguồn bên ngoài rồi đưa vào ngữ cảnh lúc suy luận. Muốn cập nhật trọng số thì phải dùng một quá trình huấn luyện, chẳng hạn fine-tuning.",
+            "en": "No; retrieved information is supplied as inference context."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html"
+      ]
+    },
+    {
+      "id": "algorithms",
+      "domain": 2,
+      "title": {
+        "vi": "Chọn thuật toán từ mục tiêu dự đoán",
+        "en": "Choose algorithms from prediction targets"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        4,
+        16,
+        21,
+        57
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Nhìn vào điều cần dự đoán để xác định bài toán",
+            "en": "The target defines the task"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Dự đoán một con số liên tục, như giá xe: bài toán hồi quy (regression).",
+                  "en": "Predicting a continuous quantity, such as car price, is regression."
+                },
+                {
+                  "vi": "Dự đoán một nhãn, như chấp thuận hoặc từ chối khoản vay: bài toán phân loại (classification).",
+                  "en": "Predicting a label, such as approving or rejecting a loan, is classification."
+                },
+                {
+                  "vi": "Chia khách hàng thành các nhóm khi chưa có nhãn: bài toán phân cụm (clustering).",
+                  "en": "Grouping customers without predefined labels is clustering."
+                },
+                {
+                  "vi": "Dự đoán doanh số tương lai từ lịch sử theo ngày hoặc tuần: bài toán dự báo chuỗi thời gian; DeepAR là một thuật toán có thể cân nhắc.",
+                  "en": "Predicting future sales from daily or weekly history is time-series forecasting; DeepAR is one possible algorithm."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Bắt đầu bằng một mô hình làm mốc so sánh",
+            "en": "Baselines and data"
+          },
+          "text": {
+            "vi": "Với dữ liệu bảng không lớn, nên thử mô hình đơn giản như linear regression trước, rồi so với XGBoost nếu có quan hệ phi tuyến. Model phức tạp không tự động tốt hơn khi dữ liệu ít. Với bài toán tóm tắt hoặc dịch văn bản, seq2seq học cách chuyển một chuỗi sang chuỗi khác; bạn phải chuẩn bị dữ liệu theo định dạng mà thuật toán yêu cầu.",
+            "en": "For small tabular datasets, start with a simple linear-regression baseline, then try XGBoost for nonlinear relationships. Complexity is not automatically better with limited data. Seq2seq maps input sequences to output sequences for tasks such as summarization or translation; meet its data-format requirements."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Giữ cách đánh giá nhất quán khi so mô hình",
+            "en": "Evaluate the intended use"
+          },
+          "text": {
+            "vi": "Hãy chọn cách chia dữ liệu và chỉ số trước khi tối ưu mô hình. Hồi quy thường dùng MAE hoặc RMSE; phân loại cần xét chi phí báo động nhầm và bỏ sót; dự báo chuỗi thời gian nên so với một cách dự báo đơn giản có tính mùa vụ. Dùng cùng tập xác thực khi so mô hình để tránh nhầm cải thiện thực sự với khác biệt do đổi dữ liệu đánh giá.",
+            "en": "Choose the split and metric before tuning the algorithm. Regression can use MAE/RMSE; classification considers false-positive and false-negative costs; forecasting compares with seasonal baselines. Use the same validation set to distinguish actual improvements from split changes."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Nếu giá thực tế của một chiếc xe là 20.000 nhưng mô hình dự đoán 18.000, sai số tuyệt đối là 2.000. Đây là bài toán dự đoán giá trị liên tục, nên đánh giá bằng MAE hoặc RMSE thay vì tỷ lệ phân loại đúng.",
+        "en": "Car pricing: predicting 18,000 instead of 20,000 creates an error of 2,000. Use RMSE/MAE, not classification accuracy."
+      },
+      "trap": {
+        "vi": "Nhãn được viết bằng số chưa chắc thuộc bài toán hồi quy. Nếu 0 và 1 đại diện cho hai nhóm, chẳng hạn “không gian lận” và “gian lận”, đó vẫn là bài toán phân loại.",
+        "en": "Numeric labels 0/1 still indicate classification when they represent two classes."
+      },
+      "cards": [
+        {
+          "id": "algorithms-1",
+          "front": {
+            "vi": "Bạn có lịch sử doanh số của nhiều sản phẩm và cần dự báo lượng bán trong tương lai. Thuật toán SageMaker nào là một lựa chọn phù hợp?",
+            "en": "Which SageMaker algorithm is a suitable option for forecasting future sales from historical sales across multiple products?"
+          },
+          "back": {
+            "vi": "DeepAR là một lựa chọn cho dự báo chuỗi thời gian. Khi kiểm tra chất lượng, cần chia dữ liệu theo thời gian để mô hình được đánh giá trên giai đoạn mới hơn tập huấn luyện.",
+            "en": "DeepAR is a candidate; evaluate with temporal splits."
+          }
+        },
+        {
+          "id": "algorithms-2",
+          "front": {
+            "vi": "Trong các thuật toán tích hợp của SageMaker, thuật toán nào có thể biến một đoạn văn dài thành bản tóm tắt?",
+            "en": "Which built-in SageMaker algorithm can turn a long passage into a summary?"
+          },
+          "back": {
+            "vi": "Sequence-to-Sequence (seq2seq). Thuật toán học cách biến một chuỗi đầu vào thành chuỗi đầu ra, nên có thể dùng cho tóm tắt hoặc dịch văn bản.",
+            "en": "Seq2seq: input sequence to output sequence."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html"
+      ]
+    },
+    {
+      "id": "metrics",
+      "domain": 2,
+      "title": {
+        "vi": "Đọc ma trận nhầm lẫn và chọn chỉ số đánh giá",
+        "en": "Read confusion matrices and select metrics"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        9,
+        23,
+        40,
+        51
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Đọc bốn ô của confusion matrix",
+            "en": "Four outcomes"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "TP (true positive): mô hình phát hiện đúng một trường hợp thuộc lớp cần tìm, chẳng hạn bắt đúng giao dịch gian lận.",
+                  "en": "TP (true positive): the model correctly detects a target-class case, such as a fraudulent transaction."
+                },
+                {
+                  "vi": "FP (false positive): mô hình báo động nhầm, chẳng hạn gắn cờ gian lận cho một giao dịch hợp lệ.",
+                  "en": "FP (false positive): a false alarm, such as flagging a legitimate transaction as fraud."
+                },
+                {
+                  "vi": "FN (false negative): mô hình bỏ sót trường hợp cần tìm, chẳng hạn cho qua một giao dịch gian lận.",
+                  "en": "FN (false negative): a missed target-class case, such as letting fraud pass undetected."
+                },
+                {
+                  "vi": "TN (true negative): mô hình nhận đúng trường hợp không thuộc lớp cần tìm, chẳng hạn xác định đúng giao dịch hợp lệ.",
+                  "en": "TN (true negative): the model correctly identifies a non-target case, such as a legitimate transaction."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": {
+                "vi": "Từ bốn số trên, bạn tính được các chỉ số quan trọng sau. Trước khi tính, luôn xác định lớp nào được coi là positive.",
+                "en": "These four counts give the following metrics. Always define which class is positive first."
+              }
+            },
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Precision = TP / (TP + FP): trong những trường hợp mô hình báo positive, bao nhiêu trường hợp là đúng?",
+                  "en": "Precision = TP / (TP + FP): of predicted positives, how many are correct?"
+                },
+                {
+                  "vi": "Recall, hay sensitivity = TP / (TP + FN): trong tất cả positive thực sự, mô hình tìm được bao nhiêu?",
+                  "en": "Recall, or sensitivity = TP / (TP + FN): of actual positives, how many are detected?"
+                },
+                {
+                  "vi": "Specificity = TN / (TN + FP): trong tất cả negative thực sự, mô hình nhận đúng bao nhiêu?",
+                  "en": "Specificity = TN / (TN + FP): of actual negatives, how many are correctly identified?"
+                },
+                {
+                  "vi": "F1 = 2 × precision × recall / (precision + recall): kết hợp precision và recall bằng trung bình điều hòa.",
+                  "en": "F1 = 2 × precision × recall / (precision + recall): the harmonic mean of precision and recall."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Vì sao accuracy dễ gây hiểu nhầm khi lệch lớp?",
+            "en": "Class imbalance"
+          },
+          "text": {
+            "vi": "Nếu 99% giao dịch là hợp lệ, mô hình luôn trả lời “hợp lệ” vẫn đạt accuracy 99% nhưng bỏ sót toàn bộ gian lận. Vì vậy, cần xem confusion matrix, precision, recall và chi phí nghiệp vụ của từng loại lỗi. Hạ ngưỡng quyết định thường giúp bắt thêm gian lận nhưng cũng làm tăng báo động nhầm. Chọn ngưỡng bằng tập xác thực, không dùng tập test để điều chỉnh lặp lại.",
+            "en": "If 99% of transactions are legitimate, always predicting legitimate yields 99% accuracy but zero fraud recall. Inspect the confusion matrix, precision-recall and business costs. Lowering thresholds often increases recall and false positives; choose thresholds on validation, not test."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chọn chỉ số đúng với nhiệm vụ",
+            "en": "Metrics must match the task"
+          },
+          "text": {
+            "vi": "Với XGBoost phân loại nhị phân, có thể chọn AUC, error hoặc logloss tùy mục tiêu và các chỉ số container hỗ trợ. ROUGE dùng để so mức trùng khớp với bản tóm tắt tham chiếu; điểm cao không chứng minh mọi chi tiết đều đúng sự thật. Khi tuning, phải chỉ rõ chỉ số và chiều tối ưu để tránh tăng một chỉ số mà đáng lẽ cần giảm.",
+            "en": "Binary XGBoost can optimize AUC or error/logloss according to the objective. ROUGE compares overlap with reference summaries; it does not guarantee factual correctness or replace human judgment. Define the tuning metric and optimization direction explicitly."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Mô hình phát hiện đúng 80 giao dịch gian lận, báo nhầm 20 giao dịch bình thường và bỏ sót 40 giao dịch gian lận. Khi đó, precision = 80/100 = 0,80; recall = 80/120 ≈ 0,667; F1 ≈ 0,727. Nếu bỏ sót gian lận gây thiệt hại lớn hơn việc kiểm tra nhầm, hãy ưu tiên recall nhưng vẫn đặt giới hạn cho số cảnh báo sai.",
+        "en": "TP=80, FP=20, FN=40: precision=0.80, recall=0.667, F1≈0.727. If missed fraud costs more than false investigations, prioritize recall subject to an acceptable FP rate."
+      },
+      "trap": {
+        "vi": "Nếu quy ước gian lận là lớp dương, specificity cho biết khả năng nhận diện đúng giao dịch không gian lận. Chỉ số này không trực tiếp đo khả năng phát hiện gian lận.",
+        "en": "Specificity measures correct negatives, not fraud detection when fraud is positive."
+      },
+      "cards": [
+        {
+          "id": "metrics-1",
+          "front": {
+            "vi": "Trong phát hiện gian lận, bạn muốn giảm số giao dịch gian lận bị bỏ sót. Nên theo dõi chỉ số nào?",
+            "en": "Which metric should you monitor when your goal is to miss fewer fraudulent transactions?"
+          },
+          "back": {
+            "vi": "Theo dõi recall, còn gọi là sensitivity, của lớp gian lận. Recall đo tỷ lệ giao dịch gian lận thực sự được phát hiện. Tăng recall có thể làm tăng báo động nhầm, nên cần cân nhắc cả chi phí của hai loại lỗi.",
+            "en": "Track recall/sensitivity and consider thresholds."
+          }
+        },
+        {
+          "id": "metrics-2",
+          "front": {
+            "vi": "Một bản tóm tắt có điểm ROUGE cao. Điều đó có chứng minh mọi thông tin trong bản tóm tắt đều đúng không?",
+            "en": "Does a high ROUGE score prove that every statement in a summary is factually correct?"
+          },
+          "back": {
+            "vi": "Không. ROUGE đo mức trùng khớp với bản tóm tắt tham chiếu. Nó không tự kiểm tra được toàn bộ sự thật; vẫn cần đánh giá thông tin có đúng và có căn cứ từ tài liệu nguồn hay không.",
+            "en": "No; evaluate factuality/grounding separately."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-metrics-validation.html"
+      ]
+    },
+    {
+      "id": "training",
+      "domain": 2,
+      "title": {
+        "vi": "Huấn luyện bền vững và môi trường có thể tái tạo",
+        "en": "Resilient training and reproducible environments"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        5,
+        20,
+        43
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Giữ môi trường huấn luyện có thể tái lập",
+            "en": "Consistent environments"
+          },
+          "text": {
+            "vi": "Ưu tiên framework container có sẵn khi nó đáp ứng phần lớn thư viện cần dùng. Nếu chỉ thiếu một package nội bộ, mở rộng image đó thường ít công sức hơn xây lại từ đầu. Chỉ cần container hoàn toàn tùy chỉnh khi môi trường có yêu cầu đặc thù. Ghim phiên bản thư viện, image và dữ liệu đầu vào để lần chạy sau không âm thầm dùng một môi trường khác.",
+            "en": "Prebuilt framework containers reduce work when dependencies fit. If an unmodifiable private library needs a specific environment, package a custom container and push it to ECR. Pin library versions, image digests and data snapshots rather than downloading the latest version on every run."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chuẩn bị để tiếp tục huấn luyện sau gián đoạn",
+            "en": "What does a checkpoint save?"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Lưu đủ trạng thái: trọng số mô hình, trạng thái optimizer, epoch hoặc step hiện tại và các trạng thái ngẫu nhiên cần thiết.",
+                  "en": "Save model weights, optimizer state, current epoch or step and necessary random state."
+                },
+                {
+                  "vi": "Cấu hình thư mục checkpoint trong tác vụ và vị trí S3 để SageMaker đồng bộ trạng thái ra nơi lưu bền vững.",
+                  "en": "Configure the job checkpoint directory and S3 location so SageMaker synchronizes state to durable storage."
+                },
+                {
+                  "vi": "Viết logic đọc checkpoint khi tác vụ khởi động lại. Chỉ khai báo đường dẫn chưa khiến script tự biết tiếp tục từ đâu.",
+                  "en": "Implement checkpoint loading when the job starts again. A configured path alone does not teach the script where to resume."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Khi nào huấn luyện bằng Spot phù hợp?",
+            "en": "Spot and waiting time"
+          },
+          "text": {
+            "vi": "Managed Spot Training phù hợp khi tác vụ chịu được gián đoạn và không phải hoàn thành vào giờ cố định. Cho phép thời gian chờ đủ lớn so với thời gian chạy, đồng thời lưu checkpoint để có thể tiếp tục sau khi tài nguyên bị thu hồi. Spot có thể giảm chi phí compute, nhưng không bảo đảm luôn có đủ capacity hoặc hoàn tất đúng một mốc thời gian.",
+            "en": "Managed Spot Training suits interruptible, nonurgent training. Set enough maximum wait time relative to maximum runtime and checkpoint to avoid losing all progress. Spot reduces compute price but does not guarantee capacity or a fixed completion time."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Một tác vụ huấn luyện kéo dài 10 giờ lưu checkpoint sau mỗi 15 phút. Nếu bị ngắt ở giờ thứ 7, tác vụ có thể tiếp tục từ checkpoint gần nhất thay vì chạy lại từ đầu. Để tiếp tục đúng, cần khôi phục đầy đủ trạng thái cần thiết, bao gồm trạng thái bộ tối ưu và quá trình đọc dữ liệu.",
+        "en": "A ten-hour job checkpoints every 15 minutes. An interruption at hour seven can resume near that point rather than starting over, provided optimizer and data-loader state are restored appropriately."
+      },
+      "trap": {
+        "vi": "Tệp mô hình được xuất khi huấn luyện hoàn tất không thay thế cho checkpoint được lưu trong lúc huấn luyện. Nếu tác vụ bị ngắt trước khi hoàn tất, cần checkpoint để tiếp tục.",
+        "en": "The final model artifact does not replace training checkpoints."
+      },
+      "cards": [
+        {
+          "id": "training-1",
+          "front": {
+            "vi": "Model được huấn luyện lại mỗi tuần nhưng không cần hoàn thành vào giờ cố định. Làm sao giảm chi phí mà vẫn phục hồi được khi tác vụ bị gián đoạn?",
+            "en": "A model is retrained weekly without a fixed completion deadline. How can you reduce cost while recovering from interruptions?"
+          },
+          "back": {
+            "vi": "Dùng Managed Spot Training và lưu checkpoint định kỳ. Spot tận dụng tài nguyên giá thấp có thể bị thu hồi; checkpoint giúp tiếp tục từ trạng thái gần nhất thay vì huấn luyện lại từ đầu.",
+            "en": "Managed Spot Training plus checkpoints."
+          }
+        },
+        {
+          "id": "training-2",
+          "front": {
+            "vi": "Chỉ lưu trọng số mô hình có đủ để tiếp tục chính xác một tác vụ huấn luyện bị gián đoạn không?",
+            "en": "Are model weights alone enough to resume an interrupted training job accurately?"
+          },
+          "back": {
+            "vi": "Thường là chưa. Ngoài trọng số, cần lưu trạng thái optimizer, bước hoặc epoch hiện tại và các trạng thái liên quan. Nếu thiếu chúng, quá trình tiếp tục có thể khác lần chạy ban đầu.",
+            "en": "Usually not; include optimizer, step and relevant state."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html",
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html"
+      ]
+    },
+    {
+      "id": "tuning",
+      "domain": 2,
+      "title": {
+        "vi": "Tinh chỉnh và khả năng khái quát hóa",
+        "en": "Tuning and generalization"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        9,
+        64
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Nhận ra khi mô hình đang học quá khớp",
+            "en": "Identify overfitting"
+          },
+          "text": {
+            "vi": "Nếu lỗi trên train tiếp tục giảm trong khi lỗi xác thực tăng, mô hình có thể đang ghi nhớ chi tiết không có ích cho dữ liệu mới. Có thể thử dừng sớm (early stopping), tăng regularization, tăng cường dữ liệu phù hợp hoặc giảm độ phức tạp của mô hình. Tiếp tục tăng số epoch lúc này thường khiến vấn đề nặng hơn.",
+            "en": "Falling training loss with rising validation loss suggests learning details that do not generalize. Use early stopping, regularization, suitable augmentation or reduced complexity. More epochs after overfitting often worsen the issue."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Tổ chức một lần tìm kiếm siêu tham số",
+            "en": "Design the search"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Chọn chỉ số và chiều tối ưu phù hợp với mục tiêu nghiệp vụ, chẳng hạn giảm error hoặc tăng recall.",
+                  "en": "Choose a metric and optimization direction matching the business objective, such as lowering error or increasing recall."
+                },
+                {
+                  "vi": "Đặt khoảng giá trị có ý nghĩa cho từng tham số. Learning rate thường được tìm trên thang logarithm.",
+                  "en": "Define meaningful ranges for each parameter. Learning rates are often searched on a logarithmic scale."
+                },
+                {
+                  "vi": "Giới hạn số tác vụ và số tác vụ chạy đồng thời theo ngân sách.",
+                  "en": "Limit the number of jobs and concurrent runs according to budget."
+                },
+                {
+                  "vi": "Chọn cấu hình bằng tập xác thực; chỉ dùng tập test độc lập để đánh giá cuối cùng.",
+                  "en": "Select configurations using validation data; reserve the independent test set for final evaluation."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "So sánh các lần thử một cách công bằng",
+            "en": "Compare fairly"
+          },
+          "text": {
+            "vi": "Giữ nguyên tập dữ liệu, chỉ số và cách xử lý khi so các bộ tham số. Nếu dữ liệu ít, nên kiểm tra trên nhiều cách chia phù hợp để tránh chọn một lần thử chỉ do may mắn. Lưu cấu hình và artifact của mô hình tốt nhất để chắc rằng phiên bản được triển khai chính là phiên bản đã được đánh giá.",
+            "en": "Keep splits, metrics and preprocessing consistent across trials. With limited data, use suitable repeated splits rather than selecting a lucky trial. Record configurations and artifacts so deployment uses the evaluated model version."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Sai số trên tập huấn luyện giảm từ 0,2 xuống 0,01, nhưng sai số trên tập xác thực tăng từ 0,25 lên 0,4. Đây là dấu hiệu mô hình học quá sát dữ liệu huấn luyện. Hãy chọn checkpoint trước khi kết quả xác thực xấu đi, rồi cân nhắc tăng cường dữ liệu hoặc thêm cơ chế hạn chế học quá khớp.",
+        "en": "Training error falls from 0.2 to 0.01 while validation error rises from 0.25 to 0.4: select a checkpoint before deterioration, then try augmentation or regularization."
+      },
+      "trap": {
+        "vi": "Không liên tục dùng tập kiểm thử để chọn siêu tham số. Nếu làm vậy, các quyết định sẽ dần thích nghi với tập kiểm thử và tập này không còn đánh giá độc lập được nữa.",
+        "en": "Repeated test-set tuning turns the test set into disguised validation data."
+      },
+      "cards": [
+        {
+          "id": "tuning-1",
+          "front": {
+            "vi": "Sai số trên tập huấn luyện giảm, nhưng sai số trên tập xác thực lại tăng. Hiện tượng này thường cho thấy điều gì?",
+            "en": "Training error decreases while validation error increases. What does this usually indicate?"
+          },
+          "back": {
+            "vi": "Model có thể đang học quá khớp (overfitting): nhớ chi tiết của tập huấn luyện nhưng dự đoán kém trên dữ liệu khác. Có thể thử dừng sớm, tăng regularization hoặc tăng cường dữ liệu phù hợp.",
+            "en": "Overfitting; consider early stopping and regularization."
+          }
+        },
+        {
+          "id": "tuning-2",
+          "front": {
+            "vi": "Tìm kiếm siêu tham số có tự khắc phục được việc tập huấn luyện chứa thông tin rò rỉ từ nhãn không?",
+            "en": "Can hyperparameter search fix label leakage in a training dataset?"
+          },
+          "back": {
+            "vi": "Không. Tuning chỉ chọn cấu hình tốt theo dữ liệu được cung cấp. Nếu dữ liệu có target leakage, cần sửa cách tạo đặc trưng và chia tập trước khi tuning.",
+            "en": "No; fix the data and pipeline."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html"
+      ]
+    },
+    {
+      "id": "customization",
+      "domain": 2,
+      "title": {
+        "vi": "RAG, fine-tuning, LoRA và distillation",
+        "en": "RAG, fine-tuning, LoRA and distillation"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        11,
+        30,
+        33,
+        62
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Khi nào dùng prompting, RAG hoặc fine-tuning?",
+            "en": "Choose the customization"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Prompting: thay chỉ dẫn và ví dụ để mô hình hiểu cách thực hiện nhiệm vụ. Nên thử trước nếu cần đổi giọng văn hoặc định dạng trả lời.",
+                  "en": "Prompting changes instructions and examples. Try it first when changing tone or response format."
+                },
+                {
+                  "vi": "RAG: đưa tài liệu được truy xuất vào ngữ cảnh. Phù hợp khi câu trả lời cần dựa trên kiến thức riêng hoặc thường xuyên cập nhật.",
+                  "en": "RAG supplies retrieved documents as context. It fits answers requiring private or frequently updated knowledge."
+                },
+                {
+                  "vi": "Fine-tuning: huấn luyện thêm để điều chỉnh hành vi hoặc năng lực của mô hình. Cần dữ liệu tốt và đánh giá trước/sau để biết việc huấn luyện có ích không.",
+                  "en": "Fine-tuning adjusts behavior or capabilities through additional training. It requires good data and before/after evaluation."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "LoRA tiết kiệm ở đâu?",
+            "en": "LoRA and resources"
+          },
+          "text": {
+            "vi": "LoRA học thêm các adapter nhỏ thay vì cập nhật toàn bộ trọng số của mô hình nền, nhờ đó giảm số tham số cần huấn luyện. Khi phục vụ nhiều adapter, hệ thống có thể dùng chung một bản base mô hình và chọn adapter theo từng yêu cầu. Tuy nhiên, không phải endpoint nào cũng hỗ trợ; cần kiểm tra framework, phần mềm serving và độ trễ lúc nạp adapter.",
+            "en": "LoRA learns low-rank adapters instead of updating all weights, reducing trainable parameters. Multi-adapter serving can share a base model and load adapters per request. Small adapters do not imply universal endpoint support; check the serving stack, framework and adapter-loading latency."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chưng cất mô hình lớn thành mô hình nhỏ",
+            "en": "Teacher and student"
+          },
+          "text": {
+            "vi": "Distillation dùng tín hiệu của mô hình lớn (teacher) để huấn luyện mô hình nhỏ (student), nhằm giảm chi phí và độ trễ cho một tác vụ cụ thể. Student không được bảo đảm ngang teacher trên mọi bài toán. Trước khi thay thế, cần kiểm tra trên dữ liệu đại diện và cả những tình huống khó mà hệ thống thực tế sẽ gặp.",
+            "en": "Distillation uses a larger teacher’s signals to train a smaller student, aiming for lower cost and latency with sufficient task quality. It does not guarantee parity on every task. Evaluate representative and difficult cases before replacement."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Bảy phòng ban cùng sử dụng một mô hình nền tảng nhưng cần thích nghi với dữ liệu riêng. Có thể dùng các bộ điều chỉnh LoRA riêng và cơ chế phục vụ nhiều adapter để hạn chế việc lưu nhiều bản sao của mô hình gốc. Nếu cần một mô hình nhỏ, chạy độc lập và chuyên cho một tác vụ, hãy cân nhắc chưng cất mô hình.",
+        "en": "Seven departments share an FM: domain-specific LoRA adapters with multi-adapter serving can reduce duplicated base weights. For a standalone smaller model focused on one task, consider distillation."
+      },
+      "trap": {
+        "vi": "Tinh chỉnh mô hình không phải cách đáng tin cậy để lưu trữ những sự thật thay đổi liên tục. Với thông tin thường xuyên cập nhật, cần cân nhắc truy xuất từ nguồn dữ liệu thay vì cố ghi nhớ tất cả vào mô hình.",
+        "en": "Fine-tuning is not a reliable database for continuously updated facts."
+      },
+      "cards": [
+        {
+          "id": "customization-1",
+          "front": {
+            "vi": "Bạn muốn huấn luyện một mô hình nhỏ bằng tín hiệu từ mô hình lớn để giảm chi phí suy luận. Phương pháp này gọi là gì?",
+            "en": "What is the technique of training a smaller model using signals from a larger model to reduce inference cost?"
+          },
+          "back": {
+            "vi": "Model distillation, thường gọi là chưng cất mô hình. Model lớn đóng vai trò teacher, cung cấp tín hiệu để mô hình nhỏ — student — học theo cho một tác vụ cụ thể.",
+            "en": "Distillation: teacher → student."
+          }
+        },
+        {
+          "id": "customization-2",
+          "front": {
+            "vi": "Nhiều nhóm dùng các LoRA adapter khác nhau nhưng chung một mô hình nền. Có thể giảm chi phí phục vụ bằng cách nào?",
+            "en": "How can you reduce serving cost when multiple teams use different LoRA adapters for the same base model?"
+          },
+          "back": {
+            "vi": "Dùng cơ chế serving hỗ trợ nhiều adapter và chia sẻ một bản mô hình nền, chẳng hạn adapter inference components phù hợp. Không cần nhân bản toàn bộ trọng số nền cho từng nhóm.",
+            "en": "LoRA with a serving stack supporting multiple adapters."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization.html"
+      ]
+    },
+    {
+      "id": "gen-evaluation",
+      "domain": 2,
+      "title": {
+        "vi": "Đánh giá GenAI bằng đúng thước đo",
+        "en": "Evaluate GenAI with the right measures"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        1,
+        10,
+        23,
+        39,
+        42
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Đừng gộp mọi khía cạnh chất lượng vào một điểm",
+            "en": "Separate quality dimensions"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Completeness: câu trả lời đã giải đáp đủ mọi phần của câu hỏi chưa?",
+                  "en": "Completeness: does the response address every part of the prompt?"
+                },
+                {
+                  "vi": "Coherence: cách lập luận có mạch lạc và không tự mâu thuẫn không?",
+                  "en": "Coherence: is the reasoning logically consistent and free of internal contradictions?"
+                },
+                {
+                  "vi": "Relevance: nội dung có liên quan đến điều người dùng hỏi không?",
+                  "en": "Relevance: is the content pertinent to the user’s request?"
+                },
+                {
+                  "vi": "Correctness: thông tin và kết luận có đúng không? Một câu trả lời mạch lạc vẫn có thể sai sự thật.",
+                  "en": "Correctness: are the information and conclusions accurate? A coherent response can still be false."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Khi nào cần người đánh giá?",
+            "en": "Humans and model judges"
+          },
+          "text": {
+            "vi": "Với thang Likert, người đánh giá chấm mức độ hoặc thể hiện ưu tiên giữa phản hồi theo thang đã định nghĩa. Với ordinal ranking, họ xếp các phản hồi theo thứ tự tốt đến kém. ROUGE là phép đo tự động, không phải đánh giá bởi con người. LLM-as-a-judge giúp chấm nhiều dữ liệu hơn, nhưng vẫn có thể thiên lệch; cần tiêu chí rõ ràng và kiểm tra lại bằng chuyên gia.",
+            "en": "Likert scoring or comparison uses a defined scale; ordinal ranking orders responses. ROUGE is automatic, not a human-evaluation method. LLM-as-judge scales evaluation but can be biased; use explicit rubrics, expert calibration and disagreement checks."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Tạo bộ kiểm chứng đáng tin cậy",
+            "en": "Golden datasets"
+          },
+          "text": {
+            "vi": "Golden dataset gồm câu hỏi và những câu trả lời chấp nhận được do chuyên gia duyệt, được tách khỏi dữ liệu huấn luyện. Hệ thống kiểm thử cần lưu phiên bản mô hình, prompt và dataset để so sánh qua từng lần chạy. Leaderboard chung chỉ là thông tin tham khảo; nó không chứng minh mô hình đáp ứng yêu cầu của một lĩnh vực chuyên biệt.",
+            "en": "Create expert-reviewed prompts and acceptable-answer ranges, held out from training. A recurring test harness records model, prompt and dataset versions and compares subgroup metrics. General leaderboards cannot establish accuracy in a specialized domain."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Một câu hỏi có ba yêu cầu, nhưng mô hình chỉ giải đáp đúng hai yêu cầu và phần kết luận còn mâu thuẫn với phần trước. Trường hợp này cần đánh giá cả mức độ đầy đủ lẫn tính mạch lạc. Chỉ kiểm tra câu trả lời có liên quan đến câu hỏi hay không là chưa đủ.",
+        "en": "A prompt has three requests; a model correctly covers two but contradicts its conclusion: measure completeness and coherence, not just relevance."
+      },
+      "trap": {
+        "vi": "Điểm cao từ mô hình chấm chỉ là một bằng chứng đánh giá. Nó không bảo đảm rằng hệ thống sẽ không bao giờ tạo ra thông tin sai hoặc không có căn cứ.",
+        "en": "A high judge score is evaluation evidence, not a guarantee against hallucination."
+      },
+      "cards": [
+        {
+          "id": "gen-evaluation-1",
+          "front": {
+            "vi": "Bạn muốn kiểm tra câu trả lời có giải đáp đủ mọi yêu cầu trong một câu hỏi nhiều phần hay không. Chọn chỉ số nào của Bedrock?",
+            "en": "Which Bedrock evaluation metric checks whether an answer addresses every part of a multi-part request?"
+          },
+          "back": {
+            "vi": "Builtin.Completeness. Chỉ số này đánh giá mức độ bao phủ các yêu cầu; một câu trả lời đúng nhưng bỏ sót một phần vẫn có thể bị điểm thấp.",
+            "en": "Builtin.Completeness."
+          }
+        },
+        {
+          "id": "gen-evaluation-2",
+          "front": {
+            "vi": "Bạn muốn kiểm tra câu trả lời có lập luận mạch lạc, không tự mâu thuẫn hoặc bỏ trống bước suy luận quan trọng. Chọn chỉ số nào?",
+            "en": "Which metric checks whether an answer is logically connected, without contradictions or major reasoning gaps?"
+          },
+          "back": {
+            "vi": "Builtin.Coherence. Chỉ số này đánh giá tính nhất quán về logic; câu trả lời mạch lạc vẫn có thể sai sự thật, nên không thay thế kiểm tra correctness.",
+            "en": "Builtin.Coherence."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html"
+      ]
+    },
+    {
+      "id": "endpoints",
+      "domain": 3,
+      "title": {
+        "vi": "Chọn endpoint theo độ trễ và tải",
+        "en": "Match endpoints to latency and traffic"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        6,
+        13,
+        14,
+        32,
+        44
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Bốn cách phục vụ dự đoán trong SageMaker",
+            "en": "Four inference patterns"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Real-time inference duy trì endpoint luôn sẵn sàng. Phù hợp khi lưu lượng yêu cầu liên tục và cần độ trễ thấp, ổn định.",
+                  "en": "Real-time inference maintains a ready endpoint for sustained traffic and consistently low latency."
+                },
+                {
+                  "vi": "Serverless inference cấp tài nguyên theo nhu cầu. Phù hợp với tải không đều, nhưng cần tính đến thời gian khởi động khi chưa có tài nguyên sẵn (cold start).",
+                  "en": "Serverless inference provisions resources on demand for variable traffic, but cold-start delays must be considered."
+                },
+                {
+                  "vi": "Asynchronous inference đưa yêu cầu vào hàng đợi. Phù hợp với dữ liệu đầu vào lớn hoặc xử lý lâu khi người dùng có thể chờ kết quả.",
+                  "en": "Asynchronous inference queues requests. It suits larger payloads or longer processing when users can wait."
+                },
+                {
+                  "vi": "Batch Transform chạy dự đoán cho một tập dữ liệu đã chuẩn bị sẵn. Bạn không cần giữ endpoint hoạt động giữa các lần xử lý.",
+                  "en": "Batch Transform predicts over an already prepared dataset without keeping a persistent endpoint between runs."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Dùng các giới hạn để loại phương án không phù hợp",
+            "en": "Limits eliminate options"
+          },
+          "text": {
+            "vi": "Đừng chọn serverless chỉ vì muốn tiết kiệm nếu mô hình cần GPU hoặc tính năng chưa được hỗ trợ. Model nhỏ và lưu lượng yêu cầu thưa là những dấu hiệu phù hợp, nhưng yêu cầu độ trễ nghiêm ngặt có thể cần provisioned concurrency hoặc endpoint real-time. Trước khi chọn, xác định kích thước yêu cầu, thời gian xử lý, số yêu cầu đồng thời và người dùng có thể chờ bao lâu.",
+            "en": "Do not choose serverless for price alone when GPUs or unsupported features are required. Small models and sparse traffic are signals, but strict latency may require provisioned concurrency or real-time. Establish payload size, processing time, concurrency and waiting tolerance first."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Đừng nhầm nhiều mô hình với nhiều container",
+            "en": "Multiple frameworks and batch inference"
+          },
+          "text": {
+            "vi": "Multi-container endpoint cho phép chạy các container dùng framework khác nhau; direct invocation gọi riêng từng container. Multi-mô hình endpoint chia sẻ một hệ thống serving tương thích để chứa nhiều mô hình. Với Bedrock, nếu cần xử lý hàng trăm nghìn prompt mỗi ngày mà không cần phản hồi ngay, batch inference giúp giảm việc điều phối từng yêu cầu.",
+            "en": "Multi-container endpoints support separate framework containers; direct invocation targets them independently. Multi-model hosting serves multiple models with a compatible stack. For hundreds of thousands of daily prompts without immediate responses, Bedrock batch inference reduces per-request orchestration."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Một mô hình dùng GPU mất khoảng 10 phút để xử lý video và người dùng chấp nhận nhận kết quả sau: suy luận bất đồng bộ là lựa chọn phù hợp. Nếu cần dự đoán cho một tệp có 5 triệu dòng qua đêm, hãy cân nhắc Batch Transform.",
+        "en": "A GPU model processes videos for ten minutes and users can wait: async fits better than serverless. A five-million-row file needs overnight predictions: batch transform."
+      },
+      "trap": {
+        "vi": "Kích thước tệp mô hình dưới 1 GB không có nghĩa mỗi yêu cầu được gửi kèm 1 GB dữ liệu. Kích thước mô hình, giới hạn dữ liệu đầu vào và độ trễ phục vụ là các ràng buộc riêng.",
+        "en": "“Model under 1 GB” does not mean a 1 GB payload or guaranteed latency."
+      },
+      "cards": [
+        {
+          "id": "endpoints-1",
+          "front": {
+            "vi": "Toàn bộ dữ liệu cần dự đoán đã có sẵn, và không cần API luôn chờ nhận yêu cầu. Nên dùng cách suy luận nào của SageMaker?",
+            "en": "All input data is already available and no always-on API is needed. Which SageMaker inference option fits?"
+          },
+          "back": {
+            "vi": "Dùng Batch Transform để xử lý dữ liệu theo lô. Bạn không cần duy trì endpoint thường trực giữa các lần chạy.",
+            "en": "Batch transform."
+          }
+        },
+        {
+          "id": "endpoints-2",
+          "front": {
+            "vi": "Mỗi yêu cầu có dữ liệu lớn hoặc xử lý lâu, và người dùng chấp nhận nhận kết quả sau. Nên cân nhắc loại endpoint nào?",
+            "en": "Which endpoint option suits large inputs or long-running requests when users can wait for results?"
+          },
+          "back": {
+            "vi": "SageMaker Asynchronous Inference. Request được đưa vào hàng đợi rồi xử lý; phù hợp khi không cần câu trả lời ngay và khối lượng công việc đáp ứng các giới hạn của dịch vụ.",
+            "en": "Asynchronous Inference."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference.html"
+      ]
+    },
+    {
+      "id": "scaling",
+      "domain": 3,
+      "title": {
+        "vi": "Auto scaling và kiểm thử tải",
+        "en": "Auto scaling and load testing"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        26,
+        44,
+        65
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Chọn cách tăng giảm capacity theo đặc điểm lưu lượng yêu cầu",
+            "en": "Predictable or unexpected?"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Nếu biết trước giờ cao điểm, dùng scheduled scaling để tăng số máy chủ trước khi lưu lượng yêu cầu tăng.",
+                  "en": "For known peak times, use scheduled scaling to increase instance capacity before traffic rises."
+                },
+                {
+                  "vi": "Nếu tải thay đổi khó dự đoán, target tracking điều chỉnh capacity để giữ chỉ số gần mức mục tiêu, chẳng hạn số yêu cầu trên mỗi máy chủ.",
+                  "en": "For unpredictable changes, target tracking adjusts capacity to keep a metric near its target, such as requests per instance."
+                },
+                {
+                  "vi": "Đặt mức capacity tối thiểu và tối đa phù hợp. Autoscaling không thể tạo máy chủ tức thì; luôn tính thêm thời gian khởi động.",
+                  "en": "Set appropriate minimum and maximum capacity. Autoscaling cannot create instances instantly; account for startup time."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Cooldown giúp tránh tăng giảm tài nguyên liên tục",
+            "en": "Cooldowns and sensitivity"
+          },
+          "text": {
+            "vi": "Cooldown tạo khoảng nghỉ giữa các phản ứng scaling để hệ thống không dao động quá mức. Scale-out cooldown và scale-in cooldown có vai trò khác nhau: đặt quá dài có thể làm thiếu tài nguyên lúc cần hoặc giữ tài nguyên dư quá lâu. Nên xem độ trễ, hàng đợi và mức sử dụng qua nhiều đợt tải trước khi chỉnh, thay vì kết luận từ một spike đơn lẻ.",
+            "en": "Cooldowns reduce repeated reactions and oscillation. Scale-out and scale-in cooldowns have different roles: excessive values can delay needed capacity or retain excess resources. Measure latency, backlog and utilization instead of tuning blindly from one spike."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chọn máy chủ bằng kiểm thử thay vì phỏng đoán",
+            "en": "Select instances through measurement"
+          },
+          "text": {
+            "vi": "Inference Recommender giúp chạy thử và so các cấu hình phục vụ mô hình. Cần xem thông lượng và các mức độ trễ như p95/p99, không chỉ CPU trung bình. Kiểm tra cả lúc khởi động và giờ cao điểm. Instance rẻ hơn theo giờ chưa chắc rẻ hơn trên mỗi yêu cầu nếu xử lý được quá ít yêu cầu.",
+            "en": "Inference Recommender helps compare deployment configurations using workload tests. Select for target p95/p99 latency and throughput, not just average CPU. Test warm-up and peak load; a cheaper hourly instance may cost more per request if throughput is poor."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Hệ thống ở cổng nhà máy thường đông nhất lúc 08:00. Có thể lên lịch tăng tài nguyên trước giờ cao điểm, chẳng hạn lúc 07:55, đồng thời dùng target tracking để đáp ứng những biến động còn lại. Thời điểm tăng tài nguyên phải dựa trên thời gian khởi động đo được thực tế.",
+        "en": "A factory gate peaks at 08:00: schedule scaling before 07:55 and add target tracking for variations. Measure startup time to choose the lead time."
+      },
+      "trap": {
+        "vi": "Chỉ tăng giới hạn số máy tối đa sẽ không giúp hệ thống mở rộng kịp thời. Cần chọn chỉ số theo dõi, ngưỡng và chính sách mở rộng phù hợp với tải thực tế.",
+        "en": "Raising maximum capacity alone does not accelerate scaling when metrics or policies are unsuitable."
+      },
+      "cards": [
+        {
+          "id": "scaling-1",
+          "front": {
+            "vi": "Lưu lượng yêu cầu tăng mạnh vào những giờ cố định mỗi ngày. Làm sao chuẩn bị đủ máy chủ trước khi đỉnh tải bắt đầu?",
+            "en": "Traffic spikes at predictable times each day. How can you provision capacity before the spike begins?"
+          },
+          "back": {
+            "vi": "Dùng scheduled scaling để tăng capacity trước giờ cao điểm. Cần tính thêm thời gian khởi động máy chủ; có thể kết hợp target tracking để xử lý biến động ngoài dự kiến.",
+            "en": "Scheduled scaling, provisioning ahead of the peak."
+          }
+        },
+        {
+          "id": "scaling-2",
+          "front": {
+            "vi": "Bạn cần chọn máy chủ phục vụ mô hình dựa trên độ trễ và thông lượng của khối lượng công việc thực tế. Công cụ SageMaker nào hỗ trợ việc này?",
+            "en": "Which SageMaker tool helps select an instance using the latency and throughput of a representative workload?"
+          },
+          "back": {
+            "vi": "SageMaker Inference Recommender. Công cụ chạy kiểm thử để so sánh cấu hình; với mẫu lưu lượng yêu cầu tùy chỉnh, cần chọn loại tác vụ kiểm thử nâng cao phù hợp.",
+            "en": "SageMaker Inference Recommender."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html",
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/inference-recommender.html"
+      ]
+    },
+    {
+      "id": "deployments",
+      "domain": 3,
+      "title": {
+        "vi": "A/B, shadow và rollback",
+        "en": "A/B, shadow and rollback"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        31,
+        50
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Khi cần chia lưu lượng yêu cầu thật để so sánh mô hình",
+            "en": "User-serving traffic"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Dùng môi trường vận hành thực tế variants để phân chia lưu lượng yêu cầu theo tỷ lệ giữa nhiều phiên bản mô hình trên một endpoint.",
+                  "en": "Use production variants to distribute live traffic by weights across model versions on one endpoint."
+                },
+                {
+                  "vi": "Ghi lại phiên bản đã tạo ra mỗi dự đoán để đối chiếu với nhãn hoặc kết quả nghiệp vụ về sau.",
+                  "en": "Record the model version producing each prediction for later comparison with labels or business outcomes."
+                },
+                {
+                  "vi": "So sánh các nhóm có điều kiện tương đương. Việc chia lưu lượng yêu cầu không tự cho biết accuracy; bạn phải thu thập dữ liệu đánh giá.",
+                  "en": "Compare reasonably equivalent groups. Traffic splitting does not automatically measure accuracy; collect evaluation data."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Shadow testing không đưa kết quả mới đến người dùng",
+            "en": "Shadow does not serve responses"
+          },
+          "text": {
+            "vi": "Shadow testing gửi bản sao yêu cầu tới mô hình mới, nhưng chỉ mô hình môi trường vận hành thực tế trả kết quả cho khách hàng. Nhờ vậy, bạn có thể so độ trễ và chất lượng trên cùng dữ liệu mà chưa để mô hình mới ảnh hưởng trải nghiệm. Việc chạy thêm vẫn tốn compute và cần kiểm soát những dữ liệu nào được sao chép.",
+            "en": "Shadow sends copies of requests to a new model while production alone responds to customers. It evaluates latency and quality without exposing users to the new model. It still consumes compute and requires controls on copied data."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Đặt điều kiện quay lại phiên bản cũ trước khi triển khai",
+            "en": "Guarded rollouts"
+          },
+          "text": {
+            "vi": "Canary bắt đầu bằng một phần nhỏ lưu lượng yêu cầu rồi tăng dần nếu các chỉ số đạt yêu cầu. Blue/green giữ môi trường cũ và mới để có thể chuyển hoặc quay lại. Hãy đặt ngưỡng lỗi và độ trễ trước rollout. HTTP 200 chỉ cho biết yêu cầu thành công về kỹ thuật, không chứng minh dự đoán đúng; nhãn thực tế có thể tới muộn.",
+            "en": "Canary sends a small share to the new version, monitors alarms and expands gradually; blue/green retains old and new fleets for switching or rollback. Define error and latency thresholds beforehand. Prediction-quality labels may arrive late, so HTTP 200 alone is insufficient."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Đội phát triển lo rằng mô hình mới có thể làm giảm precision. Có thể dùng triển khai shadow để gửi cùng yêu cầu đến cả hai mô hình, trong khi người dùng vẫn nhận kết quả từ mô hình cũ. Khi đã có đủ bằng chứng, triển khai canary cho phép thử phục vụ mô hình mới với một phần nhỏ lưu lượng thực.",
+        "en": "A new model may reduce precision: shadow compares identical requests while users still receive old-model responses. Once evidence is sufficient, canary validates under actual serving traffic."
+      },
+      "trap": {
+        "vi": "Trong triển khai shadow, kết quả của mô hình thử nghiệm không được trả cho người dùng. Điều này khác với A/B testing, khi các nhóm người dùng thực sự nhận kết quả từ các phiên bản khác nhau.",
+        "en": "Shadow differs from A/B: shadow responses are not returned to customers."
+      },
+      "cards": [
+        {
+          "id": "deployments-1",
+          "front": {
+            "vi": "Bạn muốn cho mô hình mới xử lý cùng yêu cầu với mô hình cũ nhưng chưa để kết quả mô hình mới đến tay người dùng. Dùng cách kiểm thử nào?",
+            "en": "How can you test a new model on the same requests as the current model without returning its responses to users?"
+          },
+          "back": {
+            "vi": "Dùng shadow testing. Model mới nhận bản sao yêu cầu để đánh giá, còn phản hồi cho người dùng vẫn đến từ mô hình đang chạy môi trường vận hành thực tế.",
+            "en": "Shadow testing."
+          }
+        },
+        {
+          "id": "deployments-2",
+          "front": {
+            "vi": "Bạn muốn chia lưu lượng yêu cầu thật theo tỷ lệ giữa nhiều phiên bản mô hình trên một endpoint SageMaker. Dùng tính năng nào?",
+            "en": "Which SageMaker feature splits live traffic by weight across model versions on one endpoint?"
+          },
+          "back": {
+            "vi": "Dùng môi trường vận hành thực tế variants và cấu hình trọng số lưu lượng yêu cầu cho từng phiên bản. Để biết mô hình nào tốt hơn, vẫn phải thu thập nhãn hoặc đo chỉ số nghiệp vụ.",
+            "en": "Production variants for A/B testing."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/model-shadow-deployment.html",
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html"
+      ]
+    },
+    {
+      "id": "pipelines",
+      "domain": 3,
+      "title": {
+        "vi": "MLOps: pipeline có thể tái lập",
+        "en": "MLOps: reproducible pipelines"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        8,
+        49
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Các bước cơ bản của một pipeline ML",
+            "en": "A workflow graph"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Xử lý dữ liệu bằng Processing: làm sạch, tạo đặc trưng và tạo các tập train/xác thực/test.",
+                  "en": "Use Processing to clean data, construct features and produce train/validation/test datasets."
+                },
+                {
+                  "vi": "Chạy Training với cấu hình và phiên bản dữ liệu được ghi lại để có thể tái lập.",
+                  "en": "Run Training with recorded configuration and dataset versions for reproducibility."
+                },
+                {
+                  "vi": "Đánh giá mô hình theo chỉ số đã chọn; chỉ cho đi tiếp khi đạt ngưỡng chất lượng.",
+                  "en": "Evaluate the model against selected metrics and proceed only when quality thresholds are met."
+                },
+                {
+                  "vi": "Đăng ký phiên bản mô hình, phê duyệt khi cần, rồi triển khai bằng quy trình có khả năng quay lại phiên bản cũ.",
+                  "en": "Register the model version, obtain approval where needed, then deploy with rollback capability."
+                },
+                {
+                  "vi": "Dùng lịch kích hoạt phù hợp, chẳng hạn EventBridge, để chạy lại pipeline định kỳ.",
+                  "en": "Use a suitable trigger, such as EventBridge scheduling, for recurring pipeline runs."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Quản lý đúng phiên bản mô hình",
+            "en": "Registry and approval"
+          },
+          "text": {
+            "vi": "Model Registry lưu phiên bản và trạng thái phê duyệt. Phê duyệt là một bước quản trị, không thay thế kiểm tra chất lượng. Nên triển khai artifact cố định thay vì tham chiếu “latest” không rõ nội dung. Khi dùng mô hình hoặc artifact qua nhiều tài khoản, cần cả quyền IAM và quyền tài nguyên phù hợp.",
+            "en": "Model Registry tracks versions and approval status. Approval is governance, not a replacement for evaluation. Deploy pinned artifacts and versions rather than ambiguous “latest” references. Cross-account use requires IAM and resource permissions for relevant models and artifacts."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chọn công cụ điều phối theo phạm vi quy trình",
+            "en": "Choose suitable orchestration"
+          },
+          "text": {
+            "vi": "SageMaker Pipelines phù hợp khi các bước chủ yếu là xử lý dữ liệu, huấn luyện và đánh giá trong SageMaker. Step Functions phù hợp với quy trình rộng hơn qua nhiều dịch vụ, cần nhánh điều kiện và thử lại. Projects hoặc template giúp các đội dùng lại cách triển khai CI/CD. Chỉ tự vận hành công cụ như Jenkins khi dịch vụ quản lý chưa đáp ứng yêu cầu.",
+            "en": "Pipelines fits SageMaker-integrated ML DAGs. Step Functions fits broader multi-service workflows with retries and branching. Projects/templates distribute reusable CI/CD patterns. Choose sufficient managed tools instead of operating Jenkins unnecessarily."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Mỗi tháng, hệ thống lần lượt xử lý dữ liệu, huấn luyện và đánh giá mô hình. Chỉ khi recall đạt mục tiêu mới đăng ký mô hình để phê duyệt và triển khai, kèm phương án quay lại phiên bản cũ. Cần ghi nhận phiên bản dữ liệu để điều tra nguyên nhân nếu chất lượng giảm.",
+        "en": "Monthly: preprocess → train → evaluate → register if recall meets target → approval → guarded deployment. Track dataset versions for diagnosing regressions."
+      },
+      "trap": {
+        "vi": "Một quy trình chạy xong mà không gặp lỗi kỹ thuật chưa chứng minh mô hình đủ tốt để phục vụ người dùng. Vẫn cần kiểm tra các tiêu chí chất lượng trước khi triển khai.",
+        "en": "A successful pipeline run does not mean the model is production-ready."
+      },
+      "cards": [
+        {
+          "id": "pipelines-1",
+          "front": {
+            "vi": "Trong pipeline ML, cần những bước nào để chỉ đưa mô hình đạt yêu cầu chất lượng lên môi trường vận hành thực tế?",
+            "en": "Which steps should an ML pipeline include to deploy only models that meet quality requirements?"
+          },
+          "back": {
+            "vi": "Đánh giá mô hình bằng chỉ số đã xác định, dùng bước điều kiện để chặn mô hình không đạt, rồi đăng ký và phê duyệt phiên bản trước khi triển khai. Chạy huấn luyện thành công thôi chưa đủ.",
+            "en": "Evaluation plus a condition and registry/approval."
+          }
+        },
+        {
+          "id": "pipelines-2",
+          "front": {
+            "vi": "Bạn cần nối các tác vụ xử lý dữ liệu, huấn luyện và đánh giá trong một quy trình SageMaker. Dịch vụ nào phù hợp?",
+            "en": "Which service connects processing, training and evaluation jobs into a SageMaker workflow?"
+          },
+          "back": {
+            "vi": "SageMaker Pipelines. Nó mô tả thứ tự phụ thuộc giữa các bước ML và hỗ trợ lưu thông số, kết quả để truy vết từng lần chạy.",
+            "en": "SageMaker Pipelines."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html"
+      ]
+    },
+    {
+      "id": "prompts",
+      "domain": 3,
+      "title": {
+        "vi": "Prompt ổn định và chi phí token",
+        "en": "Stable prompts and token costs"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        12,
+        19,
+        63
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Xác định rõ yêu cầu đối với câu trả lời",
+            "en": "An output contract"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "System instructions nêu vai trò, giọng văn và giới hạn của assistant. Ví dụ few-shot minh họa cụ thể định dạng bạn muốn nhận.",
+                  "en": "System instructions specify the assistant’s role, tone and boundaries. Few-shot examples demonstrate the desired output format."
+                },
+                {
+                  "vi": "Temperature thấp thường làm đầu ra ít biến thiên hơn. Nó không bảo đảm câu trả lời đúng sự thật.",
+                  "en": "Lower temperature generally reduces output variation; it does not guarantee factual accuracy."
+                },
+                {
+                  "vi": "Giới hạn số token giúp kiểm soát độ dài. Nếu đặt quá thấp, mô hình có thể bị dừng trước khi giải thích xong.",
+                  "en": "Token limits control length. An overly low limit may stop the model before its explanation is complete."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Cố định prompt đã được duyệt cho môi trường vận hành thực tế",
+            "en": "Immutable versions"
+          },
+          "text": {
+            "vi": "So sánh các variant trên cùng một bộ đánh giá. Khi chọn được cấu hình phù hợp, tạo phiên bản cố định và để ứng dụng tham chiếu phiên bản đó, thay vì một bản nháp còn đang sửa. Ghi lại phiên bản prompt, mô hình ID và tham số khi đánh giá để biết thay đổi nào làm kết quả khác đi.",
+            "en": "Compare prompt variants on the same evaluation set. Create a fixed production version instead of referencing an editable draft. Record prompt versions, model IDs and parameters in evaluation logs to attribute changes."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Tái sử dụng phần đầu prompt không thay đổi",
+            "en": "Cache repeated prefixes"
+          },
+          "text": {
+            "vi": "Prompt caching giúp dùng lại việc xử lý phần đầu prompt đủ điều kiện, chẳng hạn một hợp đồng dài xuất hiện trong nhiều yêu cầu. Đặt tài liệu ổn định trước câu hỏi thay đổi. Đây không phải cache toàn bộ câu trả lời: mỗi câu hỏi vẫn có thể cần mô hình sinh phản hồi mới. Kiểm tra mô hình có hỗ trợ, thời gian sống của cache và độ dài tối thiểu.",
+            "en": "Prompt caching reuses eligible prefix computation, such as repeated long documents, to reduce supported-model cost and latency. Place stable material before changing questions. It is not whole-answer caching; check model-specific TTL and minimum requirements."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Hàng trăm câu hỏi mỗi giờ đều yêu cầu mô hình đọc toàn bộ cùng một hợp đồng. Có thể lưu phần hợp đồng lặp lại vào bộ nhớ đệm prompt, rồi nối câu hỏi riêng vào sau. Chỉ dùng RAG để lấy một vài đoạn sẽ không đáp ứng yêu cầu phải xem toàn bộ văn bản trong mỗi lần hỏi.",
+        "en": "Hundreds of hourly questions require an entire contract: cache the contract prefix, then append each question. Retrieving only a few RAG chunks cannot satisfy a full-document requirement."
+      },
+      "trap": {
+        "vi": "Đặt temperature bằng 0 không bảo đảm câu trả lời đúng. Tham số này điều chỉnh cách chọn token, không tự kiểm chứng thông tin mà mô hình tạo ra.",
+        "en": "Zero temperature is not an anti-hallucination mechanism."
+      },
+      "cards": [
+        {
+          "id": "prompts-1",
+          "front": {
+            "vi": "Làm sao để việc chỉnh prompt đang thử nghiệm không vô tình thay đổi prompt mà ứng dụng môi trường vận hành thực tế đang dùng?",
+            "en": "How can you prevent experimental prompt edits from changing the prompt used by a production application?"
+          },
+          "back": {
+            "vi": "Sau khi đánh giá các variant, tạo một phiên bản prompt cố định và cho môi trường vận hành thực tế tham chiếu phiên bản đó. Không trỏ môi trường vận hành thực tế vào bản nháp còn được chỉnh sửa.",
+            "en": "Use a fixed version after comparing variants."
+          }
+        },
+        {
+          "id": "prompts-2",
+          "front": {
+            "vi": "Nhiều yêu cầu dùng lại nguyên một tài liệu dài ở đầu prompt. Tính năng nào có thể giảm chi phí và thời gian xử lý phần lặp lại?",
+            "en": "Which feature can reduce cost and processing time when many requests reuse the same long document as a prompt prefix?"
+          },
+          "back": {
+            "vi": "Prompt caching, nếu mô hình hỗ trợ và nội dung đáp ứng điều kiện cache. Đặt tài liệu ổn định ở đầu prompt, còn câu hỏi thay đổi ở phía sau.",
+            "en": "Prompt caching if supported by the model."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html"
+      ]
+    },
+    {
+      "id": "agents-runtime",
+      "domain": 3,
+      "title": {
+        "vi": "AgentCore Runtime và Gateway",
+        "en": "AgentCore Runtime and Gateway"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        37,
+        38
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Runtime quản lý việc chạy agent, không thay trí nhớ dài hạn",
+            "en": "Runtime and sessions"
+          },
+          "text": {
+            "vi": "AgentCore Runtime cung cấp môi trường chạy agent và cách ly trạng thái giữa các session, với nhiều framework và mô hình được hỗ trợ. Session có thời hạn, nên tác vụ dài phải dùng cơ chế được hỗ trợ thay vì giả định một kết nối HTTP mở liên tục trong nhiều giờ. Thông tin cần giữ qua các session phải được lưu bằng cơ chế bền vững riêng.",
+            "en": "AgentCore Runtime manages agent execution with session isolation and supports multiple frameworks/models. Sessions have finite lifetimes; long tasks need suitable long-running mechanisms rather than assuming a single hours-long HTTP connection. Session state does not replace durable cross-session storage."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Kết nối agent với API thông qua Gateway",
+            "en": "Gateway and tool discovery"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Mỗi đội đăng ký API hoặc target được hỗ trợ, xác định cách API được trình bày thành công cụ.",
+                  "en": "Each team registers a supported API or target and defines how it is exposed as a tool."
+                },
+                {
+                  "vi": "AgentCore Gateway cung cấp điểm truy cập để agent khám phá và gọi công cụ theo giao thức MCP.",
+                  "en": "AgentCore Gateway provides an endpoint for agents to discover and invoke tools through MCP."
+                },
+                {
+                  "vi": "Khi thêm công cụ mới, agent có thể khám phá qua Gateway thay vì phải hardcode từng URL vào chương trình.",
+                  "en": "New tools can be discovered through Gateway instead of hardcoding each URL into the agent."
+                },
+                {
+                  "vi": "Vẫn phải cấu hình quyền gọi công cụ và kiểm tra danh tính. Khả năng khám phá công cụ không đồng nghĩa được phép dùng mọi công cụ.",
+                  "en": "Tool permissions and identities must still be configured. Discovering a tool does not authorize its use."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Tách quyền người dùng khỏi quyền thực thi của agent",
+            "en": "Agent permissions"
+          },
+          "text": {
+            "vi": "Cần phân biệt danh tính người dùng, role chạy agent và quyền gọi từng công cụ. Tool làm thay đổi hệ thống phải kiểm tra đầu vào, dùng quyền tối thiểu và có kiểm soát tác động. Nội dung lấy từ tài liệu bên ngoài chỉ là dữ liệu; nó không có quyền ra lệnh cho agent bỏ qua chính sách hay tự nâng quyền.",
+            "en": "Separate user identity, runtime identity and tool permissions. Tools that mutate systems need input validation, least privilege and impact checks. Retrieved documents are data, not authorized instructions to elevate privileges or bypass rules."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Ba nhóm cung cấp ba REST API riêng. Có thể đăng ký các API làm target trên AgentCore Gateway để agent tìm và gọi công cụ qua một điểm truy cập chung. Nhờ đó, không cần tự xây một hàm Lambda trung tâm để định tuyến mọi thao tác của cả ba nhóm.",
+        "en": "Three teams own separate REST APIs: register Gateway targets and let the agent discover tools at one endpoint. A central Lambda routing every team’s operations is unnecessary."
+      },
+      "trap": {
+        "vi": "MCP chuẩn hóa cách agent giao tiếp với công cụ. Việc dùng MCP không tự động cấp quyền truy cập; từng công cụ vẫn cần được xác thực và phân quyền phù hợp.",
+        "en": "MCP standardizes tool communication; it does not authorize every tool automatically."
+      },
+      "cards": [
+        {
+          "id": "agents-runtime-1",
+          "front": {
+            "vi": "Nhiều đội có API riêng và thường xuyên thêm công cụ mới. Làm sao để agent khám phá các công cụ qua một điểm kết nối thay vì sửa code cho từng API?",
+            "en": "Several teams maintain APIs and frequently add tools. How can an agent discover them through one connection without custom integration for each API?"
+          },
+          "back": {
+            "vi": "Dùng AgentCore Gateway để đăng ký và cung cấp công cụ qua MCP. Agent khám phá công cụ tại Gateway; vẫn phải cấu hình xác thực và quyền gọi công cụ phù hợp.",
+            "en": "AgentCore Gateway and tool discovery."
+          }
+        },
+        {
+          "id": "agents-runtime-2",
+          "front": {
+            "vi": "AgentCore Runtime cách ly các session. Điều đó có đồng nghĩa agent sẽ nhớ thông tin người dùng qua nhiều tuần không?",
+            "en": "Does AgentCore Runtime session isolation mean an agent remembers a user across several weeks?"
+          },
+          "back": {
+            "vi": "Không. Cách ly session bảo vệ trạng thái trong từng phiên chạy. Muốn nhớ qua nhiều phiên hoặc nhiều tuần, cần cơ chế lưu bền vững như AgentCore long-term bộ nhớ.",
+            "en": "No; use separate durable memory."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html",
+        "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html"
+      ]
+    },
+    {
+      "id": "security",
+      "domain": 4,
+      "title": {
+        "vi": "IAM, mạng riêng và quyền notebook",
+        "en": "IAM, private networks and notebook privileges"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        2,
+        35
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Phân biệt ba lớp kiểm soát truy cập",
+            "en": "Three distinct layers"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "IAM kiểm soát người hoặc dịch vụ nào được gọi những API AWS nào.",
+                  "en": "IAM controls which people or services may perform which AWS API actions."
+                },
+                {
+                  "vi": "VPC và security group kiểm soát đường kết nối mạng, chẳng hạn máy nào có thể kết nối tới endpoint.",
+                  "en": "VPCs and security groups control network reachability, such as which hosts can connect to an endpoint."
+                },
+                {
+                  "vi": "RootAccess kiểm soát quyền quản trị hệ điều hành của người dùng trong notebook. Muốn bỏ quyền root thì phải xử lý ở lớp này.",
+                  "en": "RootAccess controls operating-system administrator privileges inside the notebook. Removing root access requires acting at this layer."
+                },
+                {
+                  "vi": "Mã hóa EBS bảo vệ dữ liệu lưu trên ổ đĩa. Nó không thay đổi quyền của người đã đăng nhập vào notebook.",
+                  "en": "EBS encryption protects stored disk data. It does not change privileges of users already inside the notebook."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Kết nối private cần đúng cả DNS, đường mạng và quyền",
+            "en": "PrivateLink needs DNS and networking"
+          },
+          "text": {
+            "vi": "Interface VPC endpoint tạo đường kết nối riêng đến dịch vụ được hỗ trợ. Kiểm tra notebook có thể đến endpoint, DNS có phân giải đúng, security group có cho phép kết nối TLS và endpoint policy có cho phép thao tác cần dùng. Thêm IAM permission không sửa lỗi route hoặc DNS. Khi gọi dịch vụ qua endpoint riêng, không cần NAT chỉ để ra internet.",
+            "en": "Interface VPC endpoints provide private connectivity to supported services. Check notebook network reachability, private DNS, TLS security-group rules and endpoint policy. IAM changes do not repair routing or DNS; a NAT gateway is not required for service access through a private endpoint."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Chỉ cấp đúng những quyền thực sự cần",
+            "en": "Least privilege and data"
+          },
+          "text": {
+            "vi": "Execution role nên chỉ được đọc S3 prefix cần thiết, dùng KMS key phù hợp và gọi các API phục vụ công việc. Với dữ liệu KMS, cả key policy lẫn IAM phải cho phép truy cập. Không đặt access key cố định trong notebook; ưu tiên role và thông tin xác thực tạm thời. Dùng CloudTrail để truy lại ai đã thay đổi tài nguyên.",
+            "en": "Limit execution roles to required S3 prefixes, KMS keys and APIs. Both KMS key policy and IAM permissions must allow access. Avoid hardcoded notebook access keys; use roles and temporary credentials. CloudTrail records who changed resources."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Nếu yêu cầu là tắt quyền root trong notebook, hãy đặt RootAccess=Disabled. Nếu đọc S3 gặp lỗi AccessDenied, kiểm tra quyền của IAM role, bucket policy và khóa KMS. Nếu truy cập một dịch vụ qua mạng riêng bị hết thời gian chờ, hãy kiểm tra kết nối mạng trước.",
+        "en": "A notebook root warning calls for RootAccess=Disabled. An S3 AccessDenied calls for role/bucket/KMS policy checks; a private-service timeout calls for network diagnosis first."
+      },
+      "trap": {
+        "vi": "Hãy xử lý đúng lớp gây ra vấn đề. Cấu hình mạng không thay thế cho việc giới hạn quyền quản trị bên trong hệ điều hành.",
+        "en": "Do not use network controls to solve operating-system privilege issues."
+      },
+      "cards": [
+        {
+          "id": "security-1",
+          "front": {
+            "vi": "Bạn cần bỏ quyền quản trị hệ điều hành của người dùng trên SageMaker notebook. Phải đổi cấu hình nào?",
+            "en": "Which setting removes operating-system root access for users of a SageMaker notebook instance?"
+          },
+          "back": {
+            "vi": "Đặt RootAccess thành Disabled. Mã hóa EBS hay giới hạn security group không thay đổi quyền root bên trong notebook.",
+            "en": "RootAccess=Disabled."
+          }
+        },
+        {
+          "id": "security-2",
+          "front": {
+            "vi": "Notebook từng gọi API thành công, nhưng bị timeout sau khi chuyển sang private endpoint. Nên kiểm tra nhóm nguyên nhân nào trước?",
+            "en": "API calls worked before a notebook switched to a private endpoint but now time out. Which category of causes should you investigate first?"
+          },
+          "back": {
+            "vi": "Kiểm tra kết nối mạng: notebook có đường đi đến endpoint không, DNS có phân giải đúng không, và security group có cho phép kết nối cần thiết không. Thêm quyền IAM không sửa được lỗi không có đường mạng.",
+            "en": "Check routing, VPC, DNS and security groups."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-root-access.html",
+        "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"
+      ]
+    },
+    {
+      "id": "monitoring",
+      "domain": 4,
+      "title": {
+        "vi": "Drift, chất lượng và cảnh báo",
+        "en": "Drift, quality and alerts"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        29,
+        47
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Dữ liệu thay đổi và mô hình dự đoán sai là hai vấn đề khác nhau",
+            "en": "Data drift versus model quality"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Data quality monitoring so sánh thống kê dữ liệu đầu vào với mốc tham chiếu (baseline), ví dụ tỷ lệ thiếu hoặc phân phối đặc trưng.",
+                  "en": "Data quality monitoring compares input statistics with a baseline, such as missingness or feature distributions."
+                },
+                {
+                  "vi": "Model quality monitoring so sánh dự đoán với nhãn thực tế để biết chất lượng dự đoán có giảm hay không.",
+                  "en": "Model quality monitoring compares predictions with actual labels to determine whether predictive quality is declining."
+                },
+                {
+                  "vi": "Phân phối đầu vào thay đổi chưa chắc làm accuracy giảm. Muốn kết luận về độ đúng của mô hình, cần có nhãn để đối chiếu.",
+                  "en": "A changed input distribution does not necessarily reduce accuracy. Claims about model correctness require labels."
+                },
+                {
+                  "vi": "Nhãn có thể đến muộn. Hãy giữ mã định danh để nối đúng dự đoán với kết quả thực tế sau đó.",
+                  "en": "Labels can arrive later. Preserve identifiers to join each prediction to its eventual outcome."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Từ dữ liệu theo dõi đến thông báo",
+            "en": "From metrics to action"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Bật việc thu thập input/output cần thiết và chuẩn bị baseline để làm mốc so sánh.",
+                  "en": "Enable the necessary input/output capture and prepare a comparison baseline."
+                },
+                {
+                  "vi": "Lập lịch chạy monitoring, bổ sung ground truth nếu đánh giá chất lượng dự đoán.",
+                  "en": "Schedule monitoring and supply ground truth when evaluating prediction quality."
+                },
+                {
+                  "vi": "Xuất chỉ số vào CloudWatch và đặt alarm với ngưỡng, số kỳ đánh giá cùng cách xử lý dữ liệu bị thiếu.",
+                  "en": "Publish metrics to CloudWatch and configure alarm thresholds, evaluation periods and missing-data handling."
+                },
+                {
+                  "vi": "Nối alarm tới SNS và đăng ký người nhận. Chỉ ghi log thì chưa có thông báo tự động.",
+                  "en": "Connect alarms to SNS and subscribe recipients. Logging alone does not create automatic notifications."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Quan sát chất lượng của agent đang phục vụ",
+            "en": "Monitor agents"
+          },
+          "text": {
+            "vi": "AgentCore online evaluation có thể lấy mẫu session thật rồi chấm helpfulness hoặc correctness. Từ đó, nhóm theo dõi xu hướng và điều tra các session điểm thấp. Lấy mẫu không có nghĩa mọi tương tác đều được kiểm tra. Trace có thể chứa thông tin nhạy cảm, nên cần giới hạn người xem và thời gian lưu.",
+            "en": "AgentCore online evaluation can sample production sessions and score evaluators such as helpfulness/correctness. Track trends and trace low-scoring sessions; sampling does not evaluate every interaction. Traces can be sensitive and need suitable access controls and retention."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Mô hình dự đoán gian lận ngay hôm nay, nhưng nhãn xác nhận từ giao dịch bị khiếu nại chỉ có sau 30 ngày. Theo dõi độ lệch dữ liệu có thể cảnh báo sớm về thay đổi đầu vào. Muốn đo chất lượng dự đoán thực tế, phải chờ nhãn và ghép chúng với dự đoán bằng mã giao dịch.",
+        "en": "Fraud predictions occur today but chargeback labels arrive after 30 days: data drift can alert early, while model-quality evaluation waits for labels and joins transaction IDs."
+      },
+      "trap": {
+        "vi": "Độ trễ ghi nhận trong CloudWatch cho biết hệ thống trả lời nhanh hay chậm. Nó không cho biết dự đoán có chính xác hay không.",
+        "en": "CloudWatch latency does not measure prediction correctness."
+      },
+      "cards": [
+        {
+          "id": "monitoring-1",
+          "front": {
+            "vi": "Bạn đã lưu dự đoán của mô hình. Cần thêm dữ liệu gì để biết dự đoán đúng hay sai trong môi trường vận hành thực tế?",
+            "en": "You have captured model predictions. What additional data is needed to determine whether production predictions are correct?"
+          },
+          "back": {
+            "vi": "Cần nhãn thực tế (ground truth) và mã định danh để nối nhãn với từng dự đoán. Chỉ nhìn phân phối đầu vào hoặc độ trễ không đo được độ đúng của mô hình.",
+            "en": "Ground-truth labels and join identifiers."
+          }
+        },
+        {
+          "id": "monitoring-2",
+          "front": {
+            "vi": "Metric chất lượng mô hình đã có trong CloudWatch. Làm sao tự gửi thông báo khi chỉ số vượt ngưỡng?",
+            "en": "A model-quality metric is available in CloudWatch. How can you send notifications when it crosses a threshold?"
+          },
+          "back": {
+            "vi": "Tạo CloudWatch alarm với ngưỡng phù hợp và nối alarm tới SNS topic có người đăng ký nhận thông báo. Lưu log đơn thuần chưa tạo ra cảnh báo.",
+            "en": "CloudWatch alarm → SNS subscription."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality.html",
+        "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"
+      ]
+    },
+    {
+      "id": "cost",
+      "domain": 4,
+      "title": {
+        "vi": "Chi phí: phân bổ, dự báo và tối ưu",
+        "en": "Costs: allocation, forecasts and optimization"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        27,
+        43,
+        46,
+        63
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Theo dõi chi phí đúng dự án hoặc phòng ban",
+            "en": "Attribute cost to owners"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Gắn tag Project hoặc Department nhất quán cho các tài nguyên liên quan.",
+                  "en": "Apply consistent Project or Department tags to related resources."
+                },
+                {
+                  "vi": "Kích hoạt các tag này làm cost allocation tags trong Billing để dùng trong phân tích hóa đơn.",
+                  "en": "Activate these as cost allocation tags in Billing so they can be used for cost analysis."
+                },
+                {
+                  "vi": "Dùng Cost Explorer để xem chi phí và tìm nguyên nhân thay đổi theo dự án, dịch vụ hoặc thời gian.",
+                  "en": "Use Cost Explorer to analyze costs and changes by project, service or time."
+                },
+                {
+                  "vi": "Dùng AWS Budgets nếu cần thông báo khi chi tiêu thực tế hoặc dự báo sắp vượt ngưỡng.",
+                  "en": "Use AWS Budgets for notifications when actual or forecast spending crosses a threshold."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Chọn biện pháp tiết kiệm theo công việc",
+            "en": "Optimize for the workload"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Training không gấp: cân nhắc Managed Spot Training và checkpoint.",
+                  "en": "Nonurgent training: consider Managed Spot Training with checkpoints."
+                },
+                {
+                  "vi": "Inference ít yêu cầu và chịu được cold start: cân nhắc serverless nếu mô hình đáp ứng giới hạn của dịch vụ.",
+                  "en": "Sparse inference that tolerates cold starts: consider serverless when the model fits service limits."
+                },
+                {
+                  "vi": "Dự đoán cho dữ liệu đã có sẵn, không cần trả lời ngay: dùng xử lý theo lô.",
+                  "en": "Predictions over ready datasets without immediate-response requirements: use batch processing."
+                },
+                {
+                  "vi": "Prompt lặp lại phần tài liệu dài: dùng prompt caching khi mô hình và nội dung đủ điều kiện.",
+                  "en": "Prompts repeating long documents: use prompt caching when the model and content qualify."
+                },
+                {
+                  "vi": "Tính tổng chi phí, kể cả storage, truyền dữ liệu và tài nguyên nhàn rỗi; đừng chỉ nhìn giá máy chủ theo giờ.",
+                  "en": "Measure total cost, including storage, transfer and idle resources, rather than only hourly instance prices."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Cảnh báo ngân sách không tự chặn mọi chi phí",
+            "en": "A budget is not a hard stop"
+          },
+          "text": {
+            "vi": "AWS Budgets dùng dữ liệu thanh toán có độ trễ; một cảnh báo không tự bảo đảm tất cả tài nguyên ngừng chạy. Nếu cần hành động tự động, phải cấu hình rõ hành động và quyền được phép dùng. Tránh dừng hệ thống quan trọng chỉ vì dự báo nhất thời. Khi tối ưu, xem chi phí trên mỗi lượt suy luận cùng yêu cầu độ trễ để không tiết kiệm bằng cách làm hệ thống không còn đáp ứng nhu cầu.",
+            "en": "Budget alerts follow billing delays and do not inherently stop every resource. If automatic actions are needed, design explicit actions and permissions; avoid shutting down critical systems on a transient forecast. Track cost per inference alongside SLOs to avoid savings that violate latency."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Mỗi phòng ban có một ngân sách hàng tháng. Hãy gắn thẻ Department cho tài nguyên, kích hoạt thẻ phân bổ chi phí, rồi tạo AWS Budget lọc theo thẻ đó và bật cảnh báo dự báo vượt ngân sách. Khi chi phí tăng, dùng Cost Explorer để tìm nguồn phát sinh.",
+        "en": "Each department has a monthly allowance: Department tags → activate cost allocation → tag-filtered budget → forecast alert. Use Cost Explorer to investigate increases."
+      },
+      "trap": {
+        "vi": "Đừng mặc định chọn gói cam kết sử dụng để tiết kiệm chi phí. Với tác vụ huấn luyện có thể chịu gián đoạn và chạy linh hoạt, Spot có thể phù hợp hơn; cần so sánh theo đặc điểm công việc.",
+        "en": "Do not default to commitments when flexible training can benefit from Spot."
+      },
+      "cards": [
+        {
+          "id": "cost-1",
+          "front": {
+            "vi": "Một phòng ban muốn được báo trước khi chi tiêu tháng này có khả năng vượt ngân sách. Nên cấu hình loại cảnh báo nào?",
+            "en": "Which alert should a department configure to be warned when its monthly spending is forecast to exceed its budget?"
+          },
+          "back": {
+            "vi": "Dùng forecast alert trong AWS Budgets. Lọc theo cost allocation tag của phòng ban để cảnh báo dựa trên đúng phần chi phí được phân bổ.",
+            "en": "AWS Budgets forecast alert."
+          }
+        },
+        {
+          "id": "cost-2",
+          "front": {
+            "vi": "Nhiều dự án dùng chung một tài khoản AWS. Cần làm gì để xem chi phí riêng của từng dự án trong báo cáo thanh toán?",
+            "en": "How can you separate project costs in billing reports when multiple projects share an AWS account?"
+          },
+          "back": {
+            "vi": "Gắn tag dự án nhất quán cho tài nguyên, kích hoạt các tag đó làm cost allocation tags, rồi dùng Cost Explorer để phân tích chi phí theo tag.",
+            "en": "Tag resources and activate cost allocation tags."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+      ]
+    },
+    {
+      "id": "guardrails",
+      "domain": 4,
+      "title": {
+        "vi": "Guardrails: chọn đúng bộ lọc",
+        "en": "Guardrails: choose the right filter"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        34,
+        53,
+        54
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Chọn đúng bộ lọc cho loại nội dung cần kiểm soát",
+            "en": "Harmful content and denied topics"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Content filters nhận diện các nhóm nội dung gây hại như hate hoặc violence. Filter strength điều chỉnh mức độ chặn.",
+                  "en": "Content filters detect harmful categories such as hate or violence. Filter strength adjusts blocking sensitivity."
+                },
+                {
+                  "vi": "Denied topics chặn các chủ đề mà ứng dụng không được phép thảo luận theo chính sách nghiệp vụ.",
+                  "en": "Denied topics block subjects the application is not permitted to discuss under business policy."
+                },
+                {
+                  "vi": "Word filters chặn từ hoặc cụm từ cụ thể. Chúng có thể bỏ sót cùng ý nghĩa được diễn đạt bằng từ khác.",
+                  "en": "Word filters block specific words or phrases and can miss equivalent meanings expressed differently."
+                },
+                {
+                  "vi": "Không chọn bộ lọc chỉ vì tên nghe liên quan: xác định bạn cần chặn chủ đề, từ ngữ hay ý nghĩa gây hại.",
+                  "en": "Do not choose a filter merely by a familiar name: identify whether the problem concerns topics, specific words or harmful meaning."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Tách kiểm tra căn cứ khỏi kiểm tra PII",
+            "en": "Grounding and PII"
+          },
+          "text": {
+            "vi": "Contextual grounding kiểm tra phản hồi so với tài liệu nguồn và câu hỏi để phát hiện nội dung không được hỗ trợ. Sensitive information filters xử lý PII hoặc mẫu regex. Một câu trả lời lịch sự nhưng bịa số liệu cần kiểm tra grounding; tăng mức lọc hate không giải quyết đúng vấn đề.",
+            "en": "Contextual grounding checks responses against source material and queries to reduce unsupported answers. Sensitive-information filters handle PII or regex patterns. A polite response inventing numbers needs grounding, not stronger hate filtering."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Kiểm tra cả bỏ lọt và chặn nhầm",
+            "en": "Tradeoffs and testing"
+          },
+          "text": {
+            "vi": "Mức lọc mạnh hơn có thể chặn cả nội dung hợp lệ. Hãy đánh giá trên tình huống thực tế để biết hệ thống bỏ lọt bao nhiêu nội dung xấu và chặn nhầm bao nhiêu nội dung tốt. Lưu phiên bản guardrail và kiểm thử prompt injection. Guardrails không thay thế phân quyền truy cập, nguồn dữ liệu đáng tin hoặc kiểm tra tính đúng của toàn bộ ứng dụng.",
+            "en": "Higher strength can block legitimate content. Evaluate both misses and false blocks on representative cases, version guardrails and test prompt injection. Guardrails do not replace authorization, trusted sources or end-to-end correctness checks."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Nếu trợ lý nói “phí 0%” trong khi tài liệu ghi 3%, cần kiểm tra mức độ câu trả lời bám sát nguồn bằng contextual grounding. Nếu câu trả lời có nội dung bạo lực, dùng bộ lọc nội dung tương ứng. Nếu câu trả lời làm lộ email, dùng bộ lọc thông tin nhạy cảm.",
+        "en": "An assistant says “0% fee” when the source says 3%: contextual grounding. Violent language: violence content filtering. Exposed email: sensitive-information filtering."
+      },
+      "trap": {
+        "vi": "Bộ lọc chủ đề bị cấm giúp chặn những chủ đề đã xác định. Nó không phải cơ chế sửa mọi câu trả lời sai hoặc thiếu căn cứ.",
+        "en": "Denied topics are not a universal hallucination remedy."
+      },
+      "cards": [
+        {
+          "id": "guardrails-1",
+          "front": {
+            "vi": "Trợ lý trả lời lịch sự nhưng đưa thông tin không được tài liệu nguồn hỗ trợ. Nên dùng tính năng Guardrails nào?",
+            "en": "An assistant is polite but makes claims unsupported by its source document. Which Guardrails feature should you use?"
+          },
+          "back": {
+            "vi": "Dùng contextual grounding checks để kiểm tra phản hồi so với nguồn và câu hỏi. Bộ lọc ngôn từ độc hại không giải quyết trực tiếp lỗi thiếu căn cứ này.",
+            "en": "Contextual grounding checks."
+          }
+        },
+        {
+          "id": "guardrails-2",
+          "front": {
+            "vi": "Bạn muốn tự động chặn ngôn từ thù ghét và ngôn ngữ bạo lực trước khi phản hồi đến người dùng. Cần cấu hình gì?",
+            "en": "What should you configure to block hate speech and violent content before responses reach users?"
+          },
+          "back": {
+            "vi": "Bật content filters cho các nhóm hate và violence, rồi chọn filter strength phù hợp. Kiểm thử cả nội dung lọt qua lẫn nội dung hợp lệ bị chặn nhầm.",
+            "en": "Content filters with suitable strength."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+      ]
+    },
+    {
+      "id": "agents-memory",
+      "domain": 4,
+      "title": {
+        "vi": "Trí nhớ agent và quan sát dài hạn",
+        "en": "Agent memory and long-term observation"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        29,
+        56
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Trí nhớ trong một phiên và qua nhiều phiên",
+            "en": "Short-term and long-term"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": false,
+              "items": [
+                {
+                  "vi": "Short-term bộ nhớ lưu các sự kiện trong hội thoại, giúp agent theo dõi những gì đang diễn ra trong session.",
+                  "en": "Short-term memory stores conversation events, helping agents follow what happens within a session."
+                },
+                {
+                  "vi": "Long-term bộ nhớ trích những thông tin có ích, chẳng hạn sở thích khách hàng, để dùng lại ở các session sau.",
+                  "en": "Long-term memory extracts useful information, such as customer preferences, for later sessions."
+                },
+                {
+                  "vi": "Session của runtime có thời hạn. Dùng lại một session ID không phải cách bảo đảm nhớ thông tin qua nhiều tuần.",
+                  "en": "Runtime sessions expire. Reusing a session ID does not guarantee memory across weeks."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Gắn trí nhớ với đúng người dùng",
+            "en": "Scope and identity"
+          },
+          "text": {
+            "vi": "Tổ chức bộ nhớ theo mã người dùng hoặc actor ổn định và namespace phù hợp. Không chỉ dựa vào tên hiển thị vì nhiều người có thể trùng tên. Khi truy xuất, phải kiểm tra danh tính và quyền để không đưa thông tin của người khác vào câu trả lời. Cũng cần cách sửa hoặc xóa khi người dùng thay đổi sở thích hay yêu cầu xóa dữ liệu.",
+            "en": "Organize memory by appropriate actor/user and namespace identifiers rather than nonunique display names. Retrieval must enforce identity and scope to avoid returning another user’s preferences. Provide correction/deletion when preferences change or data removal is requested."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Thông tin được nhớ cũng có thể lỗi thời",
+            "en": "Quality over time"
+          },
+          "text": {
+            "vi": "Sở thích cũ có thể không còn đúng. Cần đánh giá bộ nhớ được lấy ra có liên quan không và agent xử lý thế nào khi phát biểu mới mâu thuẫn với thông tin cũ. Có thể dùng trace và online evaluation để điều tra session lỗi, nhưng không nên lưu quá nhiều dữ liệu nhạy cảm chỉ để dễ quan sát.",
+            "en": "Old memories may become incorrect. Evaluate relevance and conflicts with new statements. Combine traces and online evaluation to diagnose poor sessions, without retaining excessive sensitive data merely for observability."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Một khách hàng từng thích cỡ M nhưng tháng sau chuyển sang cỡ L. Hệ thống cần cập nhật thông tin dài hạn gắn với đúng khách hàng, thay vì nối mọi cuộc trò chuyện vào một phiên kéo dài mãi.",
+        "en": "A customer previously preferred size M and later says size L: update actor-scoped long-term insights rather than merging all conversations into an endless session."
+      },
+      "trap": {
+        "vi": "Namespace giúp tổ chức và phân tách dữ liệu bộ nhớ. Muốn rút ra thông tin hữu ích từ hội thoại, vẫn cần cấu hình chiến lược trích xuất phù hợp.",
+        "en": "Memory namespaces organize data; they do not infer insights without a suitable extraction strategy."
+      },
+      "cards": [
+        {
+          "id": "agents-memory-1",
+          "front": {
+            "vi": "Trợ lý mua sắm cần nhớ nhãn hiệu và kích cỡ khách thích, kể cả khi hai lần trò chuyện cách nhau vài tuần. Dùng loại bộ nhớ nào?",
+            "en": "Which type of memory lets a shopping assistant remember preferred brands and sizes across conversations weeks apart?"
+          },
+          "back": {
+            "vi": "Dùng long-term bộ nhớ với cơ chế tự trích thông tin từ hội thoại. Chỉ giữ session ID hoặc lịch sử ngắn hạn không đủ để đáp ứng yêu cầu nhớ xuyên phiên.",
+            "en": "Long-term memory with insight extraction."
+          }
+        },
+        {
+          "id": "agents-memory-2",
+          "front": {
+            "vi": "Làm sao tránh việc agent lấy nhầm thông tin ghi nhớ của khách hàng này để trả lời cho khách hàng khác?",
+            "en": "How can you prevent an agent from using one customer’s saved information when responding to another?"
+          },
+          "back": {
+            "vi": "Gắn bộ nhớ với đúng danh tính người dùng, tổ chức namespace phù hợp và kiểm tra quyền truy cập khi truy xuất. Không dùng tên hiển thị dễ trùng làm căn cứ duy nhất.",
+            "en": "Correct actor identity, namespaces and authorization."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html"
+      ]
+    },
+    {
+      "id": "responsible-ai",
+      "domain": 4,
+      "title": {
+        "vi": "Dữ liệu công bằng và kiểm chứng chất lượng",
+        "en": "Fair data and quality validation"
+      },
+      "minutes": 15,
+      "sourceQuestions": [
+        42,
+        62
+      ],
+      "sections": [
+        {
+          "heading": {
+            "vi": "Giảm thiên lệch từ lúc chuẩn bị dữ liệu",
+            "en": "Bias begins in data"
+          },
+          "blocks": [
+            {
+              "type": "list",
+              "ordered": true,
+              "items": [
+                {
+                  "vi": "Kiểm tra nhóm người dùng và chủ đề nào đang được đại diện quá ít hoặc quá nhiều so với mục tiêu ứng dụng.",
+                  "en": "Check which user groups and topics are underrepresented or overrepresented relative to the application’s purpose."
+                },
+                {
+                  "vi": "Rà soát nhãn và ví dụ để tìm nội dung mang định kiến, độc hại hoặc không phù hợp.",
+                  "en": "Review labels and examples for biased, harmful or unsuitable content."
+                },
+                {
+                  "vi": "Đại diện cân bằng không nhất thiết là mọi nhóm có cùng số dòng. Cần xét cách hệ thống được sử dụng thực tế.",
+                  "en": "Balanced representation does not always mean equal row counts; consider real system usage."
+                },
+                {
+                  "vi": "Đánh giá sai số theo từng nhóm thay vì chỉ nhìn điểm trung bình của toàn bộ dataset.",
+                  "en": "Evaluate subgroup errors rather than relying only on an overall average score."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": {
+            "vi": "Phân biệt ngăn ngừa và phát hiện bias",
+            "en": "Separate prevention from detection"
+          },
+          "text": {
+            "vi": "Rà soát dữ liệu trước huấn luyện là biện pháp ngăn ngừa. Chấm toxicity sau huấn luyện giúp phát hiện vấn đề, nhưng không tự sửa ví dụ đã dùng để huấn luyện. PEFT giảm chi phí cập nhật tham số, không tự bảo đảm công bằng. Tương tự, bộ lọc lúc ứng dụng chạy không thay cho việc chuẩn bị dữ liệu có trách nhiệm.",
+            "en": "Curating data before training is prevention. Post-training toxicity evaluation detects issues but does not repair data. PEFT reduces parameter-update cost, not bias by itself. Runtime guardrails do not replace dataset curation."
+          }
+        },
+        {
+          "heading": {
+            "vi": "Kiểm chứng bằng dữ liệu do chuyên gia duyệt",
+            "en": "Trusted sources and experts"
+          },
+          "text": {
+            "vi": "Với tác vụ chuyên môn, chuyên gia cần duyệt câu hỏi mẫu và xác định các câu trả lời chấp nhận được. Ghi nguồn gốc và phiên bản dữ liệu, giữ tập kiểm chứng tách khỏi train, đồng thời xem riêng các lỗi nghiêm trọng thay vì chỉ tính điểm trung bình. Sau triển khai, tiếp tục theo dõi khi dữ liệu hoặc cách sử dụng thay đổi.",
+            "en": "For specialized domains, experts curate golden examples and acceptable-answer ranges. Record provenance and versions, hold evaluation data out of training and inspect serious errors separately from mean scores. Track post-deployment changes to identify data shifts."
+          }
+        }
+      ],
+      "example": {
+        "vi": "Khi tinh chỉnh hệ thống hỏi đáp nội bộ, hãy lấy ví dụ từ nhiều nhóm người dùng, rà soát nội dung có định kiến và giữ riêng một tập đánh giá chuẩn. Báo cáo kết quả cho từng nhóm. Nếu điểm trung bình cao nhưng một nhóm có kết quả thấp, cần tìm nguyên nhân trước khi triển khai rộng.",
+        "en": "Fine-tune an internal Q&A system: sample diverse groups, review biased content, hold out a golden set and report subgroup metrics. Investigate low-performing groups despite a high aggregate score before rollout."
+      },
+      "trap": {
+        "vi": "Bật guardrail không đủ để kết luận hệ thống không có thiên lệch. Vẫn cần kiểm tra dữ liệu, cách đánh giá và kết quả đối với các nhóm người dùng khác nhau.",
+        "en": "Do not claim absence of bias merely because a guardrail is enabled."
+      },
+      "cards": [
+        {
+          "id": "responsible-ai-1",
+          "front": {
+            "vi": "Trước khi fine-tune, hai việc nào trực tiếp giúp giảm thiên lệch trong tập dữ liệu huấn luyện?",
+            "en": "Which two data-preparation actions directly help reduce bias before fine-tuning?"
+          },
+          "back": {
+            "vi": "Bảo đảm các nhóm người dùng và chủ đề được đại diện phù hợp; đồng thời rà soát ví dụ để loại nội dung mang định kiến hoặc độc hại. Giảm số tham số bằng PEFT không tự sửa được bias dữ liệu.",
+            "en": "Appropriate representation and curation to remove biased/harmful examples."
+          }
+        },
+        {
+          "id": "responsible-ai-2",
+          "front": {
+            "vi": "Model đứng cao trên bảng xếp hạng có đủ để chứng minh nó làm tốt một tác vụ chuyên môn của công ty không?",
+            "en": "Does a high leaderboard rank prove that a model performs well on a company’s specialist task?"
+          },
+          "back": {
+            "vi": "Không. Cần bộ kiểm chứng đại diện cho tác vụ thực tế, với câu hỏi và đáp án được chuyên gia duyệt. Điểm trung bình chung có thể che những lỗi quan trọng trong lĩnh vực riêng.",
+            "en": "No; use a representative expert-reviewed golden dataset."
+          }
+        }
+      ],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/responsible-ai.html"
+      ]
+    }
+  ]
+}

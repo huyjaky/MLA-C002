@@ -1,0 +1,5 @@
+{
+  "name": "cloudlingo", "version": "1.0.0", "private": true, "type": "module",
+  "engines": { "node": ">=24.0.0" },
+  "scripts": { "start": "node server/index.js", "test": "node --test tests/*.test.js", "validate": "node scripts/validate-content.js" }
+}

@@ -1,0 +1,1153 @@
+{
+  "id": "exam-b",
+  "title": {
+    "vi": "Bộ đề B · MLA-C02",
+    "en": "Exam B · MLA-C02"
+  },
+  "description": {
+    "vi": "Tình huống mới theo blueprint MLA-C02. Đang biên soạn đủ 85 câu.",
+    "en": "New scenarios aligned to the MLA-C02 blueprint. Authoring the complete 85-question set."
+  },
+  "simulation": false,
+  "provenance": {
+    "kind": "authored",
+    "created": "2026-09-28",
+    "blueprint": "MLA-C02",
+    "source": "Original scenarios mapped to supplied QA objectives and official AWS references."
+  },
+  "questions": [
+    {
+      "id": "b-001",
+      "domain": 2,
+      "lessonId": "gen-evaluation",
+      "select": 2,
+      "text": {
+        "vi": "Nhóm nghiên cứu có ba model viết email. Họ muốn chuyên gia chấm so sánh từng cặp và xếp các email theo chất lượng tổng thể, không dùng điểm tự động. Chọn hai phương pháp đánh giá. (Chọn HAI)",
+        "en": "A research team has three email-writing models. Experts must compare response pairs and order the generated emails by overall quality rather than rely on automated scores. Which two evaluation methods fit? (Select TWO)"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Kiến thức thực tế",
+            "en": "Factual knowledge"
+          },
+          "explanation": {
+            "vi": "Trong bộ phương pháp của Bedrock, đây là đánh giá tự động về kiến thức thực tế, không phải giao thức chấm bởi con người.",
+            "en": "In Bedrock's evaluation methods, this is an automatic factual-knowledge evaluation rather than a human-rating protocol."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Độ bền vững ngữ nghĩa",
+            "en": "Semantic robustness"
+          },
+          "explanation": {
+            "vi": "Đây là phép đánh giá tự động độ ổn định khi đầu vào thay đổi nhỏ nhưng giữ ý nghĩa.",
+            "en": "This automatically evaluates stability under small meaning-preserving input changes."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Xếp hạng thứ tự",
+            "en": "Ordinal rank"
+          },
+          "explanation": {
+            "vi": "Người đánh giá xếp phản hồi theo thứ tự ưu tiên dựa trên tiêu chí được cung cấp.",
+            "en": "A human ranks responses in preference order using the supplied criteria."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "ROUGE",
+            "en": "Recall-Oriented Understudy for Gisting Evaluation (ROUGE)"
+          },
+          "explanation": {
+            "vi": "ROUGE đo độ trùng với văn bản tham chiếu bằng thuật toán; đây không phải phương pháp đánh giá con người.",
+            "en": "ROUGE algorithmically measures overlap with reference text; it is not a human evaluation method."
+          }
+        },
+        {
+          "key": "E",
+          "text": {
+            "vi": "Thang Likert — so sánh",
+            "en": "Likert scale - comparison"
+          },
+          "explanation": {
+            "vi": "Người đánh giá thể hiện mức độ ưu tiên giữa hai phản hồi theo thang đã định nghĩa.",
+            "en": "A human evaluator expresses a preference between two responses on a defined scale."
+          }
+        }
+      ],
+      "answer": [
+        "C",
+        "E"
+      ],
+      "hint": {
+        "vi": "Phân biệt ai đưa ra phán xét: người đánh giá hay thuật toán đo điểm.",
+        "en": "Distinguish who makes the judgment: a person or an automatic scoring algorithm."
+      },
+      "explanation": {
+        "vi": "Likert comparison và ordinal rank đều yêu cầu con người đánh giá phản hồi. ROUGE, factual knowledge và semantic robustness là các lựa chọn tự động trong ngữ cảnh câu hỏi.",
+        "en": "Likert comparison and ordinal ranking both require human judgments. ROUGE, factual knowledge and semantic robustness are automatic alternatives in this context."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html"
+      ],
+      "objectiveRef": "qa-1"
+    },
+    {
+      "id": "b-002",
+      "domain": 4,
+      "lessonId": "security",
+      "select": 1,
+      "text": {
+        "vi": "Nhà nghiên cứu chỉ cần chạy thư viện có sẵn trên SageMaker notebook, nhưng vẫn có thể cài phần mềm bằng quyền root. Công ty muốn giữ notebook hoạt động và hạ quyền người dùng. Cấu hình nào phù hợp?",
+        "en": "Researchers only need preinstalled libraries on a SageMaker notebook but can still install software as root. The company wants to retain the notebook while reducing user privileges. Which configuration addresses the requirement?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Giới hạn inbound traffic trong security group của notebook.",
+            "en": "Restrict inbound traffic to the SageMaker notebook instance security group."
+          },
+          "explanation": {
+            "vi": "Security group lọc traffic nhưng không hạ quyền người dùng đã đăng nhập.",
+            "en": "Security groups filter traffic but do not reduce privileges of a logged-in user."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Mã hóa các EBS volume gắn với notebook.",
+            "en": "Enable encryption of the Amazon EBS volumes that are attached to the notebook instance."
+          },
+          "explanation": {
+            "vi": "Mã hóa bảo vệ dữ liệu lưu, không bỏ quyền root của người dùng.",
+            "en": "Encryption protects stored data but does not remove a user's root privileges."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Triển khai lại notebook vào VPC.",
+            "en": "Redeploy the SageMaker notebook instance into an Amazon VPC."
+          },
+          "explanation": {
+            "vi": "VPC điều khiển kết nối mạng, không thay đổi quyền hệ điều hành trong notebook.",
+            "en": "A VPC controls networking, not operating-system privileges inside the notebook."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Cập nhật notebook để vô hiệu hóa root access.",
+            "en": "Update the SageMaker notebook instance to disable root access."
+          },
+          "explanation": {
+            "vi": "RootAccess=Disabled loại quyền root không cần thiết trong notebook, trực tiếp xử lý cảnh báo.",
+            "en": "RootAccess=Disabled removes unnecessary notebook root access and directly addresses the alert."
+          }
+        }
+      ],
+      "answer": [
+        "D"
+      ],
+      "hint": {
+        "vi": "Vấn đề thuộc quyền hệ điều hành, không thuộc mạng hoặc mã hóa.",
+        "en": "The problem concerns operating-system privileges, not networking or encryption."
+      },
+      "explanation": {
+        "vi": "Vô hiệu hóa root access xử lý trực tiếp đặc quyền không cần thiết. Các biện pháp mạng và mã hóa hữu ích nhưng không giải quyết quyền root.",
+        "en": "Disabling root access directly removes the unnecessary privilege. Networking and encryption controls are useful but do not address root access."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-root-access.html"
+      ],
+      "objectiveRef": "qa-2"
+    },
+    {
+      "id": "b-003",
+      "domain": 1,
+      "lessonId": "feature-store",
+      "select": 2,
+      "text": {
+        "vi": "Nhiều model dùng chung feature group. Nhóm muốn thêm số lần đăng nhập tuần qua, gồm cả dữ liệu lịch sử; chỉ sửa schema là chưa đủ. Chọn hai bước cần thiết. (Chọn HAI)",
+        "en": "Several models share a feature group. A team must add weekly login counts, including historical values; a schema change alone is insufficient. Which two steps are needed? (Select TWO)"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Gọi CreateFeatureGroup để tạo nhóm mới với schema đã cập nhật.",
+            "en": "Use the CreateFeatureGroup operation to create a new feature group with the updated features. Specify the name and type."
+          },
+          "explanation": {
+            "vi": "Không cần tạo nhóm mới khi chỉ thêm một feature được hỗ trợ.",
+            "en": "A new group is unnecessary when adding a supported feature to the existing group."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Gọi UpdateFeatureGroup với tên và kiểu của feature mới.",
+            "en": "Use the UpdateFeatureGroup operation to add the new feature to the feature group. Specify the name and type."
+          },
+          "explanation": {
+            "vi": "Thao tác này thêm định nghĩa feature vào schema hiện có.",
+            "en": "This adds the new feature definition to the existing schema."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Gọi PutRecord để ghi lại các bản ghi với giá trị feature mới.",
+            "en": "Use the PutRecord operation to overwrite the records that do not have data for the new feature."
+          },
+          "explanation": {
+            "vi": "Cần ingest giá trị mới; thay schema không tự tính lại dữ liệu. Offline store giữ lịch sử phiên bản, vì vậy phải quản lý event time và truy vấn đúng.",
+            "en": "New values must be ingested; schema changes do not compute historical data. The offline store retains record history, so manage event times and queries correctly."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Xóa mọi bản ghi cũ trong feature group.",
+            "en": "Delete all previous records from the feature group."
+          },
+          "explanation": {
+            "vi": "Không cần xóa dữ liệu để thêm feature; làm vậy còn mất lịch sử cần giữ.",
+            "en": "Deleting data is unnecessary for adding a feature and would discard needed history."
+          }
+        },
+        {
+          "key": "E",
+          "text": {
+            "vi": "Gọi DeleteFeatureGroup để xóa feature group.",
+            "en": "Use the DeleteFeatureGroup operation to delete the feature group."
+          },
+          "explanation": {
+            "vi": "Feature group có thể cập nhật; xóa cả nhóm là không cần thiết.",
+            "en": "Feature groups can be updated; deleting the group is unnecessary."
+          }
+        }
+      ],
+      "answer": [
+        "B",
+        "C"
+      ],
+      "hint": {
+        "vi": "Cần xử lý riêng schema và giá trị dữ liệu.",
+        "en": "Handle schema and data values as separate steps."
+      },
+      "explanation": {
+        "vi": "UpdateFeatureGroup thêm định nghĩa, PutRecord ghi các giá trị đã tính. Không coi PutRecord là thao tác cập nhật tại chỗ mọi hàng lịch sử trong offline store.",
+        "en": "UpdateFeatureGroup adds the definition and PutRecord ingests computed values. Do not interpret PutRecord as an in-place update of every historical offline-store row."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html"
+      ],
+      "objectiveRef": "qa-3"
+    },
+    {
+      "id": "b-004",
+      "domain": 2,
+      "lessonId": "algorithms",
+      "select": 1,
+      "text": {
+        "vi": "Nhà phân phối cần dự báo số hộp hàng bán trong 12 tháng tiếp theo từ dữ liệu chuỗi thời gian đã có nhãn. Phân cụm khách hàng và phát hiện outlier không phải mục tiêu. Chọn thuật toán phù hợp.",
+        "en": "A distributor needs forecasts of boxes sold over the next 12 months from labeled time-series data. Customer clustering and outlier detection are not the objective. Which algorithm is suitable?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "K-means",
+            "en": "K-means"
+          },
+          "explanation": {
+            "vi": "K-means phân cụm không giám sát, không dự báo doanh số có nhãn.",
+            "en": "K-means performs unsupervised clustering, not supervised sales forecasting."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "DeepAR",
+            "en": "DeepAR"
+          },
+          "explanation": {
+            "vi": "DeepAR là thuật toán dự báo chuỗi thời gian có giám sát, phù hợp dự báo doanh số.",
+            "en": "DeepAR is a supervised time-series forecasting algorithm suitable for sales forecasting."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Random Cut Forest (RCF)",
+            "en": "Random Cut Forest (RCF)"
+          },
+          "explanation": {
+            "vi": "RCF phát hiện bất thường; yêu cầu là dự báo lượng bán, không tìm điểm khác thường.",
+            "en": "RCF detects anomalies; the requirement is to forecast sales quantities, not find outliers."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Logistic regression",
+            "en": "Logistic regression"
+          },
+          "explanation": {
+            "vi": "Logistic regression dùng cho phân loại, không trực tiếp dự báo số lượng theo chuỗi thời gian.",
+            "en": "Logistic regression classifies outcomes rather than directly forecasting time-series quantities."
+          }
+        }
+      ],
+      "answer": [
+        "B"
+      ],
+      "hint": {
+        "vi": "Mục tiêu là giá trị tương lai có thứ tự thời gian.",
+        "en": "The target is a future value in a temporally ordered series."
+      },
+      "explanation": {
+        "vi": "DeepAR phù hợp dự báo chuỗi doanh số. Ba lựa chọn còn lại giải quyết phân loại, phân cụm hoặc phát hiện bất thường.",
+        "en": "DeepAR matches the sales-forecasting task. The other options address classification, clustering or anomaly detection."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/deepar.html"
+      ],
+      "objectiveRef": "qa-4"
+    },
+    {
+      "id": "b-005",
+      "domain": 2,
+      "lessonId": "training",
+      "select": 1,
+      "text": {
+        "vi": "Một đội cần tái lập training từ image scikit-learn được SageMaker hỗ trợ, bổ sung package riêng có phiên bản cố định. Họ không muốn tự triển khai lại training contract. Chọn cách đóng gói nào?",
+        "en": "A team needs reproducible training based on a supported SageMaker scikit-learn image plus a version-pinned private package. It does not want to reimplement the training contract. Which packaging approach fits?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Xây container tùy chỉnh từ đầu, đẩy ECR và dùng để training.",
+            "en": "Build and push a custom container with the necessary Python dependencies to Amazon ECR. Run the training job by using the container image."
+          },
+          "explanation": {
+            "vi": "Có thể chạy được nhưng cần tự thiết lập môi trường và hợp đồng training của SageMaker.",
+            "en": "It can work but requires implementing the environment and SageMaker training contract."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Dùng nguyên framework container scikit-learn có sẵn.",
+            "en": "Use the prebuilt SageMaker AI scikit-learn framework container to run the training job."
+          },
+          "explanation": {
+            "vi": "Container nguyên bản chưa có thư viện riêng mà script bắt buộc cần.",
+            "en": "The unmodified container lacks the proprietary library required by the script."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Dùng thuật toán tích hợp sẵn của SageMaker AI.",
+            "en": "Use a SageMaker AI built-in algorithm to run the training job."
+          },
+          "explanation": {
+            "vi": "Thuật toán tích hợp không chạy thay logic Cox và dependency riêng đã cho.",
+            "en": "A built-in algorithm does not replace the specified custom Cox logic and dependencies."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Mở rộng framework container scikit-learn có sẵn để thêm dependency.",
+            "en": "Extend the prebuilt SageMaker AI scikit-learn framework container to include custom dependencies."
+          },
+          "explanation": {
+            "vi": "Tái sử dụng container đã tích hợp SageMaker và chỉ bổ sung phần còn thiếu, giảm công việc hơn xây từ đầu.",
+            "en": "Reuse SageMaker integration in the existing container and add only missing dependencies, reducing work versus a from-scratch image."
+          }
+        }
+      ],
+      "answer": [
+        "D"
+      ],
+      "hint": {
+        "vi": "Ưu tiên tái sử dụng môi trường được hỗ trợ rồi thêm phần thiếu.",
+        "en": "Reuse a supported environment and add what is missing."
+      },
+      "explanation": {
+        "vi": "Mở rộng image scikit-learn là lựa chọn ít vận hành nhất trong các đáp án, vì đã có nền tảng SageMaker và các thư viện phổ biến.",
+        "en": "Extending the scikit-learn image minimizes operations among these choices by retaining SageMaker integration and common libraries."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/prebuilt-containers-extend.html"
+      ],
+      "objectiveRef": "qa-5"
+    },
+    {
+      "id": "b-006",
+      "domain": 3,
+      "lessonId": "endpoints",
+      "select": 1,
+      "text": {
+        "vi": "Hai đội giao model dùng hai framework khác nhau. Cần một endpoint real-time, nhưng caller phải chỉ định model nào chạy thay vì nối hai model thành pipeline. Chọn cấu hình nào?",
+        "en": "Two teams deliver models using different frameworks. They need one real-time endpoint, but callers must choose which model runs rather than chain them in a pipeline. Which configuration fits?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Real-time multi-container endpoint với direct invocation.",
+            "en": "Use SageMaker AI Real-Time Inference to create a multi-container endpoint with direct invocation."
+          },
+          "explanation": {
+            "vi": "Mỗi framework ở container riêng, direct invocation gọi độc lập từng container trên endpoint thường trực.",
+            "en": "Separate framework containers are invoked independently through direct invocation on a persistent endpoint."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Real-time multi-model endpoint với container tích hợp.",
+            "en": "Use SageMaker AI Real-Time Inference to create a multi-model endpoint with built-in containers."
+          },
+          "explanation": {
+            "vi": "Multi-model chia sẻ serving container; hai framework khác nhau không phù hợp lựa chọn này.",
+            "en": "Multi-model hosting shares a serving container; the two different frameworks do not fit this choice."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Hai endpoint serverless on-demand với container riêng.",
+            "en": "Use SageMaker AI Serverless Inference to create two on-demand serverless endpoints by using a custom Docker container for each model."
+          },
+          "explanation": {
+            "vi": "Cold start của on-demand serverless có thể vi phạm yêu cầu latency thấp.",
+            "en": "On-demand serverless cold starts can violate the low-latency requirement."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Real-time multi-model endpoint với container riêng cho mỗi model.",
+            "en": "Use SageMaker AI Real-Time Inference to create a multi-model endpoint by using a custom Docker container for each model."
+          },
+          "explanation": {
+            "vi": "Mô tả này nhầm multi-model với multi-container. Multi-model không cấp một framework container riêng tùy ý cho từng model.",
+            "en": "This confuses multi-model with multi-container hosting. Multi-model does not provide an arbitrary separate framework container per model."
+          }
+        }
+      ],
+      "answer": [
+        "A"
+      ],
+      "hint": {
+        "vi": "Phân biệt nhiều model trong một container và nhiều container khác framework.",
+        "en": "Distinguish many models in one container from multiple framework containers."
+      },
+      "explanation": {
+        "vi": "Multi-container với direct invocation đáp ứng cả hai framework và yêu cầu gọi riêng. Endpoint real-time giảm rủi ro cold start của serverless on-demand.",
+        "en": "Multi-container direct invocation supports both frameworks and independent calls. Real-time hosting avoids on-demand serverless cold-start risk."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/multi-container-endpoints.html"
+      ],
+      "objectiveRef": "qa-6"
+    },
+    {
+      "id": "b-007",
+      "domain": 1,
+      "lessonId": "streaming",
+      "select": 1,
+      "text": {
+        "vi": "Nhóm ML muốn lưu log ứng dụng dưới dạng cột cho Athena và training. Nguồn là CloudWatch subscription, có thể đệm trước khi ghi S3. Cách quản lý sẵn nào giảm code chuyển đổi?",
+        "en": "An ML team wants columnar application logs for Athena and training. The source is a CloudWatch subscription, and buffering before S3 delivery is acceptable. Which managed option reduces conversion code?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "SQS thu log và Lambda tự chuyển Parquet.",
+            "en": "Use an Amazon SQS to collect the logs. Invoke an AWS Lambda function to implement conversion to Parquet."
+          },
+          "explanation": {
+            "vi": "Thêm queue và code chuyển đổi không cần thiết; SQS cũng không phải đích subscription filter trực tiếp.",
+            "en": "This adds unnecessary queue/conversion code; SQS is not a direct subscription-filter destination."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Data Firehose thu log và cấu hình chuyển đầu ra sang Parquet.",
+            "en": "Use Amazon Data Firehose to collect the logs and configure output conversion to Parquet."
+          },
+          "explanation": {
+            "vi": "Firehose cung cấp giao dữ liệu được quản lý và chuyển đổi JSON sang Parquet ở cấu hình phù hợp.",
+            "en": "Firehose provides managed delivery and JSON-to-Parquet conversion in a suitable configuration."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Lambda thu log và tự viết code chuyển Parquet.",
+            "en": "Use an AWS Lambda function to collect the logs and implement conversion to Parquet."
+          },
+          "explanation": {
+            "vi": "Có thể cần thêm xử lý nhưng tự viết toàn bộ chuyển đổi tăng công việc so với tính năng quản lý.",
+            "en": "Additional processing may be needed, but implementing all conversion adds work compared with managed functionality."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Lưu log trong DynamoDB rồi chạy Lambda theo lịch để chuyển Parquet.",
+            "en": "Use an Amazon DynamoDB table to collect the logs. Schedule an AWS Lambda function to load the data and implement conversion to Parquet."
+          },
+          "explanation": {
+            "vi": "Thêm storage và lịch chạy không cần thiết; DynamoDB không phải đích subscription trực tiếp.",
+            "en": "This adds unnecessary storage and scheduling; DynamoDB is not a direct subscription destination."
+          }
+        }
+      ],
+      "answer": [
+        "B"
+      ],
+      "hint": {
+        "vi": "Tìm dịch vụ vừa giao streaming data vừa hỗ trợ chuyển định dạng.",
+        "en": "Look for managed stream delivery with format conversion."
+      },
+      "explanation": {
+        "vi": "Firehose là lựa chọn quản lý phù hợp. Trong triển khai thực phải giải nén và trích thông điệp CloudWatch theo cấu hình nguồn để bộ chuyển đổi nhận JSON đúng schema.",
+        "en": "Firehose is the suitable managed choice. In a real deployment, configure CloudWatch decompression/message extraction as required so conversion receives JSON matching the schema."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/firehose/latest/dev/record-format-conversion.html"
+      ],
+      "objectiveRef": "qa-7"
+    },
+    {
+      "id": "b-008",
+      "domain": 1,
+      "lessonId": "preparation",
+      "select": 1,
+      "text": {
+        "vi": "Một nhóm muốn fail sớm pipeline training nếu tỷ lệ null vượt ngưỡng trong batch terabyte. Họ cần ruleset tích hợp ETL và giảm code tự viết. Chọn giải pháp phù hợp.",
+        "en": "A team wants its training pipeline to fail early when null rates exceed a threshold in terabyte batches. It needs ETL-integrated rulesets with minimal custom code. Which solution fits?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Dùng một DataBrew job đo chất lượng.",
+            "en": "Create an AWS Glue DataBrew job. Run the DataBrew job to measure the quality of the data."
+          },
+          "explanation": {
+            "vi": "DataBrew có khả năng chuẩn bị dữ liệu, nhưng Glue ETL với Data Quality tích hợp phù hợp trực tiếp pipeline và ruleset yêu cầu.",
+            "en": "DataBrew offers preparation capabilities, but Glue ETL with integrated Data Quality directly fits the pipeline and ruleset requirement."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Dựng EMR cluster và viết PySpark kiểm tra chất lượng.",
+            "en": "Provision an Amazon EMR cluster. Create PySpark code. Run the PySpark code to measure the quality of the data."
+          },
+          "explanation": {
+            "vi": "Cần quản lý cluster và code kiểm tra nhiều hơn giải pháp Data Quality quản lý sẵn.",
+            "en": "This needs more cluster management and checking code than managed Data Quality."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Tạo Glue ETL job tích hợp Glue Data Quality rulesets.",
+            "en": "Create an extract, transform, and load (ETL) job by using AWS Glue. Integrate AWS Glue Data Quality rulesets to measure the quality of the data."
+          },
+          "explanation": {
+            "vi": "Glue xử lý ETL lớn và tích hợp ruleset để đánh giá, theo dõi chất lượng trong job.",
+            "en": "Glue handles large ETL workloads and integrates rulesets to assess and monitor quality in the job."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Viết Python trong Lambda để đo chất lượng.",
+            "en": "Create an AWS Lambda function. Create Python code. Run the Lambda function to measure the quality of the data."
+          },
+          "explanation": {
+            "vi": "Giới hạn thời gian Lambda không phù hợp batch dài cỡ terabyte và cần tự viết logic kiểm tra.",
+            "en": "Lambda's execution duration is unsuitable for long terabyte-scale batches, and checks require custom code."
+          }
+        }
+      ],
+      "answer": [
+        "C"
+      ],
+      "hint": {
+        "vi": "Ưu tiên chức năng kiểm tra chất lượng tích hợp trong ETL.",
+        "en": "Prefer quality checking integrated with the ETL service."
+      },
+      "explanation": {
+        "vi": "Glue ETL và Data Quality đáp ứng quy mô và giảm việc tự xây logic kiểm tra. DataBrew không phải không có kiểm tra chất lượng; lựa chọn dựa trên độ phù hợp với pipeline ở đây.",
+        "en": "Glue ETL plus Data Quality meets the scale while reducing custom checks. DataBrew is not devoid of quality capabilities; the choice is about pipeline fit here."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html"
+      ],
+      "objectiveRef": "qa-8"
+    },
+    {
+      "id": "b-009",
+      "domain": 2,
+      "lessonId": "metrics",
+      "select": 1,
+      "text": {
+        "vi": "Nhãn giao dịch là 0/1 và nhóm muốn một thước đo trung bình điều hòa giữa precision và recall khi tuning. Container đã xuất metric custom cần thiết. Lựa chọn nào đúng?",
+        "en": "Transaction labels are 0/1, and tuning must use the harmonic mean of precision and recall. The container already emits the required custom metric. Which option is correct?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "validation: mae",
+            "en": "validation: mae"
+          },
+          "explanation": {
+            "vi": "MAE đo sai số tuyệt đối của regression, không phải lựa chọn phù hợp nhất cho nhãn approved.",
+            "en": "MAE measures absolute regression error, not the best listed choice for approval labels."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "validation: rmse",
+            "en": "validation: rmse"
+          },
+          "explanation": {
+            "vi": "RMSE là căn MSE, thường dùng regression; không kết hợp precision/recall.",
+            "en": "RMSE is the square root of MSE, typically used for regression; it does not combine precision and recall."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "validation: f1",
+            "en": "validation: f1"
+          },
+          "explanation": {
+            "vi": "F1 kết hợp precision và recall cho bài toán phân loại nhị phân.",
+            "en": "F1 combines precision and recall for binary classification."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "validation: mse",
+            "en": "validation: mse"
+          },
+          "explanation": {
+            "vi": "MSE thường đo lỗi giá trị liên tục; trong các lựa chọn, F1 phù hợp trực tiếp nhãn phân loại.",
+            "en": "MSE commonly measures continuous-value error; among these choices, F1 directly fits the classification target."
+          }
+        }
+      ],
+      "answer": [
+        "C"
+      ],
+      "hint": {
+        "vi": "Số 0 và 1 biểu diễn lớp, không phải đại lượng liên tục.",
+        "en": "The numbers 0 and 1 represent classes, not continuous quantities."
+      },
+      "explanation": {
+        "vi": "F1 là metric phân loại phù hợp trong danh sách. Khi triển khai thật, phải kiểm tra metric được container XGBoost hỗ trợ hoặc khai báo custom metric; tên trong đề không thay cấu hình API.",
+        "en": "F1 is the classification metric among the choices. In implementation, check which metrics the XGBoost container supports or define a custom metric; the exam label does not replace API configuration."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/xgboost-tuning.html"
+      ],
+      "objectiveRef": "qa-9"
+    },
+    {
+      "id": "b-010",
+      "domain": 2,
+      "lessonId": "gen-evaluation",
+      "select": 2,
+      "text": {
+        "vi": "Nhóm đánh giá không chỉ quan tâm sự thật: câu trả lời phải bao phủ từng yêu cầu của prompt và lập luận nhất quán. Hai metric Bedrock nào cần chọn? (Chọn HAI)",
+        "en": "An evaluation team needs more than factual accuracy: responses must cover every request in a prompt and remain logically consistent. Which two Bedrock metrics should it select? (Select TWO)"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Builtin.Coherence",
+            "en": "Builtin.Coherence"
+          },
+          "explanation": {
+            "vi": "Coherence đánh giá tính mạch lạc, logic và không tự mâu thuẫn.",
+            "en": "Coherence evaluates logical consistency and freedom from internal contradictions."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Builtin.Relevance",
+            "en": "Builtin.Relevance"
+          },
+          "explanation": {
+            "vi": "Liên quan đến câu hỏi không có nghĩa trả lời đủ hoặc nhất quán về logic.",
+            "en": "Being relevant to a prompt does not guarantee complete coverage or logical consistency."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Builtin.Completeness",
+            "en": "Builtin.Completeness"
+          },
+          "explanation": {
+            "vi": "Completeness kiểm tra mọi phần của câu hỏi có được giải đáp hay không.",
+            "en": "Completeness checks whether every part of the prompt is addressed."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Builtin.Correctness",
+            "en": "Builtin.Correctness"
+          },
+          "explanation": {
+            "vi": "Độ đúng khác độ đầy đủ; phản hồi có thể đúng một phần nhưng bỏ sót phần khác.",
+            "en": "Correctness differs from completeness; a response can be correct in what it says while omitting other requests."
+          }
+        },
+        {
+          "key": "E",
+          "text": {
+            "vi": "Builtin.Helpfulness",
+            "en": "Builtin.Helpfulness"
+          },
+          "explanation": {
+            "vi": "Helpfulness đo ích lợi tổng quát, không trực tiếp hai yêu cầu cụ thể như completeness và coherence.",
+            "en": "Helpfulness measures general utility rather than the two specific requirements captured by completeness and coherence."
+          }
+        }
+      ],
+      "answer": [
+        "A",
+        "C"
+      ],
+      "hint": {
+        "vi": "Ghép từng yêu cầu với tên metric: đầy đủ và mạch lạc.",
+        "en": "Map each requirement to its metric: coverage and logical consistency."
+      },
+      "explanation": {
+        "vi": "Completeness kiểm tra bỏ sót, coherence kiểm tra logic. Đây là đáp án biên tập bổ sung vì QA gốc chưa đánh dấu đáp án.",
+        "en": "Completeness checks omissions and coherence checks logic. This is an editorially completed answer because the source QA did not include a key."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html"
+      ],
+      "objectiveRef": "qa-10"
+    },
+    {
+      "id": "b-011",
+      "domain": 2,
+      "lessonId": "customization",
+      "select": 1,
+      "text": {
+        "vi": "Công ty thêm adapter cho khách hàng mới mỗi tuần nhưng giữ nguyên base weights. Họ cần chia sẻ base model trên endpoint và điều phối adapter theo request, không tạo endpoint riêng từng khách hàng. Cấu hình nào phù hợp?",
+        "en": "A company adds customer-specific adapters weekly while keeping base weights unchanged. It needs a shared base model on an endpoint with per-request adapter selection, rather than an endpoint per customer. Which configuration fits?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Endpoint riêng cho mỗi model LoRA của từng miền.",
+            "en": "Deploy separate endpoints for each domain-specific LoRA-adapted model."
+          },
+          "explanation": {
+            "vi": "Nhân bản base model ở nhiều endpoint làm tăng chi phí.",
+            "en": "This solution provides isolation between models and helps with troubleshooting. However, this solution is less cost-effective because you need separate compute resources for each model."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Một multi-container endpoint với mode direct.",
+            "en": "Deploy a single multi-container endpoint. Set the mode setting equal to direct in the model configuration."
+          },
+          "explanation": {
+            "vi": "Nhiều container riêng không trực tiếp cung cấp chia sẻ base model với adapter động theo yêu cầu.",
+            "en": "This solution provides multiple containers on the same endpoint. However, this solution duplicates the base model in memory. This solution does not take advantage of LoRA's shared base model approach."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Một endpoint dùng inference components, chỉ định FM làm BaseInferenceComponent.",
+            "en": "Deploy a single endpoint that uses inference components. Specify the FM as BaseInferenceComponent."
+          },
+          "explanation": {
+            "vi": "Inference components cho adapter có thể chia sẻ base inference component, giảm nhân bản trọng số.",
+            "en": "This solution dynamically loads lightweight LoRA adapters. This solution maintains only one copy of the base model in memory. Therefore, this solution reduces infrastructure costs and is the most cost-effective."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Một multi-model endpoint với mode multi-model.",
+            "en": "Deploy a single multi-model endpoint. Set the mode setting to multi-model on the container."
+          },
+          "explanation": {
+            "vi": "Multi-model thông thường không đáp ứng cấu hình multi-adapter LoRA như inference components được thiết kế cho trường hợp này.",
+            "en": "A SageMaker AI multi-model endpoint supports multiple models. However, a multi-model endpoint is designed for separate models. This solution duplicates the base model in memory. This solution does not take advantage of LoRA's shared base model approach."
+          }
+        }
+      ],
+      "answer": [
+        "C"
+      ],
+      "hint": {
+        "vi": "Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.",
+        "en": "Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."
+      },
+      "explanation": {
+        "vi": "Inference components cho adapter có thể chia sẻ base inference component, giảm nhân bản trọng số.",
+        "en": "This solution dynamically loads lightweight LoRA adapters. This solution maintains only one copy of the base model in memory. Therefore, this solution reduces infrastructure costs and is the most cost-effective."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization.html"
+      ],
+      "objectiveRef": "qa-11"
+    },
+    {
+      "id": "b-012",
+      "domain": 3,
+      "lessonId": "prompts",
+      "select": 2,
+      "text": {
+        "vi": "Nội dung thông báo phải ngắn và dừng trước chuỗi END trong template. Prompt đã quy định giọng văn; hệ thống dùng Claude Text Completions. Hai điều chỉnh trực tiếp nào phù hợp? (Chọn HAI)",
+        "en": "Notifications must remain short and stop before an END marker in the template. Tone is already specified in the prompt, and the system uses Claude Text Completions. Which two direct adjustments fit? (Select TWO)"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Tăng top_p (float).",
+            "en": "Use higher top_p (float)."
+          },
+          "explanation": {
+            "vi": "Top_p cao mở rộng lựa chọn token, không kiểm soát độ dài.",
+            "en": "A higher top_p value can lead to more varied and unpredictable outputs. A higher top_p value is not recommended to generate concise, consistent messages that need to match specific brand guidelines and operational information. This solution increases the risk that the generated text could be too varied, not follow brand guidelines, or be irrelevant."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Dùng stop_sequences cụ thể.",
+            "en": "Use specific stop_sequences (string)."
+          },
+          "explanation": {
+            "vi": "Stop sequences dừng tại dấu phân cách đã định nghĩa; cần kết hợp prompt cho quy tắc thương hiệu.",
+            "en": "The stop_sequences parameter provides the precise marking of content endpoints. By using clear endpoints, the generated content remains organized and consistent. This parameter can match the company's brand guidelines."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Giới hạn độ dài bằng max_tokens_to_sample (int).",
+            "en": "Control length by using max_tokens_to_sample (int)."
+          },
+          "explanation": {
+            "vi": "Giới hạn token kiểm soát độ dài đầu ra; không tự đảm bảo giọng thương hiệu.",
+            "en": "The max_tokens_to_sample parameter provides direct control over the length of the generated text. You can use this parameter to ensure that the output is brief and ends at an appropriate length. This parameter is useful for creating concise messages that need to match information like operational rules, special events, and brand guidelines."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Tăng top_k (int).",
+            "en": "Use higher top_k (int)."
+          },
+          "explanation": {
+            "vi": "Tăng tập ứng viên token không giúp ràng buộc tính ngắn gọn.",
+            "en": "A higher top_k value increases the pool of considered words, potentially leading to more varied outputs. The company wants to generate concise, consistent messages that match specific brand guidelines and operational information. Increasing the top_k value could cause generated text to be too varied, not follow brand guidelines, or be irrelevant."
+          }
+        },
+        {
+          "key": "E",
+          "text": {
+            "vi": "Tăng temperature (float).",
+            "en": "Use higher temperature (float)."
+          },
+          "explanation": {
+            "vi": "Temperature cao tăng ngẫu nhiên, trái với mục tiêu nhất quán.",
+            "en": "A higher temperature value increases the randomness and creativity of the model. The company wants to generate concise, consistent messages that match specific brand guidelines and operational information. Increasing the temperature setting could cause the generated text to be too varied, not follow brand guidelines, or be irrelevant."
+          }
+        }
+      ],
+      "answer": [
+        "B",
+        "C"
+      ],
+      "hint": {
+        "vi": "Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.",
+        "en": "Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."
+      },
+      "explanation": {
+        "vi": "Giới hạn token kiểm soát độ dài đầu ra; không tự đảm bảo giọng thương hiệu. Stop sequences dừng tại dấu phân cách đã định nghĩa; cần kết hợp prompt cho quy tắc thương hiệu.",
+        "en": "The max_tokens_to_sample parameter provides direct control over the length of the generated text. You can use this parameter to ensure that the output is brief and ends at an appropriate length. This parameter is useful for creating concise messages that need to match information like operational rules, special events, and brand guidelines. The stop_sequences parameter provides the precise marking of content endpoints. By using clear endpoints, the generated content remains organized and consistent. This parameter can match the company's brand guidelines."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html"
+      ],
+      "objectiveRef": "qa-12"
+    },
+    {
+      "id": "b-013",
+      "domain": 3,
+      "lessonId": "endpoints",
+      "select": 1,
+      "text": {
+        "vi": "Một publisher xử lý toàn bộ prompt của ngày hôm trước theo đợt. Input/output đều ở S3 và deadline là sáng hôm sau. Cách managed nào yêu cầu ít code nhất?",
+        "en": "A publisher processes the previous day’s prompts as a batch. Both inputs and outputs are in S3, with a next-morning deadline. Which managed approach requires the least code?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Tạo Bedrock batch inference, truyền file trực tiếp cho CreateModelInvocationJob rồi sao chép đầu ra tới S3.",
+            "en": "Create a batch inference job in Amazon Bedrock. Specify the input file as an input to a CreateModelInvocationJob request. Copy the output of the job to the target S3 bucket."
+          },
+          "explanation": {
+            "vi": "Batch API dùng cấu hình vị trí S3; không truyền file local trực tiếp như mô tả.",
+            "en": "To create a batch inference job, you need to send a CreateModelInvocationJob request in Amazon Bedrock. The CreateModelInvocationJob request does not accept inputs as files and does not return outputs as files. Instead, the CreateModelInvocationJob request accepts two S3 locations as input parameters, one to read input data from and one to store outputs to."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Đặt file đầu vào trên S3, gọi CreateModelInvocationJob với vị trí input và output S3.",
+            "en": "Create a batch inference job in Amazon Bedrock. Store the input file in an S3 bucket and specify the stored file as an input to a CreateModelInvocationJob request. Specify the output location for the request as the target S3 bucket."
+          },
+          "explanation": {
+            "vi": "Batch inference nhận input S3 và ghi trực tiếp vào output S3 được cấu hình.",
+            "en": "To create a batch inference job, you need to send a CreateModelInvocationJob request in Amazon Bedrock. You can configure the CreateModelInvocationJob request to read input data from an S3 bucket and store the output to an S3 bucket. The CreateModelInvocationJob request will read the inputs from a location in an S3 bucket. The file needs to be in JSONL format and should have one input request on each line. The output will be stored in an S3 bucket in JSONL format with one response on each line."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Step Functions gọi Lambda cho từng đầu vào; Lambda gọi Bedrock rồi lưu S3.",
+            "en": "Create an AWS Step Functions workflow that invokes an AWS Lambda function for each input. In the Lambda function, run single-prompt inference by using Amazon Bedrock LLMs and store the result in Amazon S3."
+          },
+          "explanation": {
+            "vi": "Tự điều phối từng request và Lambda tạo thêm công việc không cần thiết.",
+            "en": "Step Functions is a serverless orchestration service that you can use to create a series of event-driven steps in a workflow. This solution requires you to create a Step Functions workflow and a Lambda function. Therefore, this solution requires additional operational overhead."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Step Functions gọi InvokeModel cho từng đầu vào rồi thêm bước lưu S3.",
+            "en": "Create an AWS Step Functions workflow that calls an InvokeModel action for Amazon Bedrock for each input. Add a step to the workflow that stores the result in Amazon S3."
+          },
+          "explanation": {
+            "vi": "Tự điều phối hàng trăm nghìn request khi batch đã đáp ứng là dư thừa.",
+            "en": "Step Functions is a serverless orchestration service that you can use to create a series of event-driven steps in a workflow. Amazon Bedrock gives you the ability to experiment with and evaluate top foundational models for your use case. When you use Amazon Bedrock, you do not need to manage any infrastructure. However, this solution requires you to create a Step Functions workflow and a Lambda function. Additionally, this solution requires the Step Functions step to store the result in Amazon S3. Therefore, this solution requires additional operational overhead."
+          }
+        }
+      ],
+      "answer": [
+        "B"
+      ],
+      "hint": {
+        "vi": "Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.",
+        "en": "Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."
+      },
+      "explanation": {
+        "vi": "Batch inference nhận input S3 và ghi trực tiếp vào output S3 được cấu hình.",
+        "en": "To create a batch inference job, you need to send a CreateModelInvocationJob request in Amazon Bedrock. You can configure the CreateModelInvocationJob request to read input data from an S3 bucket and store the output to an S3 bucket. The CreateModelInvocationJob request will read the inputs from a location in an S3 bucket. The file needs to be in JSONL format and should have one input request on each line. The output will be stored in an S3 bucket in JSONL format with one response on each line."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference.html"
+      ],
+      "objectiveRef": "qa-13"
+    },
+    {
+      "id": "b-014",
+      "domain": 3,
+      "lessonId": "endpoints",
+      "select": 1,
+      "text": {
+        "vi": "Model phân loại nhỏ cần API suy luận đồng bộ, nhưng traffic chỉ có lúc làm việc và chịu được độ trễ khởi động. Công ty muốn hạ tầng theo request thay vì container service tự vận hành. Chọn gì?",
+        "en": "A small classifier needs a synchronous inference API, but traffic is limited to working hours and startup delay is acceptable. The company wants request-managed infrastructure rather than a custom container service. What should it choose?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Tạo SageMaker Model rồi dùng batch transform.",
+            "en": "Configure the model as an Amazon SageMaker AI Model. Use batch transform for inference."
+          },
+          "explanation": {
+            "vi": "Batch không phục vụ request gần thời gian thực.",
+            "en": "Batch transform does not serve near-real-time interactive requests."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Tạo SageMaker Model và phục vụ bằng endpoint serverless.",
+            "en": "Configure the model as an Amazon SageMaker AI Model. Serve the model on a serverless SageMaker AI endpoint."
+          },
+          "explanation": {
+            "vi": "Serverless quản lý capacity cho workload nhỏ; cần đánh giá cold start với yêu cầu latency.",
+            "en": "Serverless manages capacity for a small workload; validate cold starts against the latency target."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Import model vào Comprehend Custom Classification và gọi API real-time.",
+            "en": "Import the model into Amazon Comprehend Custom Classification. Use the Amazon Comprehend API for real-time inference."
+          },
+          "explanation": {
+            "vi": "Comprehend không nhận tùy ý mọi model fraud do người dùng tự huấn luyện.",
+            "en": "Comprehend is not an importer for arbitrary fraud models."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Đóng gói container rồi triển khai ECS trên Fargate.",
+            "en": "Build a container for the model. Use Amazon ECS to deploy the model to AWS Fargate."
+          },
+          "explanation": {
+            "vi": "Fargate vẫn cần xây và quản lý serving container cùng routing.",
+            "en": "Fargate still requires container serving and routing work."
+          }
+        }
+      ],
+      "answer": [
+        "B"
+      ],
+      "hint": {
+        "vi": "Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.",
+        "en": "Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."
+      },
+      "explanation": {
+        "vi": "Serverless quản lý capacity cho workload nhỏ; cần đánh giá cold start với yêu cầu latency.",
+        "en": "Serverless manages capacity for a small workload; validate cold starts against the latency target."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference.html"
+      ],
+      "objectiveRef": "qa-14"
+    },
+    {
+      "id": "b-015",
+      "domain": 1,
+      "lessonId": "data-lake",
+      "select": 1,
+      "text": {
+        "vi": "Nhóm đang duy trì job Spark chỉ để copy giao dịch Aurora vào Redshift. Cả engine và Region hỗ trợ tích hợp trực tiếp, nhóm muốn bỏ code sao chép. Giải pháp nào phù hợp?",
+        "en": "A team maintains a Spark job only to copy Aurora transactions into Redshift. Both engine and Region support the direct integration, and the team wants to remove replication code. Which solution fits?"
+      },
+      "options": [
+        {
+          "key": "A",
+          "text": {
+            "vi": "Dùng Glue Studio notebook tạo ETL Spark Streaming job.",
+            "en": "Use an AWS Glue Studio notebook to create an ETL Spark Streaming job."
+          },
+          "explanation": {
+            "vi": "Tự xây pipeline Spark đòi hỏi code và cấu hình nhiều hơn tích hợp zero-ETL.",
+            "en": "A custom Spark pipeline needs more code and configuration than zero-ETL."
+          }
+        },
+        {
+          "key": "B",
+          "text": {
+            "vi": "Cấu hình Firehose stream trực tiếp từ Aurora sang Redshift.",
+            "en": "Configure Amazon Data Firehose to stream data from Aurora to Amazon Redshift."
+          },
+          "explanation": {
+            "vi": "Firehose không tự biến Aurora thành nguồn CDC tích hợp trong mô tả này.",
+            "en": "Firehose does not by itself provide the stated Aurora CDC source integration."
+          }
+        },
+        {
+          "key": "C",
+          "text": {
+            "vi": "Cấu hình Aurora zero-ETL integration với Redshift.",
+            "en": "Configure an Aurora zero-ETL integration with Amazon Redshift."
+          },
+          "explanation": {
+            "vi": "Zero-ETL cung cấp tích hợp managed từ Aurora được hỗ trợ sang Redshift.",
+            "en": "Zero-ETL provides managed integration from supported Aurora sources into Redshift."
+          }
+        },
+        {
+          "key": "D",
+          "text": {
+            "vi": "Dùng Glue Studio tạo ETL Spark Streaming job.",
+            "en": "Use AWS Glue Studio to create an ETL Spark Streaming job."
+          },
+          "explanation": {
+            "vi": "Visual Glue job vẫn phải xây đường ingest và transform thay vì dùng tích hợp trực tiếp.",
+            "en": "A Glue job still requires constructing ingestion and transformation rather than using the direct integration."
+          }
+        }
+      ],
+      "answer": [
+        "C"
+      ],
+      "hint": {
+        "vi": "Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.",
+        "en": "Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."
+      },
+      "explanation": {
+        "vi": "Zero-ETL cung cấp tích hợp managed từ Aurora được hỗ trợ sang Redshift.",
+        "en": "Zero-ETL provides managed integration from supported Aurora sources into Redshift."
+      },
+      "references": [
+        "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
+        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/zero-etl.html"
+      ],
+      "objectiveRef": "qa-15"
+    }
+    ,{"id":"b-016","domain":2,"lessonId":"algorithms","select":1,"text":{"vi":"Một nhà bán lẻ muốn dự đoán giá sản phẩm đã qua sử dụng từ 10 thuộc tính số đã gắn nhãn giá. Mục tiêu không phải phân cụm hay anomaly. Chọn thuật toán phù hợp.","en":"A retailer predicts used-product prices from ten numeric attributes with known sale prices. The task is neither clustering nor anomaly detection. Which algorithm is suitable?"},"options":[{"key":"A","text":{"vi":"Latent Dirichlet Allocation (LDA).","en":"Latent Dirichlet Allocation (LDA) algorithm"},"explanation":{"vi":"LDA tìm chủ đề văn bản, không dự đoán giá xe.","en":"The LDA algorithm is an unsupervised learning algorithm that you can use for text data topic modeling. The LDA algorithm is not suitable for a supervised regression prediction problem that contains structured numeric data."}},{"key":"B","text":{"vi":"Linear learner.","en":"Linear learner algorithm"},"explanation":{"vi":"Linear learner hỗ trợ regression cho mục tiêu liên tục như giá xe.","en":"The linear learner algorithm is a supervised learning algorithm that you can use to solve regression or classification problems. For this scenario, the linear learner algorithm will predict the pre-owned car prices, which is a numeric value. The linear learner algorithm is the most suitable option for a supervised regression prediction problem."}},{"key":"C","text":{"vi":"Random Cut Forest (RCF).","en":"Random Cut Forest (RCF) algorithm"},"explanation":{"vi":"RCF phát hiện bất thường, không phải regression giá.","en":"The RCF algorithm identifies unusual data points that differ significantly from others. The RCF algorithm does not predict target variables. You can use the RCF algorithm to solve unsupervised anomaly detection use cases. The RCF algorithm is not suitable for a supervised regression prediction problem."}},{"key":"D","text":{"vi":"K-means.","en":"K-means algorithm"},"explanation":{"vi":"K-means phân cụm, không học mục tiêu giá có nhãn.","en":"The k-means algorithm is an unsupervised clustering algorithm that you can use to group unlabeled data based on similarities. The k-means algorithm is not suitable for a supervised regression prediction problem."}}],"answer":["B"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Linear learner hỗ trợ regression cho mục tiêu liên tục như giá xe.","en":"The linear learner algorithm is a supervised learning algorithm that you can use to solve regression or classification problems. For this scenario, the linear learner algorithm will predict the pre-owned car prices, which is a numeric value. The linear learner algorithm is the most suitable option for a supervised regression prediction problem."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html"],"objectiveRef":"qa-16"},{"id":"b-017","domain":1,"lessonId":"preparation","select":1,"text":{"vi":"Pipeline dự đoán churn vô tình dùng khoản bồi hoàn được tạo sau khi khách đã rời dịch vụ. Validation rất cao nhưng production giảm mạnh. Phân tích nào nên chạy trước phiên bản tiếp theo?","en":"A churn pipeline accidentally uses refunds created after customers leave. Validation is excellent but production deteriorates. Which analysis should be run before the next version?"},"options":[{"key":"A","text":{"vi":"Dùng SMOTE để xử lý mất cân bằng lớp.","en":"Run a transform to solve the class imbalance by using Synthetic Minority Oversampling Technique (SMOTE)."},"explanation":{"vi":"SMOTE không loại bỏ thông tin rò rỉ nhãn.","en":"SMOTE does not remove label leakage."}},{"key":"B","text":{"vi":"Bỏ tất cả biến có liên quan đến target.","en":"Run a transform to manage columns and drop all variables related to the target variable."},"explanation":{"vi":"Bỏ mọi biến liên quan target sẽ loại cả tín hiệu dự đoán hợp lệ.","en":"Dropping every target-related feature would also discard legitimate predictive signals."}},{"key":"C","text":{"vi":"Phân tích multicollinearity bằng variance inflation factor.","en":"Run multicollinearity analysis by using the variance inflation factor."},"explanation":{"vi":"VIF tìm tương quan giữa feature, không trực tiếp phát hiện dữ liệu tương lai tiết lộ target.","en":"VIF diagnoses relationships among features, not future information revealing the target."}},{"key":"D","text":{"vi":"Phân tích target leakage.","en":"Run target leakage analysis."},"explanation":{"vi":"Target leakage analysis hỗ trợ phát hiện feature chứa thông tin không có lúc dự đoán.","en":"Target leakage analysis helps identify features containing information unavailable at prediction time."}}],"answer":["D"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Target leakage analysis hỗ trợ phát hiện feature chứa thông tin không có lúc dự đoán.","en":"Target leakage analysis helps identify features containing information unavailable at prediction time."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html"],"objectiveRef":"qa-17"},{"id":"b-018","domain":1,"lessonId":"privacy","select":1,"text":{"vi":"Một thư viện âm thanh gồm tiếng mưa, máy móc và chim, không chủ yếu là lời nói. Cần embedding phục vụ semantic retrieval trực tiếp từ nội dung audio. Chọn phương án nào?","en":"An audio library contains rain, machinery and birds rather than primarily speech. It needs embeddings for semantic retrieval directly from audio content. Which option fits?"},"options":[{"key":"A","text":{"vi":"Thêm bước preprocessing Amazon Transcribe.","en":"Add a pre-processing step that uses Amazon Transcribe."},"explanation":{"vi":"Speech-to-text có thể làm mất tín hiệu tiếng động vật không phải lời nói.","en":"Speech-to-text can lose non-speech wildlife sound information."}},{"key":"B","text":{"vi":"Pipeline dùng Bedrock Data Automation (BDA).","en":"Configure a processing pipeline to use Amazon Bedrock Data Automation (BDA)."},"explanation":{"vi":"BDA trích nội dung thành biểu diễn văn bản; không phải native audio embedding theo yêu cầu.","en":"BDA extracts content into text representations rather than providing the requested native audio embeddings."}},{"key":"C","text":{"vi":"Thêm bước preprocessing PySparkProcessor.","en":"Add a pre-processing step that uses PySparkProcessor."},"explanation":{"vi":"Spark xử lý dữ liệu không tự tạo embedding âm thanh native.","en":"A Spark preprocessing step does not itself create native audio embeddings."}},{"key":"D","text":{"vi":"Pipeline dùng Amazon Nova Multimodal Embeddings.","en":"Configure a processing pipeline to use Amazon Nova Multimodal Embeddings."},"explanation":{"vi":"Nova multimodal embeddings biểu diễn trực tiếp âm thanh và các modality được hỗ trợ.","en":"Nova multimodal embeddings directly represent supported audio and other modalities."}}],"answer":["D"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Nova multimodal embeddings biểu diễn trực tiếp âm thanh và các modality được hỗ trợ.","en":"Nova multimodal embeddings directly represent supported audio and other modalities."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/kb-multimodal.html","https://docs.aws.amazon.com/nova/latest/nova2-userguide/embeddings.html"],"objectiveRef":"qa-18"},{"id":"b-019","domain":3,"lessonId":"prompts","select":2,"text":{"vi":"Nhóm thử nhiều model và inference parameters cho cùng prompt. Sau khi chọn bản tốt nhất, ứng dụng cần tham chiếu bất biến. Hai thao tác Prompt Management nào phù hợp? (Chọn HAI)","en":"A team tests models and inference parameters for one prompt. After selecting the best configuration, its application needs an immutable reference. Which two Prompt Management operations fit? (Select TWO)"},"options":[{"key":"A","text":{"vi":"Tạo prompt variants trong Prompt Management với model/tham số khác nhau, rồi compare variants cạnh nhau.","en":"Create multiple prompt variants in Amazon Bedrock Prompt Management. Configure each variant with a different model and inference parameters. Use the compare variants feature to evaluate outputs side by side."},"explanation":{"vi":"Variants cho phép so cấu hình và đầu ra trong cùng quy trình quản lý prompt.","en":"You can use Prompt Management to create and save prompts. Prompt Management can help you save time by applying the same prompt to different workflows. When you create a prompt, you can select a model to run inference on. You can modify the inference parameters to use. You can include variables in the prompt to later adjust the prompt for a different use case."}},{"key":"B","text":{"vi":"Chọn variant tốt nhất và tạo prompt version làm snapshot cho production tham chiếu.","en":"Select the highest performing variant. Create a version of the prompt in Amazon Bedrock Prompt Management. Create a snapshot that the production application can reference."},"explanation":{"vi":"Version tạo snapshot cố định thay vì tham chiếu draft thay đổi được.","en":"When you are ready to deploy a prompt to production, you create a version of the prompt to use in your application. A version is a snapshot of your prompt that you create at a point in time when you are iterating on a working draft."}},{"key":"C","text":{"vi":"Dùng UpdatePrompt để cập nhật prompt trong Bedrock Flows.","en":"Select the highest performing variant. Use the UpdatePrompt API to update the prompt in Amazon Bedrock Flows."},"explanation":{"vi":"Cập nhật draft không tạo bản production bất biến.","en":"Prompt versions are immutable. To update the prompt, you must create a new version."}},{"key":"D","text":{"vi":"Tạo từng prompt riêng cho mỗi cấu hình và dùng automatic model evaluation để chấm.","en":"Create multiple prompts in Amazon Bedrock Prompt Management for each model configuration. Use an Amazon Bedrock model evaluation job to compare outputs. Use automated metrics to score the outputs."},"explanation":{"vi":"Có thể đánh giá theo cách khác nhưng không trực tiếp giải quyết so variants và version bất biến như A/B.","en":"Model evaluation jobs can assess model outputs against automated metrics such as toxicity and accuracy. However, model evaluation jobs evaluate a single model and prompt configuration at a time. Model evaluation jobs do not provide side-by-side comparison of multiple prompt variants within Amazon Bedrock Prompt Management."}},{"key":"E","text":{"vi":"Dùng prompt optimization để chọn model/tham số production tham chiếu.","en":"Select the highest performing variant. Use the Amazon Bedrock prompt optimization feature to select the model and inference parameters that the production application can reference."},"explanation":{"vi":"Optimization không thay bước tạo phiên bản cố định.","en":"Optimization rewrites prompts to yield inference results that are more suitable for your use case. Optimization does not compare the prompts."}}],"answer":["A","B"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Variants cho phép so cấu hình và đầu ra trong cùng quy trình quản lý prompt. Version tạo snapshot cố định thay vì tham chiếu draft thay đổi được.","en":"You can use Prompt Management to create and save prompts. Prompt Management can help you save time by applying the same prompt to different workflows. When you create a prompt, you can select a model to run inference on. You can modify the inference parameters to use. You can include variables in the prompt to later adjust the prompt for a different use case. When you are ready to deploy a prompt to production, you create a version of the prompt to use in your application. A version is a snapshot of your prompt that you create at a point in time when you are iterating on a working draft."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html","https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html"],"objectiveRef":"qa-19"},{"id":"b-020","domain":2,"lessonId":"training","select":1,"text":{"vi":"Một job Spot phải chạy lại từ đầu sau khi mất instance. Script đã hỗ trợ save/load trạng thái, nhưng chưa có đường lưu bền vững tích hợp. Cần bổ sung gì?","en":"A Spot job restarts from scratch after losing its instance. The script already saves and loads state, but lacks integrated durable persistence. What should be added?"},"options":[{"key":"A","text":{"vi":"Dùng Autopilot tự xử lý training và lưu kết quả trung gian.","en":"Use SageMaker Autopilot to automatically handle model training and save intermediate results."},"explanation":{"vi":"Autopilot không thay cơ chế resume của job tùy chỉnh đang có.","en":"SageMaker Autopilot is an automated ML service that handles the complete ML workflow from data preprocessing to model deployment. SageMaker Autopilot manages the training process, but does not provide specific checkpoint functionality for handling training interruptions. SageMaker Autopilot focuses on automating model creation and tuning, not on managing training state persistence."}},{"key":"B","text":{"vi":"Tự viết module sao chép model lên S3 theo chu kỳ.","en":"Create an additional module in the training flow to save copies of the model to Amazon S3 at set intervals by using custom training code."},"explanation":{"vi":"Có thể làm nhưng tăng code vận hành so với checkpoint integration.","en":"You can manually save model artifacts to Amazon S3 during training. You can use this solution to restart from a previous manually saved point. However, this solution involves custom development. Therefore, this solution is not operationally efficient compared to checkpoints that automate the process."}},{"key":"C","text":{"vi":"Dùng Model Cards lưu snapshot trạng thái giữa training.","en":"Use SageMaker Model Cards to capture intermediate snapshots of the model state during training."},"explanation":{"vi":"Model Cards là tài liệu mô hình, không lưu optimizer state để resume.","en":"SageMaker Model Cards provide a centralized location to document critical details about ML models. You would typically use SageMaker Model Cards for governance and reporting. You cannot use SageMaker Model Cards to capture intermediate snapshots of data during the training process."}},{"key":"D","text":{"vi":"Dùng SageMaker checkpoints để lưu trạng thái định kỳ lên S3.","en":"Use checkpoints in SageMaker AI to automatically save model artifacts to Amazon S3 at regular intervals during training."},"explanation":{"vi":"Checkpoint integration đồng bộ trạng thái ra S3; script phải biết lưu và khôi phục checkpoint.","en":"You can use checkpoints to capture the state of a model during training in SageMaker AI. Then you can resume the training from the last checkpoint. You can use this solution to avoid restarting the training process from the beginning if the training fails or is interrupted. Checkpoints are an operationally efficient and automated way to resume training at the last saved checkpoint."}}],"answer":["D"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Checkpoint integration đồng bộ trạng thái ra S3; script phải biết lưu và khôi phục checkpoint.","en":"You can use checkpoints to capture the state of a model during training in SageMaker AI. Then you can resume the training from the last checkpoint. You can use this solution to avoid restarting the training process from the beginning if the training fails or is interrupted. Checkpoints are an operationally efficient and automated way to resume training at the last saved checkpoint."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html","https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html"],"objectiveRef":"qa-20"},{"id":"b-021","domain":2,"lessonId":"algorithms","select":1,"text":{"vi":"Nhóm NLP cần model tạo đoạn tóm tắt mới từ email, không chỉ tìm chủ đề hoặc vector từ. Trong các thuật toán SageMaker này, cái nào phù hợp?","en":"An NLP team needs a model that generates summaries from emails rather than only extracting topics or word vectors. Which listed SageMaker algorithm fits?"},"options":[{"key":"A","text":{"vi":"Sequence-to-Sequence (seq2seq).","en":"Use the Sequence-to-Sequence (seq2seq) algorithm."},"explanation":{"vi":"Seq2seq ánh xạ chuỗi đầu vào thành chuỗi đầu ra, phù hợp tóm tắt.","en":"Sequence-to-sequence (seq2seq) is an algorithm that uses sequences of tokens, such as text, as an input and produces new sequences of tokens as the output. An example of the seq2seq algorithm capabilities is the one needed for the scenario to generate text summaries. The input will be a longer stream of tokens (words from the text) that the company has gathered from their customer service history of interactions. The predicted output will be a shorter stream of words that will represent a summary of the input. The company then will be able to use the generated summaries to develop the new customer service application."}},{"key":"B","text":{"vi":"BlazingText với Word2vec embeddings.","en":"Use the BlazingText algorithm to apply Word2vec embeddings."},"explanation":{"vi":"Word2vec tạo vector từ, không trực tiếp sinh bản tóm tắt.","en":"BlazingText is an algorithm that provides implementations of two different text analysis algorithms: Word2vec and Text Classification. Using Word2vec maps words into vectors or word-embeddings that are similar from a semantical point of view. Although Word2vec embeddings can be used to organize datasets into topics by creating word groupings, it will not provide text summaries like the ones needed for this scenario. Instead, you should use an algorithm with text summarization capabilities, such as seq2seq."}},{"key":"C","text":{"vi":"Latent Dirichlet Allocation (LDA).","en":"Use the Latent Dirichlet Allocation (LDA) algorithm."},"explanation":{"vi":"LDA tìm phân bố chủ đề, không tạo chuỗi tóm tắt.","en":"Latent Dirichlet Allocation (LDA) is an algorithm that finds patterns in the words that are used across documents to help you uncover the most relevant topics associated with them. The LDA algorithm can predict how similar documents are based on the frequency of similar words, and can be used to recommend documents based on similar topics. However, the LDA algorithm will not generate the text summaries needed for this scenario. Instead, you should use an algorithm with text summarization capabilities, such as seq2seq."}},{"key":"D","text":{"vi":"Semantic segmentation.","en":"Use the semantic segmentation algorithm."},"explanation":{"vi":"Semantic segmentation gán nhãn pixel ảnh, sai modality.","en":"Semantic segmentation is an image analysis algorithm, not a text analysis algorithm. The algorithm has pixel-level capabilities that can be used to develop computer vision solutions, such as sensors in robots or self-driving vehicles. The scenario requires an algorithm with text analysis capabilities to generate the summaries, such as seq2seq."}}],"answer":["A"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Seq2seq ánh xạ chuỗi đầu vào thành chuỗi đầu ra, phù hợp tóm tắt.","en":"Sequence-to-sequence (seq2seq) is an algorithm that uses sequences of tokens, such as text, as an input and produces new sequences of tokens as the output. An example of the seq2seq algorithm capabilities is the one needed for the scenario to generate text summaries. The input will be a longer stream of tokens (words from the text) that the company has gathered from their customer service history of interactions. The predicted output will be a shorter stream of words that will represent a summary of the input. The company then will be able to use the generated summaries to develop the new customer service application."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html"],"objectiveRef":"qa-21"},{"id":"b-022","domain":1,"lessonId":"data-lake","select":1,"text":{"vi":"Nhóm điều tra dữ liệu muốn join các tập text có cấu trúc trên S3, sử dụng Glue Catalog hiện có. Họ chỉ muốn trả theo truy vấn thay vì dựng cluster. Chọn gì?","en":"A data-investigation team wants SQL joins over structured text datasets in S3 using an existing Glue Catalog. It prefers query-based service usage over operating a cluster. Which option fits?"},"options":[{"key":"A","text":{"vi":"Dùng Rekognition catalog dữ liệu rồi truy vấn Aurora Serverless v2.","en":"Catalog the data by using Amazon Rekognition. Use Amazon Aurora Serverless v2 to process SQL queries."},"explanation":{"vi":"Rekognition không phải dịch vụ catalog cho SQL trên S3.","en":"You can use Amazon Rekognition for image and video analysis. You cannot use Amazon Rekognition to catalog text data. Aurora is a relational database service that you can use to perform SQL queries. However, you must process and load the data into a separate data store before you can use Aurora to query the data."}},{"key":"B","text":{"vi":"AWS Batch chạy ETL rồi dùng RDS để truy vấn SQL.","en":"Use AWS Batch to extract, transform, and load (ETL) the data. Use Amazon RDS to process SQL queries."},"explanation":{"vi":"Di chuyển vào RDS vi phạm yêu cầu và tạo thêm công việc.","en":"AWS Batch provisions compute resources. AWS Batch optimizes job distribution based on the volume and resource requirements of the job. However, if you use AWS Batch, you must define compute resources. Amazon RDS can perform SQL queries. However, you must load the data into a separate RDS database engine. Therefore, this solution requires additional operational overhead."}},{"key":"C","text":{"vi":"Xử lý bằng Spark trên EMR rồi query từ Jupyter notebook.","en":"Process the data by using Apache Spark on Amazon EMR. Query the data by using SQL from a Jupyter notebook on the cluster."},"explanation":{"vi":"Quản lý cluster/notebook phức tạp hơn truy vấn Athena.","en":"You can use Amazon EMR to run Spark to process data in Amazon S3. A Jupyter notebook is a web-based integrated development environment (IDE) that you can use to work with code. This solution is technically feasible. However, building an EMR cluster of Amazon EC2 instances requires more operational overhead than using serverless services such as AWS Glue and Athena."}},{"key":"D","text":{"vi":"Dùng Glue catalog dữ liệu rồi chạy Athena SQL.","en":"Catalog the data by using AWS Glue. Use Amazon Athena to run queries."},"explanation":{"vi":"Glue mô tả schema, Athena truy vấn S3 tại chỗ.","en":"AWS Glue is a fully managed serverless ETL service. You can use AWS Glue to build a catalog to discover and prepare data for ML. Athena is a serverless SQL query service that you can use to query data that you catalog in AWS Glue."}}],"answer":["D"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Glue mô tả schema, Athena truy vấn S3 tại chỗ.","en":"AWS Glue is a fully managed serverless ETL service. You can use AWS Glue to build a catalog to discover and prepare data for ML. Athena is a serverless SQL query service that you can use to query data that you catalog in AWS Glue."},"references":["https://docs.aws.amazon.com/athena/latest/ug/what-is.html","https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/zero-etl.html"],"objectiveRef":"qa-22"},{"id":"b-023","domain":2,"lessonId":"metrics","select":1,"text":{"vi":"Hai model tạo tóm tắt cùng tập tài liệu. Nhóm cần so n-gram hoặc chuỗi chung với bản tóm tắt chuẩn trước khi bổ sung human review. Lựa chọn metric nào phù hợp?","en":"Two models summarize the same documents. The team first wants overlap with reference-summary n-grams or sequences before adding human review. Which metric fits?"},"options":[{"key":"A","text":{"vi":"BLEU.","en":"Bilingual Evaluation Understudy (BLEU)"},"explanation":{"vi":"BLEU thường dùng đánh giá dịch; ROUGE phù hợp mục tiêu tóm tắt được hỏi.","en":"You can use BLEU to evaluate machine translation tasks. BLEU measures the precision of n-gram overlaps between generated and reference text. You would not use BLEU for text summarization fine-tuning."}},{"key":"B","text":{"vi":"TF-IDF.","en":"Term frequency-inverse document frequency (TF-IDF)"},"explanation":{"vi":"TF-IDF là biểu diễn/tính trọng số từ, không phải metric chất lượng tóm tắt.","en":"TF-IDF is a statistical measure that you can use for information retrieval and text mining. TF-IDF evaluates the importance of a word in a document relative to a corpus. TF-IDF is not an evaluation metric for assessing the quality of text summarization models."}},{"key":"C","text":{"vi":"ROUGE.","en":"Recall-Oriented Understudy for Gisting Evaluation (ROUGE)"},"explanation":{"vi":"ROUGE so độ trùng n-gram hoặc chuỗi với bản tóm tắt tham chiếu.","en":"ROUGE is a set of metrics available in LLM fine-tuning AutoML jobs. ROUGE evaluates the quality of machine-generated text. This metric is the most suitable to use in this scenario. You can use ROUGE metrics to measure the similarity between machine-generated text and the ground truth text of a validation dataset."}},{"key":"D","text":{"vi":"Weighted quantile loss (wQL).","en":"Weighted quantile loss (wQL)"},"explanation":{"vi":"wQL dùng đánh giá dự báo phân vị chuỗi thời gian.","en":"A time series forecasting AutoML job can capture the wQL metric to measure the accuracy of the forecast. However, you cannot use this metric in LLM fine-tuning AutoML jobs."}}],"answer":["C"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"ROUGE so độ trùng n-gram hoặc chuỗi với bản tóm tắt tham chiếu.","en":"ROUGE is a set of metrics available in LLM fine-tuning AutoML jobs. ROUGE evaluates the quality of machine-generated text. This metric is the most suitable to use in this scenario. You can use ROUGE metrics to measure the similarity between machine-generated text and the ground truth text of a validation dataset."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-metrics-validation.html"],"objectiveRef":"qa-23"},{"id":"b-024","domain":1,"lessonId":"privacy","select":1,"text":{"vi":"Nhóm nghiệp vụ muốn chạy PII detection một lần trên tài liệu plain text bằng giao diện sẵn có, không deploy model hay viết Lambda. Giải pháp nào phù hợp nhất?","en":"A business team wants a one-time PII scan over plain-text documents using an existing interface, without deploying models or writing Lambda code. Which solution fits best?"},"options":[{"key":"A","text":{"vi":"Tạo Lambda do S3 event kích hoạt để gọi Comprehend PII API.","en":"Create an AWS Lambda function that is invoked by Amazon S3 Event Notifications to process new documents by using Amazon Comprehend PII detection API."},"explanation":{"vi":"Giải pháp hợp lý cho pipeline tự động nhưng phải viết và vận hành integration riêng.","en":"Amazon Comprehend is a natural language processing (NLP) service that you can use to analyze and understand the meaning and sentiment behind text data. Amazon Comprehend can extract insights, relationships, or sentiments from unstructured data. Amazon Comprehend can also detect and redact PII. You can create a Lambda function to process documents using Amazon Comprehend PII detection API. However, you would incur additional operational overhead to configure, deploy, and maintain the Lambda function."}},{"key":"B","text":{"vi":"Deploy model có sẵn qua SageMaker JumpStart để phát hiện PII.","en":"Use Amazon SageMaker JumpStart to deploy a pre-trained model to detect PII."},"explanation":{"vi":"Deploy model tạo công việc hosting không cần thiết.","en":"SageMaker JumpStart includes pre-trained, open source models that you can use to create ML models. You could use or fine-tune the models from SageMaker JumpStart to detect PII. However, this solution requires you to configure and deploy the pre-trained model. Therefore, this solution requires more operational overhead than SageMaker Canvas ready-to-use models."}},{"key":"C","text":{"vi":"Dùng model ready-to-use của SageMaker Canvas phát hiện PII.","en":"Use an Amazon SageMaker Canvas ready-to-use model to detect PII."},"explanation":{"vi":"Canvas cung cấp trải nghiệm ready-to-use không cần tự viết integration cho tác vụ này.","en":"SageMaker Canvas provides a code-free, visual, drag-and-drop environment to create ML models. SageMaker Canvas has ready-to-use models that you can use to automatically detect PII. You can use SageMaker Canvas to analyze text documents to identify and provide confidence scores for PII entities. This solution requires the least operational overhead because you can use a ready-to-use model to perform the task without the need to develop your own code."}},{"key":"D","text":{"vi":"Dùng Amazon Transcribe phát hiện PII.","en":"Use Amazon Transcribe to detect PII."},"explanation":{"vi":"Transcribe chủ yếu xử lý audio; đầu vào ở đây đã là plain text.","en":"Amazon Transcribe is a speech recognition service that you can use to convert spoken language into text. Amazon Transcribe provides a PII detection feature. However, the data that you need to analyze is in text format. Amazon Transcribe cannot detect PII from contracts that are stored in Amazon S3."}}],"answer":["C"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Canvas cung cấp trải nghiệm ready-to-use không cần tự viết integration cho tác vụ này.","en":"SageMaker Canvas provides a code-free, visual, drag-and-drop environment to create ML models. SageMaker Canvas has ready-to-use models that you can use to automatically detect PII. You can use SageMaker Canvas to analyze text documents to identify and provide confidence scores for PII entities. This solution requires the least operational overhead because you can use a ready-to-use model to perform the task without the need to develop your own code."},"references":["https://docs.aws.amazon.com/comprehend/latest/dg/how-pii.html","https://docs.aws.amazon.com/bedrock/latest/userguide/embeddings-models.html"],"objectiveRef":"qa-24"},{"id":"b-025","domain":1,"lessonId":"data-lake","select":1,"text":{"vi":"Kho lịch sử giao dịch ở S3 được Spectrum truy vấn theo ngày và vài feature. Nhóm đã partition theo ngày, nay muốn tận dụng column pruning và compression. Chọn định dạng nào?","en":"S3 transaction history is queried by Spectrum for dates and a few features. Date partitioning is in place; the team now wants column pruning and compression. Which format fits?"},"options":[{"key":"A","text":{"vi":"Dùng Python SDK trong Lambda chuyển sang CSV.","en":"Convert the data to CSV format by using the Python SDK in AWS Lambda."},"explanation":{"vi":"CSV phải parse và quét nhiều dữ liệu hơn định dạng cột.","en":"Lambda is a serverless computing service that you can use to run code without provisioning or managing servers. Lambda is not suitable for large-scale file conversion tasks because of memory and execution quotas. CSV format is text-based. Text-based file formats are not as high-performing as columnar formats in processing speed and storage space. The company stores a large volume of data on Amazon S3. Therefore, Parquet format provides better query performance than CSV format."}},{"key":"B","text":{"vi":"Dùng Glue chuyển sang JSON.","en":"Convert the data to JSON format by using an AWS Glue job."},"explanation":{"vi":"JSON không có lợi thế lưu trữ dạng cột như Parquet.","en":"AWS Glue is a fully managed extract, transform, and load (ETL) service. AWS Glue provides options to read and write various data formats. The JSON data format is designed for structuring data in a text-based format. Text-based file formats are not as high-performing as columnar formats in processing speed and storage space. The company stores a large volume of data on Amazon S3. Therefore, Parquet format provides better query performance than JSON format."}},{"key":"C","text":{"vi":"Dùng Glue chuyển sang Apache Parquet.","en":"Convert the data to Apache Parquet format by using an AWS Glue job."},"explanation":{"vi":"Parquet dạng cột giúp Spectrum chỉ đọc cột cần thiết, hỗ trợ nén và predicate pushdown.","en":"AWS Glue is a fully managed extract, transform, and load (ETL) service. AWS Glue provides options to read and write various data formats. Parquet format is a columnar format. Parquet format is suitable to store and process large datasets efficiently. Redshift Spectrum can use Parquet's columnar format to eliminate unnecessary columns from the scan. Therefore, this file format improves query performance."}},{"key":"D","text":{"vi":"Dùng Python SDK trong Lambda chuyển sang Avro.","en":"Convert the data to Avro format by using the Python SDK in AWS Lambda."},"explanation":{"vi":"Avro dạng hàng không tối ưu quét một số cột bằng Parquet.","en":"Lambda is a serverless computing service that you can use to run code without provisioning or managing servers. Lambda is not suitable for large-scale file conversion tasks because of memory and execution quotas. Avro is a row-based format that supports schema. You can use Avro as an efficient binary format for serialization. Avro format is inefficient for analytical querying use cases such as demand forecasting that uses Redshift Spectrum. Columnar formats are more suitable to optimize query performance than Avro."}}],"answer":["C"],"hint":{"vi":"Xác định ràng buộc chính rồi loại giải pháp giải quyết sai lớp vấn đề.","en":"Identify the decisive constraint and eliminate solutions addressing the wrong problem layer."},"explanation":{"vi":"Parquet dạng cột giúp Spectrum chỉ đọc cột cần thiết, hỗ trợ nén và predicate pushdown.","en":"AWS Glue is a fully managed extract, transform, and load (ETL) service. AWS Glue provides options to read and write various data formats. Parquet format is a columnar format. Parquet format is suitable to store and process large datasets efficiently. Redshift Spectrum can use Parquet's columnar format to eliminate unnecessary columns from the scan. Therefore, this file format improves query performance."},"references":["https://docs.aws.amazon.com/athena/latest/ug/what-is.html","https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/zero-etl.html"],"objectiveRef":"qa-25"},{"id":"b-026","domain":3,"lessonId":"scaling","select":1,"text":{"vi":"Endpoint nhận burst lớn đúng giờ mở cửa mỗi ngày. Nhóm biết lịch và muốn capacity sẵn trước khách đầu tiên. Lựa chọn scaling nào đáp ứng trực tiếp?","en":"An endpoint receives a large burst at opening time each day. The schedule is known, and capacity must be ready before the first customer arrives. Which scaling approach directly meets this?"},"options":[{"key":"A","text":{"vi":"Bật autoscaling theo lịch.","en":"Activate auto scaling for the model. Scale based on a schedule."},"explanation":{"vi":"Scheduled scaling tăng capacity trước đỉnh tải định kỳ.","en":"To scale based on a schedule is suitable for recurring scaling where system requirements or demand increase or decrease at a specific time. Scaling based on a schedule will meet the requirements to scale based on the work shift start and end schedule."}},{"key":"B","text":{"vi":"Dùng Asynchronous Inference.","en":"Use SageMaker Asynchronous Inference to process requests."},"explanation":{"vi":"Xếp hàng async không phù hợp quyết định ra vào ngay.","en":"SageMaker Asynchronous Inference is the capability to queue incoming requests and process the requests asynchronously. This option is suitable for near real-time latency requirements. However, the company needs real-time monitoring."}},{"key":"C","text":{"vi":"Dùng target tracking của Serverless Inference.","en":"Use SageMaker Serverless Inference target tracking scaling."},"explanation":{"vi":"Không chủ động chuẩn bị trước thời điểm giao ca đã biết.","en":"SageMaker Serverless Inference can deploy ML models without the need to manage the underlying infrastructure. You can configure SageMaker Serverless Inference to scale based on a target metric. However, work shift attendance is based on a set schedule that is known. Concurrency based on a target metric would not be the most efficient or quickest option for the auto scaling method. Metrics from SageMaker AI that are used for target tracking update every minute. However, the company needs real-time monitoring. Therefore, this solution would not scale out fast enough."}},{"key":"D","text":{"vi":"Bật autoscaling với target tracking.","en":"Activate auto scaling for the model. Define a target tracking policy."},"explanation":{"vi":"Target tracking phản ứng theo metric sau khi tải thay đổi, có thể trễ so với đỉnh đã biết.","en":"Target tracking is an auto scaling policy that automatically scales based on certain targets or defined metrics. You can use target tracking policies for variable loads or demand on a system. The work shifts are recurring, and the start and stop times are known. Therefore, target tracking is not the most efficient auto scaling method to use. Metrics from SageMaker AI that are used for target tracking update every minute. However, the company needs real-time monitoring. Therefore, this solution would not scale out fast enough."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Scheduled scaling tăng capacity trước đỉnh tải định kỳ.","en":"To scale based on a schedule is suitable for recurring scaling where system requirements or demand increase or decrease at a specific time. Scaling based on a schedule will meet the requirements to scale based on the work shift start and end schedule."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html","https://docs.aws.amazon.com/sagemaker/latest/dg/inference-recommender.html"],"objectiveRef":"qa-26"},{"id":"b-027","domain":4,"lessonId":"cost","select":1,"text":{"vi":"Các notebook, training job và endpoint phải được gom chi phí theo mã dự án. Kỹ sư đã đặt tag nhưng chưa thấy dữ liệu trong báo cáo billing. Lựa chọn nào hoàn thiện quy trình?","en":"Notebooks, training jobs and endpoints must be grouped in billing by project code. Tags exist, but the engineer cannot see the allocation in billing reports. Which option completes the workflow?"},"options":[{"key":"A","text":{"vi":"Kích hoạt cost allocation tags, gắn tag tài nguyên và phân tích bằng Cost Explorer.","en":"Enable cost allocation tags on the AWS Billing console and tag the project resources. Track the cost of the project resources on AWS Cost Explorer."},"explanation":{"vi":"Tags phân bổ chi phí; Cost Explorer giúp phân tích chi phí của dự án.","en":"The AWS Billing console provides an overview of your AWS costs and usage. You can use Cost Explorer to visualize, understand, and manage AWS costs and usage over time. You can use automated tags to track, report, and monitor SageMaker AI costs through AWS services including Cost Explorer. To use tags for filtering costs, you must enable cost allocation tags on the AWS Billing console."}},{"key":"B","text":{"vi":"Kích hoạt cost allocation tags, gắn tag rồi tạo cost budget trong AWS Budgets.","en":"Enable cost allocation tags on the AWS Billing console and tag the project resources. Use AWS Budgets to create a cost budget."},"explanation":{"vi":"Budgets hữu ích cho cảnh báo ngưỡng, không phải lựa chọn phân tích chi phí tốt nhất trong đề.","en":"AWS Budgets is a service that you can use to monitor costs and usage in the AWS Cloud. This solution requires you to configure a cost budget that is filtered by tags for the resource. You would not use AWS Budgets to understand and explore costs that are associated with ML resources."}},{"key":"C","text":{"vi":"Dùng Lambda do CloudWatch kích hoạt để lưu utilization vào S3 và tự tạo báo cáo chi phí.","en":"Use an AWS Lambda function that is invoked by Amazon CloudWatch to store utilization data on Amazon S3 and to generate periodic cost information."},"explanation":{"vi":"Tự tạo báo cáo tăng công việc khi Cost Explorer đã đáp ứng.","en":"CloudWatch is a logging and monitoring service. Amazon S3 provides object storage. Lambda is a serverless application environment that you can use to run code without provisioning or managing the underlying infrastructure. CloudWatch alone does not provide cost analytics for SageMaker AI."}},{"key":"D","text":{"vi":"Thu CloudWatch logs và tạo dashboard sử dụng tài nguyên.","en":"Collect usage data for the SageMaker AI resources by using Amazon CloudWatch logs. Create a dashboard on CloudWatch that uses the log data."},"explanation":{"vi":"Utilization không trực tiếp cung cấp phân tích hóa đơn theo dự án.","en":"CloudWatch is a logging service that you can use to collect logs and create reports, dashboards, and alerts for monitoring purposes. CloudWatch events do not provide cost analytics for SageMaker AI natively."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Tags phân bổ chi phí; Cost Explorer giúp phân tích chi phí của dự án.","en":"The AWS Billing console provides an overview of your AWS costs and usage. You can use Cost Explorer to visualize, understand, and manage AWS costs and usage over time. You can use automated tags to track, report, and monitor SageMaker AI costs through AWS services including Cost Explorer. To use tags for filtering costs, you must enable cost allocation tags on the AWS Billing console."},"references":["https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"],"objectiveRef":"qa-27"},{"id":"b-028","domain":1,"lessonId":"rag-index","select":1,"text":{"vi":"Fixed chunks trộn các điều khoản không liên quan. Yêu cầu mới là chia theo chuyển chủ đề và gắn số section làm thuộc tính filter, với bước metadata đã có. Chọn chiến lược nào?","en":"Fixed chunks mix unrelated clauses. The new requirement is to split at topic changes and attach section numbers as filter attributes; metadata processing is available. Which strategy fits?"},"options":[{"key":"A","text":{"vi":"Hierarchical chunking: parent 1.024, child 256 token.","en":"Configure hierarchical chunking with parent chunks of 1,024 tokens and child chunks of 256 tokens."},"explanation":{"vi":"Parent/child thêm ngữ cảnh nhưng không tự gắn metadata tên section.","en":"Parent/child chunks add context but do not automatically supply named-section metadata."}},{"key":"B","text":{"vi":"Tách file theo section lên S3 rồi fixed chunk 256 token.","en":"Divide the documents by section. Upload the sections to Amazon S3. Use a fixed chunking of 256 tokens."},"explanation":{"vi":"Tách section hữu ích nhưng chunk nhỏ vẫn có thể tách heading khỏi phần nội dung; thiếu metadata filter.","en":"Splitting sections helps, but small fixed chunks can still separate headings from content and lack section filters."}},{"key":"C","text":{"vi":"Semantic chunking kèm trích heading/số section thành metadata để lọc.","en":"Configure semantic chunking with metadata extraction of headers and section numbers as filtering attributes."},"explanation":{"vi":"Kết hợp ranh giới ngữ nghĩa và metadata section đáp ứng cả tính liền mạch và tìm theo tên; metadata cần pipeline bổ sung.","en":"Semantic boundaries plus section metadata support coherent content and named-section filtering; metadata extraction needs additional ingestion processing."}},{"key":"D","text":{"vi":"Tăng fixed chunk lên 2.048 token.","en":"Increase the fixed chunk size to 2,048 tokens."},"explanation":{"vi":"Tăng kích thước không bảo đảm giữ ranh giới section.","en":"A larger fixed size does not guarantee section boundaries."}}],"answer":["C"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Kết hợp ranh giới ngữ nghĩa và metadata section đáp ứng cả tính liền mạch và tìm theo tên; metadata cần pipeline bổ sung.","en":"Semantic boundaries plus section metadata support coherent content and named-section filtering; metadata extraction needs additional ingestion processing."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html","https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html"],"objectiveRef":"qa-28"},{"id":"b-029","domain":4,"lessonId":"monitoring","select":1,"text":{"vi":"Nhóm chất lượng muốn dashboard xu hướng helpfulness theo tuần trên mẫu session thật. Họ cần đánh giá tự động khi có traffic, không phải batch thủ công. Chọn chế độ nào?","en":"A quality team wants weekly helpfulness trends from sampled real sessions. Evaluation must run automatically with production traffic rather than manually launched batches. Which mode fits?"},"options":[{"key":"A","text":{"vi":"Built-in evaluators kích hoạt thủ công.","en":"Built-in evaluators with manual triggers"},"explanation":{"vi":"Kích hoạt thủ công không đáp ứng tự động liên tục.","en":"Built-in evaluators are evaluation methods, not evaluation types. You can use built-in evaluators with both online and on-demand evaluation. However, built-in evaluators do not provide continuous monitoring with session sampling."}},{"key":"B","text":{"vi":"Online evaluation với session sampling.","en":"Online evaluation with session sampling"},"explanation":{"vi":"Online evaluation lấy mẫu session và tạo điểm để quan sát xu hướng/truy vết.","en":"Online evaluation provides continuous performance assessment in production. You can use online evaluation to configure percentage-based sampling to evaluate a portion of all sessions, for example 10%. Online evaluation uses built-in evaluators for helpfulness and correctness. You can use online evaluation to view aggregated scores in dashboards, track quality trends over time, and investigate low-scoring sessions."}},{"key":"C","text":{"vi":"On-demand evaluation với span ID cụ thể.","en":"On-demand evaluation with specific span IDs"},"explanation":{"vi":"On-demand phù hợp điều tra cụ thể, không liên tục lấy mẫu tự động.","en":"On-demand evaluation analyzes specific spans or traces that you explicitly select by providing IDs. On-demand evaluation is useful for targeted assessments. However, on-demand evaluation does not provide continuous monitoring of production traffic."}},{"key":"D","text":{"vi":"Custom evaluators với batch processing.","en":"Custom evaluators with batch processing"},"explanation":{"vi":"Batch không trực tiếp đáp ứng theo dõi session production liên tục.","en":"You can use custom evaluators to create specialized evaluation criteria. However, custom evaluators do not inherently provide continuous production monitoring. Custom evaluators are evaluation methods that you can use with online or on-demand evaluation types."}}],"answer":["B"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Online evaluation lấy mẫu session và tạo điểm để quan sát xu hướng/truy vết.","en":"Online evaluation provides continuous performance assessment in production. You can use online evaluation to configure percentage-based sampling to evaluate a portion of all sessions, for example 10%. Online evaluation uses built-in evaluators for helpfulness and correctness. You can use online evaluation to view aggregated scores in dashboards, track quality trends over time, and investigate low-scoring sessions."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality.html","https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"],"objectiveRef":"qa-29"},{"id":"b-030","domain":1,"lessonId":"rag-index","select":1,"text":{"vi":"Model thường nhầm ngày sự kiện trong dữ liệu doanh nghiệp riêng. Prompt đã rõ nhưng thiếu nguồn. Cần cải thiện bằng corpus được chuyên gia curate sẵn. Giải pháp nào phù hợp?","en":"A model confuses dates in private corporate events. Instructions are clear, but evidence is missing. A curated expert-reviewed corpus is available. Which solution best addresses the issue?"},"options":[{"key":"A","text":{"vi":"Dùng RAG lấy thông tin đã xác minh từ knowledge base trước khi sinh.","en":"Implement a Retrieval Augmented Generation (RAG) system that retrieves verified historical information from a curated knowledge base before generating responses."},"explanation":{"vi":"RAG đưa nguồn đáng tin vào ngữ cảnh để grounding câu trả lời.","en":"RAG supplies trusted retrieved information as grounding context."}},{"key":"B","text":{"vi":"Chia prompt thành các câu ngắn về từng khía cạnh.","en":"Break the prompts about historical events into shorter individual prompts that address one aspect of each event."},"explanation":{"vi":"Chia câu không cung cấp bằng chứng đúng từ nguồn đã curate.","en":"Splitting prompts does not supply verified evidence from the curated source."}},{"key":"C","text":{"vi":"Triển khai nhiều FM và tổng hợp bằng ensemble.","en":"Deploy multiple FMs and use an ensemble approach to aggregate all FM responses for improved accuracy."},"explanation":{"vi":"Nhiều model có thể cùng sai và làm tăng chi phí.","en":"Multiple models can share errors and add cost."}},{"key":"D","text":{"vi":"Diễn đạt lại prompt với từ ngữ khác nhau.","en":"Rephrase the prompts about historical events by using different wording and context to address different aspects of each event."},"explanation":{"vi":"Đổi cách hỏi không bổ sung sự thật đã kiểm chứng.","en":"Rephrasing does not add verified facts."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"RAG đưa nguồn đáng tin vào ngữ cảnh để grounding câu trả lời.","en":"RAG supplies trusted retrieved information as grounding context."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html","https://docs.aws.amazon.com/bedrock/latest/userguide/kb-chunking.html"],"objectiveRef":"qa-30"},{"id":"b-031","domain":3,"lessonId":"deployments","select":1,"text":{"vi":"Công ty muốn chạy A/B/C test cho classifier mà không tự quản lý load balancer. Các phiên bản đều tương thích SageMaker real-time. Lựa chọn nào hỗ trợ traffic weights native?","en":"A company wants an A/B/C classifier test without managing a load balancer. All versions support SageMaker real-time hosting. Which option provides native traffic weights?"},"options":[{"key":"A","text":{"vi":"Đặt ba phiên bản sau một endpoint và cấu hình tỷ lệ traffic cho từng bản.","en":"Deploy the three new versions of the model behind a single SageMaker AI endpoint. Define a traffic percentage for each version."},"explanation":{"vi":"Production variants trên một endpoint hỗ trợ traffic weights; vẫn cần nhãn để đo accuracy.","en":"Production variants on one endpoint support traffic weights; labels are still needed to measure accuracy."}},{"key":"B","text":{"vi":"Tạo ba endpoint rồi dùng ALB phân traffic.","en":"Deploy three SageMaker AI endpoints for the new model versions. Use an Application Load Balancer (ALB) to distribute a percentage of traffic to each model."},"explanation":{"vi":"Thêm endpoint/routing tự quản lý không cần thiết.","en":"Separate endpoints and custom routing add unnecessary management."}},{"key":"C","text":{"vi":"Tạo ba EC2 Deep Learning AMI rồi dùng ALB phân traffic.","en":"Deploy three Amazon EC2 instances with AWS Deep Learning AMIs (DLAMI) to host the different model versions. Use an Application Load Balancer (ALB) to distribute a percentage of traffic to each model."},"explanation":{"vi":"Tự quản lý EC2 và ALB tăng vận hành nhiều hơn SageMaker variants.","en":"Self-managed EC2 and ALB add more operations than native variants."}},{"key":"D","text":{"vi":"Dùng API Gateway với API endpoint cho từng phiên bản và cấu hình tỷ lệ traffic.","en":"Deploy Amazon API Gateway to an API endpoint for each model version. Define a traffic percentage for each version."},"explanation":{"vi":"Thêm tầng routing khi native variants đã đáp ứng.","en":"An extra routing layer is unnecessary when native variants suffice."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Production variants trên một endpoint hỗ trợ traffic weights; vẫn cần nhãn để đo accuracy.","en":"Production variants on one endpoint support traffic weights; labels are still needed to measure accuracy."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/model-shadow-deployment.html","https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html"],"objectiveRef":"qa-31"},{"id":"b-032","domain":3,"lessonId":"endpoints","select":1,"text":{"vi":"Ứng dụng nội bộ cần suy luận theo request nhưng chỉ có traffic ngắn vào sáng và chiều. Có thể đợi khởi động, không muốn batch hàng giờ. Chọn phương án tiết kiệm hơn fleet thường trực.","en":"An internal application needs per-request inference only during short morning and afternoon periods. Startup delay is acceptable, but hours-long batching is not. Which option is cheaper than a persistent fleet?"},"options":[{"key":"A","text":{"vi":"Tạo endpoint serverless và bỏ endpoint hiện tại.","en":"Provision a new serverless inference endpoint. Terminate the existing endpoint."},"explanation":{"vi":"Serverless giảm compute nhàn rỗi khi workload tương thích và chấp nhận cold start.","en":"Serverless reduces idle compute when the workload fits and can tolerate cold starts."}},{"key":"B","text":{"vi":"Bỏ endpoint và chuyển sang batch transform.","en":"Terminate the existing endpoint and switch to batch transform."},"explanation":{"vi":"Batch không phù hợp thời gian phản hồi vài phút theo từng request như mô tả.","en":"Batch does not fit the stated per-request response window."}},{"key":"C","text":{"vi":"Bỏ endpoint và tự host model trên EC2.","en":"Terminate the SageMaker AI endpoint and replace the endpoint with an Amazon EC2 instance. Deploy the model on the EC2 instance and redirect the inference requests to the model endpoint on the EC2 instance."},"explanation":{"vi":"EC2 thường trực vẫn có idle cost và thêm vận hành.","en":"A persistent EC2 host retains idle cost and adds operations."}},{"key":"D","text":{"vi":"Thêm Lambda function URL gọi endpoint hiện tại.","en":"Provision an AWS Lambda function to be invoked through a Lambda function URL. Configure the Lambda function to send an inference request to the existing endpoint."},"explanation":{"vi":"Endpoint cũ vẫn chạy và tính phí; Lambda chỉ thêm tầng gọi.","en":"The existing endpoint remains billable; Lambda merely adds a calling layer."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Serverless giảm compute nhàn rỗi khi workload tương thích và chấp nhận cold start.","en":"Serverless reduces idle compute when the workload fits and can tolerate cold starts."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html","https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference.html"],"objectiveRef":"qa-32"},{"id":"b-033","domain":2,"lessonId":"customization","select":1,"text":{"vi":"Công ty cần giảm kích thước model serving mà vẫn giữ đủ chất lượng trên một miền cụ thể. Họ muốn chuyển năng lực từ model lớn sang nhỏ, không chỉ tiếp tục pretraining. Chọn gì?","en":"A company needs a smaller serving model while preserving sufficient quality on one domain. It wants to transfer capability from a large model to a small one, not merely continue pretraining. Which method fits?"},"options":[{"key":"A","text":{"vi":"Model distillation.","en":"Model distillation"},"explanation":{"vi":"Distillation huấn luyện student nhỏ từ tín hiệu teacher để giữ chất lượng đủ tốt trong tác vụ.","en":"Model distillation transfers knowledge from a larger, more capable teacher model to a smaller, faster, and more cost-effective student model. Amazon Bedrock automates this process by generating high-quality responses from the teacher model and using the responses to fine-tune the student model. Then, the smaller model can achieve comparable accuracy for specific use cases."}},{"key":"B","text":{"vi":"Reinforcement fine-tuning.","en":"Reinforcement fine-tuning"},"explanation":{"vi":"Reinforcement fine-tuning tối ưu theo tín hiệu thưởng, không phải cơ chế nén teacher-student được hỏi.","en":"Reinforcement fine-tuning improves model alignment through feedback-based learning. Reinforcement fine-tuning does not specifically produce a smaller, faster model that achieves accuracy comparable to a larger model."}},{"key":"C","text":{"vi":"Continued pre-training.","en":"Continued pre-training"},"explanation":{"vi":"Continued pre-training bổ sung kiến thức qua dữ liệu chưa gắn nhãn, không trực tiếp chuyển teacher lớn sang student nhỏ.","en":"Continued pre-training helps a model understand domain-specific terminology by using unlabeled data. Continued pre-training does not transfer knowledge from a larger model to a smaller model for cost and latency optimization."}},{"key":"D","text":{"vi":"Supervised fine-tuning.","en":"Supervised fine-tuning"},"explanation":{"vi":"SFT thích nghi bằng dữ liệu có nhãn nhưng không đặc tả mục tiêu teacher-student.","en":"Supervised fine-tuning improves model performance by using labeled data. Supervised fine-tuning does not meet the requirement for a smaller, faster model that matches a larger model's accuracy."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Distillation huấn luyện student nhỏ từ tín hiệu teacher để giữ chất lượng đủ tốt trong tác vụ.","en":"Model distillation transfers knowledge from a larger, more capable teacher model to a smaller, faster, and more cost-effective student model. Amazon Bedrock automates this process by generating high-quality responses from the teacher model and using the responses to fine-tune the student model. Then, the smaller model can achieve comparable accuracy for specific use cases."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization.html"],"objectiveRef":"qa-33"},{"id":"b-034","domain":4,"lessonId":"guardrails","select":1,"text":{"vi":"Chatbot lịch sự nhưng thêm các chi tiết không có trong context RAG. Tăng hate filter không giải quyết vấn đề. Bộ kiểm tra nào trực tiếp nhắm vào nội dung không có căn cứ?","en":"A polite chatbot invents details absent from its RAG context. Stronger hate filtering does not help. Which check directly targets unsupported content?"},"options":[{"key":"A","text":{"vi":"Word filters với cụm từ bị chặn.","en":"Create word filters with custom blocked phrases."},"explanation":{"vi":"Danh sách từ không xác định được dữ kiện có căn cứ hay không.","en":"Word filters block specific words or phrases from appearing in interactions. Word filters do not detect or prevent the issue of model responses being ungrounded or factually incorrect."}},{"key":"B","text":{"vi":"Contextual grounding checks.","en":"Configure contextual grounding checks."},"explanation":{"vi":"Grounding so phản hồi với nguồn và query để phát hiện thông tin không được hỗ trợ.","en":"Contextual grounding checks detect hallucinations in model responses. Contextual grounding checks verify if the responses are factually grounded in the source documents and if the responses are relevant to a user's query. Contextual grounding checks are especially useful for Retrieval Augmented Generation (RAG) applications where responses should be based on retrieved documents. Contextual grounding checks can block or flag responses that deviate from the source documents."}},{"key":"C","text":{"vi":"Denied topics.","en":"Set up denied topics."},"explanation":{"vi":"Denied topics kiểm soát chủ đề, không kiểm tra sự thật so với nguồn.","en":"You can use denied topics to block specific topics from being discussed in an application. Denied topics do not verify the factual accuracy or the grounding of model responses."}},{"key":"D","text":{"vi":"Content filters ở strength cao.","en":"Configure content filters with high filter strength."},"explanation":{"vi":"Bộ lọc harmful content không giải quyết phản hồi bịa nhưng lịch sự.","en":"Content filters detect and block harmful content categories. The categories include hate, violence, and insults. Content filters do not verify whether model responses are factually grounded in source documents."}}],"answer":["B"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Grounding so phản hồi với nguồn và query để phát hiện thông tin không được hỗ trợ.","en":"Contextual grounding checks detect hallucinations in model responses. Contextual grounding checks verify if the responses are factually grounded in the source documents and if the responses are relevant to a user's query. Contextual grounding checks are especially useful for Retrieval Augmented Generation (RAG) applications where responses should be based on retrieved documents. Contextual grounding checks can block or flag responses that deviate from the source documents."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"],"objectiveRef":"qa-34"},{"id":"b-035","domain":4,"lessonId":"security","select":1,"text":{"vi":"Kỹ sư cấu hình endpoint Comprehend trong VPC A nhưng notebook có thể đang nằm ngoài VPC đó. Công ty cấm internet egress. Kiểm tra nào trực tiếp nhất?","en":"An engineer configures a Comprehend endpoint in VPC A, but the notebook may be outside that VPC. Internet egress is prohibited. Which check is most direct?"},"options":[{"key":"A","text":{"vi":"Cấp thêm policy để role notebook dùng VPC endpoint.","en":"Update the role used by the SageMaker notebook instance. Grant a new policy that can consume the VPC endpoint."},"explanation":{"vi":"IAM đã hoạt động; quyền endpoint có thể cần kiểm tra nhưng không giải quyết thiếu đường mạng.","en":"IAM worked previously; endpoint permissions can matter but do not repair missing network reachability."}},{"key":"B","text":{"vi":"Notebook có được cấu hình trong cùng VPC với endpoint không.","en":"Verify if the SageMaker notebook instance is configured to run inside the same VPC as the VPC endpoint."},"explanation":{"vi":"Kiểm tra VPC/reachability là bước phù hợp khi chuyển sang private endpoint.","en":"Check VPC placement and reachability when moving to a private endpoint."}},{"key":"C","text":{"vi":"Thêm public subnet và NAT gateway.","en":"Associate the VPC with at least one public subnet and one NAT gateway."},"explanation":{"vi":"NAT dùng truy cập công cộng, không cần cho đường private được yêu cầu.","en":"NAT enables public egress and is unnecessary for the requested private path."}},{"key":"D","text":{"vi":"Thay boto3 bằng API call tự viết.","en":"Replace boto3 with a custom API call for the SageMaker notebook to reach the DNS entry of the VPC endpoint."},"explanation":{"vi":"Thay SDK không sửa cấu hình mạng hoặc DNS.","en":"Replacing the SDK does not fix networking or DNS."}}],"answer":["B"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Kiểm tra VPC/reachability là bước phù hợp khi chuyển sang private endpoint.","en":"Check VPC placement and reachability when moving to a private endpoint."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-root-access.html","https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"],"objectiveRef":"qa-35"}
+    ,{"id":"b-036","domain":1,"lessonId":"streaming","select":1,"text":{"vi":"Nền tảng học trực tuyến phải tổng hợp thời lượng phiên và số thao tác từ luồng Kinesis theo cửa sổ trượt. Các hệ thống đích đã có cơ chế ghi chống trùng. Dịch vụ nào cung cấp xử lý có trạng thái và checkpoint với ít công việc vận hành nhất?","en":"A learning platform aggregates session duration and actions from Kinesis using sliding windows. Its destinations already implement idempotent writes. Which service provides stateful processing and checkpointing with the least operational effort?"},"options":[{"key":"A","text":{"vi":"Tự quản lý Kafka trên EC2 và Kafka Streams trên ECS.","en":"Deploy a self-managed Apache Kafka cluster on Amazon EC2 to ingest the clickstream data. Write a Kafka Streams application that runs on Amazon ECS to perform the sliding-window aggregations."},"explanation":{"vi":"Có thể xây nhưng phải quản lý Kafka và ứng dụng stream.","en":"This is possible but requires operating Kafka and the streaming application."}},{"key":"B","text":{"vi":"Kinesis rồi Lambda giữ sliding-window state trong bộ nhớ.","en":"Create a stream in Amazon Kinesis Data Streams to ingest the clickstream data. Create an AWS Lambda function that uses a Kinesis event source mapping to perform the sliding-window aggregations in memory."},"explanation":{"vi":"Bộ nhớ Lambda không phải durable state cho cửa sổ liên tục và phục hồi nhất quán.","en":"Lambda memory is not durable continuous-window state with consistent recovery."}},{"key":"C","text":{"vi":"Kinesis rồi Managed Service for Apache Flink dùng Flink SQL cho sliding windows.","en":"Create a stream in Amazon Kinesis Data Streams to ingest the clickstream data. Deploy an Amazon Managed Service for Apache Flink application that reads from the stream and performs sliding-window aggregations by using Flink SQL."},"explanation":{"vi":"Flink cung cấp xử lý có trạng thái, cửa sổ và checkpoint; kiểm tra connector đích để bảo đảm end-to-end.","en":"Flink provides stateful windows and checkpoints; sink connectors must also support the required end-to-end guarantees."}},{"key":"D","text":{"vi":"Kinesis Data Streams rồi Firehose built-in transformation thực hiện sliding windows.","en":"Create a stream in Amazon Kinesis Data Streams to ingest the clickstream data. Use an Amazon Data Firehose delivery stream with a built-in transformation to perform the sliding-window aggregations."},"explanation":{"vi":"Firehose không phải engine xử lý stateful sliding-window tổng quát.","en":"Firehose is not a general stateful sliding-window engine."}}],"answer":["C"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Flink cung cấp xử lý có trạng thái, cửa sổ và checkpoint; kiểm tra connector đích để bảo đảm end-to-end.","en":"Flink provides stateful windows and checkpoints; sink connectors must also support the required end-to-end guarantees."},"references":["https://docs.aws.amazon.com/managed-flink/latest/java/how-it-works.html"],"objectiveRef":"qa-36"}
+    ,{"id":"b-037","domain":3,"lessonId":"agents-runtime","select":1,"text":{"vi":"Các đội nội bộ muốn tự quản lý giao diện API của mình, còn agent chỉ kết nối tới một địa chỉ để tìm các công cụ được phép dùng. Nên chọn giải pháp nào trong AgentCore để giảm công việc tích hợp khi thêm hệ thống?","en":"Internal teams want to manage their own API interfaces while an agent connects to one address to discover authorized tools. Which AgentCore solution reduces integration work as systems are added?"},"options":[{"key":"A","text":{"vi":"Mỗi hệ thống có MCP server riêng trên Runtime; agent nối từng endpoint.","en":"Deploy a separate Model Context Protocol (MCP) server on AgentCore Runtime for each system's REST API. Connect the agent to each MCP server endpoint."},"explanation":{"vi":"Mỗi server riêng tăng endpoint và công việc tích hợp so với gateway thống nhất.","en":"Separate servers add endpoints and integration overhead compared with one gateway."}},{"key":"B","text":{"vi":"Đăng ký API làm MCP-compatible tool qua AgentCore Gateway, để agent khám phá tại Gateway.","en":"Use AgentCore Gateway to register each REST API as a Model Context Protocol (MCP) compatible tool. Configure the agent to discover available tools through the AgentCore Gateway endpoint."},"explanation":{"vi":"Gateway cung cấp giao diện khám phá tool, còn từng nhóm quản lý target/schema của họ.","en":"Gateway provides unified tool discovery while teams retain target/schema control."}},{"key":"C","text":{"vi":"Tạo Lambda/API Gateway cho từng API và hardcode tool trong agent.","en":"Create an AWS Lambda function and an Amazon API Gateway endpoint for each system's REST API. Define each API Gateway endpoint as a tool in the agent's application code."},"explanation":{"vi":"Hardcode từng tool buộc sửa agent khi thêm hệ thống.","en":"Hardcoding tools requires agent changes for new systems."}},{"key":"D","text":{"vi":"Tạo một Lambda nhận tên hệ thống/action và tự định tuyến.","en":"Create a single AWS Lambda function that accepts the system name and action as input parameters. Write routing logic in the function that forwards requests to the correct system's REST API."},"explanation":{"vi":"Router trung tâm phải sửa theo API mới và tập trung quyền quản lý.","en":"A central router must change as systems grow and centralizes maintenance."}}],"answer":["B"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Gateway cung cấp giao diện khám phá tool, còn từng nhóm quản lý target/schema của họ.","en":"Gateway provides unified tool discovery while teams retain target/schema control."},"references":["https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html","https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html"],"objectiveRef":"qa-37"}
+    ,{"id":"b-038","domain":3,"lessonId":"agents-runtime","select":1,"text":{"vi":"Đội nghiên cứu triển khai agent có các tác vụ dài tới 8 giờ. Họ không muốn tự viết cơ chế cách ly phiên hay tự điều phối container, nhưng vẫn cần linh hoạt chọn mô hình và công cụ MCP. Nên triển khai ở đâu?","en":"A research team deploys an agent with tasks lasting up to eight hours. It wants to avoid implementing session isolation or container orchestration while retaining model choice and MCP tools. Where should it deploy?"},"options":[{"key":"A","text":{"vi":"Triển khai AgentCore Runtime, endpoint trỏ version và dùng session isolation tích hợp.","en":"Deploy the agent to Amazon Bedrock AgentCore Runtime. Configure an endpoint that routes requests to the deployed version. Use built-in session isolation."},"explanation":{"vi":"Runtime cung cấp hosting và session isolation cho agent, với cơ chế tác vụ dài được hỗ trợ.","en":"Runtime provides agent hosting and session isolation with supported long-running mechanisms."}},{"key":"B","text":{"vi":"Container trên ECS Fargate, ALB routing và tự viết session isolation.","en":"Package the agent code in a container image. Deploy the container image to Amazon ECS on AWS Fargate. Configure an Application Load Balancer (ALB) for routing. Implement custom session management logic to isolate user sessions across tasks."},"explanation":{"vi":"Phải tự xây session isolation và serving orchestration.","en":"Session isolation and serving orchestration must be built manually."}},{"key":"C","text":{"vi":"Step Functions với Bedrock invocation, wait states và execution context.","en":"Create an AWS Step Functions state machine that uses Amazon Bedrock model invocation tasks. Configure wait states for long-running operations. Use execution context to maintain state across steps."},"explanation":{"vi":"Workflow orchestration không trực tiếp cung cấp runtime agent cách ly có hỗ trợ yêu cầu tool như lựa chọn D.","en":"Workflow orchestration is not the same as the requested isolated agent runtime."}},{"key":"D","text":{"vi":"Lambda với API Gateway và DynamoDB để lưu session.","en":"Deploy the agent code as an AWS Lambda function. Configure Amazon API Gateway for request routing. Use Amazon DynamoDB to persist session state between invocations."},"explanation":{"vi":"Một Lambda invocation không chạy liên tục 8 giờ; phải chia tác vụ và thêm orchestration.","en":"One Lambda invocation cannot execute for eight hours; task splitting and orchestration are needed."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Runtime cung cấp hosting và session isolation cho agent, với cơ chế tác vụ dài được hỗ trợ.","en":"Runtime provides agent hosting and session isolation with supported long-running mechanisms."},"references":["https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html","https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.html"],"objectiveRef":"qa-38"}
+    ,{"id":"b-039","domain":1,"lessonId":"rag-index","select":1,"text":{"vi":"Bạn có các câu hỏi kiểm thử và câu trả lời chuẩn do chuyên gia viết. Cần dùng chúng cho đánh giá retrieve-only trong Bedrock, với knowledge base được gọi trực tiếp và chỉ số context coverage. Chọn định dạng và trường dữ liệu phù hợp.","en":"You have test questions and expert-written ground-truth answers. They will be used in a Bedrock retrieve-only evaluation that directly invokes a knowledge base and measures context coverage. Choose the appropriate format and fields."},"options":[{"key":"A","text":{"vi":"JSONL, mỗi dòng có prompt và referenceResponses chứa câu trả lời ground truth.","en":"Create a JSONL file. Configure each line to contain a prompt key with the user query and a referenceResponses key with the expected ground truth answer."},"explanation":{"vi":"Đúng hướng schema cho job trực tiếp gọi KB; referenceResponses là đáp án đầu-cuối, cần khi chấm context coverage.","en":"When Amazon Bedrock directly invokes the knowledge base for a retrieve-only evaluation job, the prompt dataset requires the prompt key (the user query). When you need a ground truth reference, the prompt dataset requires the referenceResponses key (the expected answer). The dataset must be in JSONL format."}},{"key":"B","text":{"vi":"JSONL, mỗi dòng có prompt và referenceContexts chứa đoạn văn dự kiến được retrieve.","en":"Create a JSONL file. Configure each line to contain a prompt key with the user query and a referenceContexts key with the expected retrieved passages."},"explanation":{"vi":"referenceContexts không thay referenceResponses cho built-in context coverage của kiểu job này.","en":"The referenceContexts key is an optional field that is only available in the bring your own inference data path. This field is not valid when Amazon Bedrock invokes the knowledge base directly. The appropriate field to provide a ground truth reference in this path is referenceResponses, not referenceContexts."}},{"key":"C","text":{"vi":"CSV, mỗi dòng có prompt và referenceResponses.","en":"Create a CSV file. Configure each line to contain a prompt key with the user query and a referenceResponses key with the expected ground truth answer."},"explanation":{"vi":"Dataset yêu cầu JSON lines, không phải CSV.","en":"The prompt dataset for Amazon Bedrock RAG evaluation jobs must be in JSONL format. Each line must be a valid JSON object. This evaluation job type does not support the CSV file format."}},{"key":"D","text":{"vi":"CSV, mỗi dòng có prompt và referenceContexts.","en":"Create a CSV file. Configure each line to contain a prompt column with the user query and a referenceContexts key with the expected retrieved passages."},"explanation":{"vi":"CSV không đúng định dạng; referenceContexts không thay schema job trực tiếp gọi KB.","en":"The prompt dataset for Amazon Bedrock RAG evaluation jobs must be in JSONL format. Each line must be a valid JSON object. This evaluation job type does not support the CSV file format. The referenceContexts key is an optional field that is only available in the bring your own inference data path. This field is not valid when Amazon Bedrock invokes the knowledge base directly. The appropriate field to provide a ground truth reference in this path is referenceResponses, not referenceContexts."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Đúng hướng schema cho job trực tiếp gọi KB; referenceResponses là đáp án đầu-cuối, cần khi chấm context coverage.","en":"When Amazon Bedrock directly invokes the knowledge base for a retrieve-only evaluation job, the prompt dataset requires the prompt key (the user query). When you need a ground truth reference, the prompt dataset requires the referenceResponses key (the expected answer). The dataset must be in JSONL format."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-evaluation-prompt-retrieve.html"],"objectiveRef":"qa-39"}
+    ,{"id":"b-040","domain":2,"lessonId":"metrics","select":1,"text":{"vi":"Hệ thống kiểm tra sản phẩm coi “có lỗi” là lớp dương. Mục tiêu đánh giá là tìm được càng nhiều sản phẩm thực sự có lỗi càng tốt; chỉ nhìn tỷ lệ đúng tổng thể sẽ bị số sản phẩm tốt áp đảo. Chỉ số nào đo trực tiếp mục tiêu này?","en":"A product-inspection system treats “defective” as positive. Evaluation focuses on finding as many actual defects as possible; overall accuracy is dominated by good products. Which metric directly measures this objective?"},"options":[{"key":"A","text":{"vi":"RMSE.","en":"Root Mean Squared Error (RMSE)"},"explanation":{"vi":"RMSE đo sai số của dự đoán số liên tục, không phải tỷ lệ phát hiện lớp mục tiêu.","en":"RMSE measures errors in continuous numerical predictions, not detection of a target class."}},{"key":"B","text":{"vi":"Recall.","en":"Recall"},"explanation":{"vi":"Recall = TP/(TP + FN), tức số trường hợp lớp dương được phát hiện chia cho tổng số trường hợp thực sự thuộc lớp dương.","en":"Recall = TP/(TP + FN): detected positive cases divided by all actual positive cases."}},{"key":"C","text":{"vi":"Precision.","en":"Precision"},"explanation":{"vi":"Precision đo tỷ lệ dự đoán dương tính là đúng, trong khi yêu cầu ở đây là giảm bỏ sót các trường hợp thực sự dương tính.","en":"Precision measures how many positive predictions are correct, whereas the requirement is to miss fewer actual positive cases."}},{"key":"D","text":{"vi":"Accuracy.","en":"Accuracy"},"explanation":{"vi":"Tỷ lệ đúng tổng thể có thể bị lớp đa số chi phối nên không trực tiếp đo số trường hợp mục tiêu được phát hiện.","en":"Overall accuracy can be dominated by the majority class and does not directly measure detection of target cases."}}],"answer":["B"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Recall = TP/(TP + FN), tức số trường hợp lớp dương được phát hiện chia cho tổng số trường hợp thực sự thuộc lớp dương.","en":"Recall = TP/(TP + FN): detected positive cases divided by all actual positive cases."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/autopilot-metrics-validation.html"],"objectiveRef":"qa-40"}
+    ,{"id":"b-041","domain":1,"lessonId":"preparation","select":1,"text":{"vi":"Đội nhận diện hàng hóa cần nhanh chóng thử các phép biến đổi ảnh thông dụng và xem kết quả để chọn cấu hình. Không có yêu cầu phép biến đổi tùy chỉnh. Trong các lựa chọn, cách nào giảm nhiều nhất mã xử lý phải tự viết?","en":"A product-recognition team needs to try common image transformations and inspect their results. No custom transformation is required. Which option minimizes custom processing code?"},"options":[{"key":"A","text":{"vi":"Tạo SageMaker Processing job tự xử lý ảnh.","en":"Create an Amazon SageMaker Processing job for image processing."},"explanation":{"vi":"Processing linh hoạt nhưng cần tự định nghĩa logic image processing.","en":"You can use SageMaker Processing jobs to perform data processing tasks on large volumes of data before or after model training. You can use the jobs to preprocess, clean, and transform data in a scalable and distributed manner. This solution is feasible. However, you must write code and set up the processing job. Therefore, this solution requires additional operational overhead."}},{"key":"B","text":{"vi":"Dùng thư viện ảnh Python trong SageMaker notebook.","en":"Use image processing Python libraries in an Amazon SageMaker Jupyter notebook."},"explanation":{"vi":"Notebook cần viết và quản lý code transform thủ công.","en":"SageMaker Jupyter notebooks are interactive computing environments that are specifically designed for ML and data science tasks. Jupyter notebooks are a popular open source tool. SageMaker AI provides Jupyter notebooks in its ML platform. You can use the notebooks to provide a collaborative and scalable environment to develop, run, and share ML models. This solution is feasible. However, augmenting the data with a SageMaker Jupyter notebook will require writing and editing code. Therefore, this solution requires additional operational overhead."}},{"key":"C","text":{"vi":"Dùng SageMaker Data Wrangler xử lý ảnh.","en":"Use Amazon SageMaker Data Wrangler to process the images."},"explanation":{"vi":"Data Wrangler có transform ảnh trực quan phù hợp thử nghiệm mà ít code.","en":"SageMaker Data Wrangler is a data preparation and integration service. You can use SageMaker Data Wrangler to clean, transform, and prepare data for ML workflows. SageMaker Data Wrangler offers a visual interface that you can use to explore, visualize, and manipulate data without the need for coding or complex data engineering skills. You can add transforms in SageMaker Data Wrangler to augment your data without writing any code. Therefore, this solution meets the requirements with the least operational overhead."}},{"key":"D","text":{"vi":"Dùng Glue ETL job xử lý ảnh.","en":"Use an AWS Glue extract, transform, and load (ETL) job to process the images."},"explanation":{"vi":"Glue cần code/pipeline riêng cho các transform ảnh.","en":"AWS Glue ETL can help with data preparation and loading tasks by automating the ETL processes. You can create ETL jobs by using a graphical interface or by writing custom scripts in Python or Apache Spark. Therefore, this solution provides flexible data transformation workflows. This solution is feasible. However, you must write code for the AWS Glue ETL jobs. Therefore, this solution requires additional operational overhead."}}],"answer":["C"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Data Wrangler có transform ảnh trực quan phù hợp thử nghiệm mà ít code.","en":"SageMaker Data Wrangler is a data preparation and integration service. You can use SageMaker Data Wrangler to clean, transform, and prepare data for ML workflows. SageMaker Data Wrangler offers a visual interface that you can use to explore, visualize, and manipulate data without the need for coding or complex data engineering skills. You can add transforms in SageMaker Data Wrangler to augment your data without writing any code. Therefore, this solution meets the requirements with the least operational overhead."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html"],"objectiveRef":"qa-41"}
+    ,{"id":"b-042","domain":4,"lessonId":"responsible-ai","select":2,"text":{"vi":"Trợ lý dành cho dược sĩ sẽ trả lời câu hỏi về tương tác thuốc. Công ty cần một quy trình kiểm thử có thể lặp lại và một bộ câu trả lời chuẩn đáng tin cậy. Chọn hai bước nên thực hiện trước khi đưa hệ thống vào sử dụng. (Chọn HAI)","en":"An assistant for pharmacists will answer drug-interaction questions. The company needs a repeatable test process and reliable reference answers. Which two steps should it take before use? (Choose TWO)"},"options":[{"key":"A","text":{"vi":"Tạo golden dataset gồm prompt-response do dược sĩ curate, với phạm vi phản hồi chấp nhận được.","en":"Create a golden dataset that contains prompt-response pairs that were curated by pharmacists with a range of acceptable responses."},"explanation":{"vi":"Chuyên gia xác định nguồn tham chiếu đáng tin và các đáp án hợp lệ.","en":"Domain experts establish trusted references and acceptable answers."}},{"key":"B","text":{"vi":"Cho agent có guardrails xác nhận cặp hỏi đáp bằng đồng thuận giữa agent trước fine-tune.","en":"Deploy an Amazon Bedrock AgentCore agent with guardrails that validates query-response pairs through agent consensus before fine-tuning begins."},"explanation":{"vi":"Đồng thuận agent có thể cùng sai, không thay chuyên gia hoặc ground truth.","en":"Agent agreement can share errors and does not replace experts or ground truth."}},{"key":"C","text":{"vi":"Dùng leaderboard chung của FM để xác nhận clinical accuracy.","en":"Use leaderboard benchmarks for the selected FM to validate that the model meets the company's clinical accuracy requirements."},"explanation":{"vi":"Leaderboard chung không thay kiểm chứng theo chuyên môn và use case.","en":"General leaderboards do not validate this specialized use case."}},{"key":"D","text":{"vi":"Xây testing harness đánh giá FM với ground truth; catalog bằng Glue, query Athena và theo dõi clinical metrics.","en":"Develop a testing harness that automatically evaluates the fine-tuned FM against the ground truth dataset. Use AWS Glue to catalog the dataset. Use Amazon Athena to query the data and track model performance across defined clinical metrics."},"explanation":{"vi":"Harness so với ground truth cung cấp kiểm tra lặp lại theo metric đã định nghĩa.","en":"A test harness provides repeatable evaluation against defined ground truth and metrics."}},{"key":"E","text":{"vi":"Deploy trước, lưu phản hồi bệnh nhân vào S3 rồi dùng làm golden data để retrain.","en":"Deploy the fine-tuned model and store patients' feedback on Amazon S3. Query S3 data by using AWS Glue. Use Amazon Athena to track performance metrics to help create a golden prompt-response pair dataset to use for re-training."},"explanation":{"vi":"Phản hồi sau deployment không thay kiểm chứng dữ liệu chuyên gia trước phát hành.","en":"Post-deployment feedback does not replace expert validation before release."}}],"answer":["A","D"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Harness so với ground truth cung cấp kiểm tra lặp lại theo metric đã định nghĩa. Chuyên gia xác định nguồn tham chiếu đáng tin và các đáp án hợp lệ.","en":"A test harness provides repeatable evaluation against defined ground truth and metrics. Domain experts establish trusted references and acceptable answers."},"references":["https://docs.aws.amazon.com/bedrock/latest/userguide/responsible-ai.html"],"objectiveRef":"qa-42"}
+    ,{"id":"b-043","domain":2,"lessonId":"training","select":1,"text":{"vi":"Đội dùng tác vụ SageMaker Training theo lịch hàng tuần và chấp nhận gián đoạn nếu có thể tiếp tục từ checkpoint. Không cần cam kết công suất dài hạn. Nên chọn phương án nào để tiết kiệm chi phí?","en":"A team runs weekly SageMaker Training jobs and tolerates interruptions if they can resume from checkpoints. It does not need long-term capacity commitments. Which option should it choose to reduce cost?"},"options":[{"key":"A","text":{"vi":"Đặt EnableManagedSpotTraining=True.","en":"In the SageMaker AI training job, set EnableManagedSpotTraining to True."},"explanation":{"vi":"Managed Spot giảm chi phí compute cho training linh hoạt; nên có checkpoint.","en":"Managed Spot reduces compute cost for flexible training; use checkpoints."}},{"key":"B","text":{"vi":"Chạy container trên ECS Fargate theo lịch.","en":"Deploy the training container on Amazon ECS on AWS Fargate on a schedule."},"explanation":{"vi":"Chuyển nền tảng thêm vận hành và không tận dụng Managed Spot Training trực tiếp.","en":"Moving platforms adds operations without directly using Managed Spot Training."}},{"key":"C","text":{"vi":"Chạy distributed ML job trên EMR tạm thời.","en":"Run a distributed ML job on an ephemeral Amazon EMR cluster."},"explanation":{"vi":"Distributed EMR không cần cho job một instance đã mô tả.","en":"Distributed EMR is unnecessary for the described single-instance job."}},{"key":"D","text":{"vi":"Tạo reservation EC2 cho training job.","en":"Create a reservation for Amazon EC2 instances for the training job."},"explanation":{"vi":"Reservation là cam kết capacity/chi phí khác, không phải lựa chọn giảm chi phí linh hoạt nhất ở đây.","en":"A reservation is a different commitment and is not the best flexible-cost choice here."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Managed Spot giảm chi phí compute cho training linh hoạt; nên có checkpoint.","en":"Managed Spot reduces compute cost for flexible training; use checkpoints."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html","https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html"],"objectiveRef":"qa-43"}
+    ,{"id":"b-044","domain":3,"lessonId":"scaling","select":1,"text":{"vi":"Kỹ sư đã có mô hình và cần tìm cấu hình endpoint dựa trên lưu lượng đồng thời tăng theo các giai đoạn cụ thể. Yêu cầu kiểm thử theo mẫu tải tùy chỉnh, không chỉ chạy bộ kiểm thử mặc định. Phương án nào ít vận hành nhất?","en":"An engineer needs an endpoint configuration for concurrency increasing through specific phases. Testing must use a custom traffic pattern rather than only default benchmarks. Which option has the least overhead?"},"options":[{"key":"A","text":{"vi":"Chạy endpoint recommendation job bằng Inference Recommender.","en":"Use Amazon SageMaker Inference Recommender to run an endpoint recommendation job."},"explanation":{"vi":"Advanced endpoint recommendation kiểm thử traffic pattern và cấu hình endpoint theo yêu cầu.","en":"Inference Recommender automates load testing and tuning on multiple endpoint instance types and configurations. You can run an endpoint recommendation job to perform custom load tests by specifying instance types, traffic patterns, and production requirements for latency and throughput. The endpoint recommendation job outputs performance and cost data for the custom load test. You can use the endpoint recommendation job output to select the instance type that meets production performance requirements for the known traffic pattern. This solution does not require you to write custom code."}},{"key":"B","text":{"vi":"Chạy inference recommendation job mặc định bằng Inference Recommender.","en":"Use Amazon SageMaker Inference Recommender to run an inference recommendation job."},"explanation":{"vi":"Default recommendation phù hợp gợi ý ban đầu, không thay kiểm thử traffic tùy chỉnh như advanced job.","en":"Inference Recommender automates load testing and tuning for multiple instance types and configurations. Inference recommenders lists prospective instances for your model based on benchmarks of similar models. You can choose from these prospective instances without further load testing. An inference recommender job can inform endpoint configurations without the overhead of custom code. However, this solution does not address the custom traffic pattern."}},{"key":"C","text":{"vi":"Tự dựng pipeline load test, cấp endpoint rồi so số liệu CloudWatch.","en":"Deploy a load testing pipeline to provision endpoints and compare performance data in Amazon CloudWatch."},"explanation":{"vi":"Tự dựng có thể được nhưng tăng vận hành so với Inference Recommender.","en":"CloudWatch captures metrics from your AWS resources and applications. You can develop and deploy custom code to perform load testing of various SageMaker AI endpoint configurations. You can use the metrics that SageMaker AI automatically captures in CloudWatch to inform endpoint configurations. For example, the metrics can include the number of invocations, model latency, and invocation errors. However, this solution requires additional overhead to develop the custom load testing tool. A solution that uses automated load testing in Inference Recommender would require less operational overhead."}},{"key":"D","text":{"vi":"Chọn cấu hình dựa vào utilization trong SageMaker Profiler.","en":"Choose a configuration that is based on the model's compute resource utilization in Amazon SageMaker Profiler."},"explanation":{"vi":"Profiler phản ánh training/compute profiling, không thay load test traffic inference tùy chỉnh.","en":"SageMaker Profiler is a feature that captures metrics about the compute resources that are provisioned for SageMaker AI training jobs. You can use SageMaker Profiler to review compute resource utilization for the timeline of the training job. SageMaker Profiler does not provide information about resources that you can use during inference."}}],"answer":["A"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Advanced endpoint recommendation kiểm thử traffic pattern và cấu hình endpoint theo yêu cầu.","en":"Inference Recommender automates load testing and tuning on multiple endpoint instance types and configurations. You can run an endpoint recommendation job to perform custom load tests by specifying instance types, traffic patterns, and production requirements for latency and throughput. The endpoint recommendation job outputs performance and cost data for the custom load test. You can use the endpoint recommendation job output to select the instance type that meets production performance requirements for the known traffic pattern. This solution does not require you to write custom code."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html","https://docs.aws.amazon.com/sagemaker/latest/dg/inference-recommender.html"],"objectiveRef":"qa-44"}
+    ,{"id":"b-045","domain":1,"lessonId":"preparation","select":1,"text":{"vi":"Kỹ sư có dữ liệu giá nhà theo thời gian và muốn mô phỏng đúng việc học từ quá khứ để dự đoán tương lai. Các hàng đã sắp từ cũ đến mới. Phép chia nào giữ được yêu cầu này?","en":"An engineer has housing-price data and wants to simulate learning from the past to predict the future. Rows are already sorted from oldest to newest. Which split preserves this requirement?"},"options":[{"key":"A","text":{"vi":"Randomized split.","en":"Randomized split"},"explanation":{"vi":"Random split có thể trộn tương lai vào train khi đánh giá quá khứ.","en":"SageMaker Data Wrangler transform randomized split splits data randomly among train, test, and validation (optional) at predefined ratios. This strategy is best when you want to shuffle the order of your input data. In this scenario, randomly splitting the data would introduce data leakage because the training data would contain samples that occurred later than some samples in the test data. This method results in the test performance overstating the actual performance of the model (prediction bias), and the model failing to generalize well on future, unseen data."}},{"key":"B","text":{"vi":"Stratified split.","en":"Stratified split"},"explanation":{"vi":"Stratification giữ tỷ lệ nhóm/lớp, không bảo đảm thứ tự thời gian.","en":"SageMaker Data Wrangler transform stratified split splits the data among train, test, and validation (optional) such that each split is similar with respect to a specified column's categories. This method ensures that all splits have the same proportion of each category as the input dataset. Stratified split is often used for classification problems to maintain a similar percentage of samples of each target class across splits. In this scenario, performing a stratified split would introduce data leakage because the training data would contain samples that occurred later than some samples in the test data. This solution results in the test performance overstating the actual performance of the model (prediction bias), and the model failing to generalize well on future, unseen data."}},{"key":"C","text":{"vi":"Ordered split.","en":"Ordered split"},"explanation":{"vi":"Giữ thứ tự thời gian để train từ quá khứ và đánh giá trên giai đoạn mới hơn.","en":"SageMaker Data Wrangler transform ordered split maintains the order of the input data and performs a non-overlapping split among train, test, and validation, which is optional, at predefined ratios. When a timeseries dataset is sorted by date, as in this scenario, the ordered split prevents data leakage across splits by ensuring that data in the train split comes before data in the test split. This method helps reduce prediction bias and ensures the model generalizes well on future, unseen data."}},{"key":"D","text":{"vi":"Split by key.","en":"Split by key"},"explanation":{"vi":"Group/key split hữu ích cho nhóm nhưng không trực tiếp bảo toàn thời gian đã yêu cầu.","en":"SageMaker Data Wrangler transform split by key ensures that data with the same keys do not occur in more than one split. This method is often used with id columns, so that the same id does not appear in both training and test splits. In this scenario, performing a split by key would introduce data leakage because the training data would contain samples that occurred later than some samples in the test data. This solution results in the test performance overstating the actual performance of the model and the model failing to generalize well on future, unseen data."}}],"answer":["C"],"hint":{"vi":"Chọn theo ràng buộc cụ thể, không chỉ theo tên dịch vụ quen thuộc.","en":"Choose by the specific constraint, not merely a familiar service name."},"explanation":{"vi":"Giữ thứ tự thời gian để train từ quá khứ và đánh giá trên giai đoạn mới hơn.","en":"SageMaker Data Wrangler transform ordered split maintains the order of the input data and performs a non-overlapping split among train, test, and validation, which is optional, at predefined ratios. When a timeseries dataset is sorted by date, as in this scenario, the ordered split prevents data leakage across splits by ensuring that data in the train split comes before data in the test split. This method helps reduce prediction bias and ensures the model generalizes well on future, unseen data."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html"],"objectiveRef":"qa-45"}
+    ,{"id":"b-046","domain":4,"lessonId":"cost","select":1,"text":{"vi":"Một công ty muốn tự động theo dõi ngân sách hàng tháng không đổi cho từng đơn vị. Thẻ phân bổ chi phí do công ty định nghĩa đã được kích hoạt. Phương án nào cảnh báo theo dự báo, thay vì chờ chi phí thực tế vượt mức?","en":"A company wants automated tracking of a fixed monthly budget per business unit. Its custom cost-allocation tags are active. Which option alerts on forecasts rather than waiting for actual overspending?"},"options":[{"key":"A","text":{"vi":"Tạo auto-adjusting budget theo AWS-generated tag và cảnh báo actual spend.","en":"Create a budget in AWS Budgets with an auto-adjusting method. Specify a filter based on AWS generated cost allocation tags that are associated with each department. Configure the budget to trigger an alert and notify the department based on the actual monthly spend."},"explanation":{"vi":"Actual spend báo sau khi chi tiêu xảy ra; tag phòng ban phải do người dùng định nghĩa.","en":"You can use AWS Budgets to track and take actions based on AWS spend. However, the auto-adjusting method sets a dynamic budget based on previous spend instead of on a fixed threshold. AWS generated cost allocation tags do not incorporate business logic, such as department ID or project ID. You can set an alert based on actual monthly spend. However, then the departments will not be able to anticipate when the monthly spend is likely to exceed the allocated budget. The budget would be based on a fixed threshold or threshold percentage."}},{"key":"B","text":{"vi":"Tạo fixed budget, lọc theo cost allocation tag tự định nghĩa của phòng ban, cảnh báo forecast monthly spend.","en":"Create a budget in AWS Budgets with a fixed method. Specify a filter based on user-defined cost allocation tags that are associated with each department. Configure the budget to trigger an alert and notify the department based on the forecasted monthly spend."},"explanation":{"vi":"Fixed budget theo tag Department và forecast alert khớp trực tiếp yêu cầu.","en":"You can use AWS Budgets to track and take actions based on AWS spend. You can use a fixed method for AWS Budgets to define a static budget every month. You can use user-defined cost allocation tags to monitor costs based on tags that you create, such as department ID or project ID. You can use AWS Budgets to establish filters based on tags and to trigger alerts. By configuring an alert based on the forecasted monthly spend, you can anticipate the likelihood of your monthly spend exceeding a defined threshold."}},{"key":"C","text":{"vi":"Tạo auto-adjusting budget, lọc theo AWS-generated tag và gửi báo cáo hàng ngày.","en":"Create a budget in AWS Budgets with an auto-adjusting method. Specify a filter based on AWS generated cost allocation tags that are associated with each department. Create budget reports for each department and configure AWS Budgets to deliver daily reports."},"explanation":{"vi":"Auto-adjusting thay đổi ngân sách, daily report không phải cảnh báo dự kiến vượt ngưỡng cố định.","en":"You can use AWS Budgets to track and take actions based on AWS spend. However, the auto-adjusting method sets a dynamic budget based on previous spend instead of a fixed threshold. AWS generated cost allocation tags do not incorporate business logic, such as department ID or project ID. A solution that requires the departments to analyze daily reports requires additional operational overhead."}},{"key":"D","text":{"vi":"Tạo Cost Explorer report theo tag để mỗi phòng tự xem và dự đoán.","en":"Create a cost report for each department by using AWS Cost Explorer. Filter the cost report based on user-defined cost allocation tags that are associated with each department. Grant each department access to its own Cost Explorer report to review and predict when each department will exceed its own budget."},"explanation":{"vi":"Đòi hỏi tự đọc và dự đoán, không đáp ứng thông báo tự động ít vận hành.","en":"You can use Cost Explorer to view and analyze AWS costs and usage. You can create custom cost reports based on user-defined cost allocation tags. This solution requires the departments to access the Cost Explorer console. Therefore, this solution requires additional operational overhead."}}],"answer":["B"],"hint":{"vi":"Xác định điều cần tối ưu và chức năng AWS đáp ứng trực tiếp điều đó.","en":"Identify the optimization target and the AWS capability addressing it directly."},"explanation":{"vi":"Fixed budget theo tag Department và forecast alert khớp trực tiếp yêu cầu.","en":"You can use AWS Budgets to track and take actions based on AWS spend. You can use a fixed method for AWS Budgets to define a static budget every month. You can use user-defined cost allocation tags to monitor costs based on tags that you create, such as department ID or project ID. You can use AWS Budgets to establish filters based on tags and to trigger alerts. By configuring an alert based on the forecasted monthly spend, you can anticipate the likelihood of your monthly spend exceeding a defined threshold."},"references":["https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"],"objectiveRef":"qa-46"}
+    ,{"id":"b-047","domain":4,"lessonId":"monitoring","select":2,"text":{"vi":"Đội đã chuẩn bị nhãn xác nhận và tác vụ theo dõi chất lượng mô hình. Họ cần nối dữ liệu dự đoán tại endpoint với cơ chế cảnh báo chủ động qua email bằng SNS. Chọn hai hành động phù hợp. (Chọn HAI)","en":"A team has prepared ground-truth labels and model-quality monitoring jobs. It needs endpoint prediction capture and proactive SNS email notifications. Which two actions are appropriate? (Choose TWO)"},"options":[{"key":"A","text":{"vi":"Dùng Data Wrangler kiểm tra định kỳ model metric cho feature drift.","en":"Use SageMaker Data Wrangler to periodically check model metrics for feature drift."},"explanation":{"vi":"Feature drift và model quality khác nhau; Data Wrangler không phải giải pháp giám sát ở đây.","en":"You can use SageMaker Data Wrangler to import, prepare, and analyze data for ML tasks. You can use SageMaker Data Wrangler to streamline data preprocessing and feature engineering tasks with minimal coding. You cannot use SageMaker Data Wrangler for model monitoring or to monitor for feature drift."}},{"key":"B","text":{"vi":"Gom CloudWatch logs vào S3 rồi theo dõi metric.","en":"Collect Amazon CloudWatch logs in an Amazon S3 bucket. Monitor the model metrics."},"explanation":{"vi":"Chỉ gom log không tạo cảnh báo ngưỡng tự động.","en":"CloudWatch is a monitoring service that you can use to monitor AWS resources and applications. You can collect CloudWatch logs in an S3 bucket. However, this solution does not provide automatic notifications when there is a significant drift in model quality."}},{"key":"C","text":{"vi":"Tạo CloudWatch alarm gửi SNS khi metric vượt ngưỡng.","en":"Create an Amazon CloudWatch alarm that notifies an Amazon SNS topic when the model metrics exceed a threshold."},"explanation":{"vi":"Alarm nối metric với kênh thông báo SNS.","en":"CloudWatch is a monitoring service that you can use to monitor AWS resources and applications. You can use CloudWatch metrics to create an alarm when a specific metric exceeds a threshold that you specify. For every state that a CloudWatch alarm can take, you can configure the alarm to send a message to an SNS topic."}},{"key":"D","text":{"vi":"Thêm bước Data Wrangler gửi thông báo khi model metric vượt ngưỡng.","en":"Create a step in SageMaker Data Wrangler to send a notification when the model metrics exceed a threshold."},"explanation":{"vi":"Data Wrangler là chuẩn bị dữ liệu, không thay cơ chế monitoring alarm production.","en":"You can use SageMaker Data Wrangler to import, prepare, and analyze data for ML tasks. You can use SageMaker Data Wrangler to streamline data preprocessing and feature engineering tasks with minimal coding. You cannot use SageMaker Data Wrangler for model monitoring or to send a notification based on metrics."}},{"key":"E","text":{"vi":"Bật endpoint data capture và xuất model quality metrics tới CloudWatch.","en":"Enable data capture on the SageMaker AI endpoint and publish model quality metrics to Amazon CloudWatch."},"explanation":{"vi":"Capture cùng Model Monitor và ground truth cung cấp metric chất lượng cần thiết.","en":"You can enable data capture on a SageMaker AI endpoint to collect inference input and output data. By evaluating captured predictions against ground truth labels, you can calculate model quality metrics and publish them to CloudWatch. Publishing metrics to CloudWatch enables monitoring for model quality drift and supports integration with CloudWatch alarms for automated notifications when metric thresholds are exceeded."}}],"answer":["C","E"],"hint":{"vi":"Xác định điều cần tối ưu và chức năng AWS đáp ứng trực tiếp điều đó.","en":"Identify the optimization target and the AWS capability addressing it directly."},"explanation":{"vi":"Alarm nối metric với kênh thông báo SNS. Capture cùng Model Monitor và ground truth cung cấp metric chất lượng cần thiết.","en":"CloudWatch is a monitoring service that you can use to monitor AWS resources and applications. You can use CloudWatch metrics to create an alarm when a specific metric exceeds a threshold that you specify. For every state that a CloudWatch alarm can take, you can configure the alarm to send a message to an SNS topic. You can enable data capture on a SageMaker AI endpoint to collect inference input and output data. By evaluating captured predictions against ground truth labels, you can calculate model quality metrics and publish them to CloudWatch. Publishing metrics to CloudWatch enables monitoring for model quality drift and supports integration with CloudWatch alarms for automated notifications when metric thresholds are exceeded."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality.html","https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/evaluations.html"],"objectiveRef":"qa-47"}
+    ,{"id":"b-048","domain":1,"lessonId":"feature-store","select":1,"text":{"vi":"Kho đặc trưng có hàng triệu bản ghi lịch sử. Kiến trúc dữ liệu đã chọn Apache Iceberg để quản lý bảng và đội không cần online serving. Trong các lựa chọn, cấu hình nào đáp ứng trực tiếp yêu cầu?","en":"A feature repository contains millions of historical records. The data architecture has standardized on Apache Iceberg and the team does not need online serving. Which listed configuration directly meets the requirements?"},"options":[{"key":"A","text":{"vi":"Offline store, Apache Iceberg table format.","en":"Enable the offline store for the feature group. Use the Apache Iceberg table format."},"explanation":{"vi":"Offline phù hợp lịch sử; Iceberg được khuyến nghị cho bảng analytics rất lớn và compaction.","en":"Offline storage fits history; Iceberg is recommended for very large analytical tables and compaction."}},{"key":"B","text":{"vi":"Offline store, AWS Glue table format.","en":"Enable the offline store for the feature group. Use the AWS Glue table format."},"explanation":{"vi":"Glue offline cũng lưu lịch sử, nhưng Iceberg phù hợp hơn quy mô analytics được nhấn mạnh.","en":"Glue offline storage also retains history, but Iceberg better matches the emphasized analytical scale."}},{"key":"C","text":{"vi":"Online store, standard tier.","en":"Enable the online store for the feature group. Use the standard tier storage type."},"explanation":{"vi":"Online standard không phải lựa chọn lưu toàn bộ lịch sử batch.","en":"Standard online storage is not the choice for full batch history."}},{"key":"D","text":{"vi":"Online store, in-memory tier.","en":"Enable the online store for the feature group. Use the in-memory tier storage type."},"explanation":{"vi":"In-memory online tối ưu lookup nhanh không được yêu cầu.","en":"In-memory online storage optimizes unneeded low-latency lookups."}}],"answer":["A"],"hint":{"vi":"Xác định điều cần tối ưu và chức năng AWS đáp ứng trực tiếp điều đó.","en":"Identify the optimization target and the AWS capability addressing it directly."},"explanation":{"vi":"Offline phù hợp lịch sử; Iceberg được khuyến nghị cho bảng analytics rất lớn và compaction.","en":"Offline storage fits history; Iceberg is recommended for very large analytical tables and compaction."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-storage-configurations-offline-store.html"],"objectiveRef":"qa-48"}
+    ,{"id":"b-049","domain":3,"lessonId":"pipelines","select":1,"text":{"vi":"Một công ty cần mẫu dự án MLOps để các đội tạo quy trình xử lý dữ liệu, huấn luyện và triển khai theo cùng tiêu chuẩn. Các tác vụ đều đã dùng SageMaker và cần được nối thành quy trình tái sử dụng. Chọn phương án nào?","en":"A company needs MLOps project templates so teams can follow consistent processing, training and deployment standards. Jobs already use SageMaker and must be connected into reusable workflows. Which option fits?"},"options":[{"key":"A","text":{"vi":"Step Functions workflow kết hợp CodePipeline.","en":"Build a workflow by using AWS Step Functions. Integrate the workflow with AWS CodePipeline for reusability."},"explanation":{"vi":"Có thể xây nhưng cần wiring thêm so với pipeline SageMaker chuyên dụng cho chuỗi công việc này.","en":"Step Functions is a serverless workflow orchestration service. Step Functions integrates with SageMaker AI. However, Step Functions does not provide a mechanism to easily create a CI/CD pipeline that builds the state machine. The ML engineer used SageMaker AI to implement all components of the model. Therefore, if you use a SageMaker AI solution to implement the workflow, the SageMaker AI solution will require less operational effort. CodePipeline does not provide a suitable solution to deploy the step to multiple accounts."}},{"key":"B","text":{"vi":"CodePipeline và CloudFormation template.","en":"Build a pipeline by using AWS CodePipeline. Create an AWS CloudFormation template for reusability."},"explanation":{"vi":"CodePipeline quản lý CI/CD nhưng cần tự orchestration chi tiết các bước ML.","en":"CodePipeline is a CI/CD service that you can use to build artifacts and deploy software. CodePipeline does not have built-in integration with SageMaker AI. You cannot use CodePipeline as an ML pipeline without extensive customization and coding."}},{"key":"C","text":{"vi":"SageMaker Pipelines kết hợp SageMaker Projects để tái sử dụng.","en":"Build a pipeline by using SageMaker Pipelines. Integrate the pipeline with SageMaker AI projects for reusability."},"explanation":{"vi":"Pipelines tích hợp các bước ML; Projects hỗ trợ mẫu CI/CD tái sử dụng.","en":"SageMaker Pipelines provides an integrated SageMaker AI mechanism to orchestrate ML workflows. SageMaker AI projects provide standardization and templating of CI/CD pipelines that build and maintain the ML pipelines. In this solution, all components in the ML pipeline are built-in SageMaker AI components. Therefore, this is the most suitable solution to integrate into a SageMaker AI pipeline. You can use SageMaker AI projects to create a template that describes the ML pipeline. Other teams can use SageMaker AI projects to deploy the solution with CI/CD pipelines into the teams' AWS accounts."}},{"key":"D","text":{"vi":"Jenkins end-to-end pipeline và Terraform module.","en":"Build an end-to-end pipeline by using Jenkins. Create a Terraform module for reusability."},"explanation":{"vi":"Cần tự vận hành Jenkins và tích hợp nhiều bước đã được quản lý.","en":"Jenkins is an open source workflow automation solution. Jenkins is a CI/CD tool that requires additional coding and configurations to build ML pipelines. Terraform is a third-party infrastructure as code (IaC) solution that you can use for automation. However, you need to create the IaC template for Terraform."}}],"answer":["C"],"hint":{"vi":"Xác định điều cần tối ưu và chức năng AWS đáp ứng trực tiếp điều đó.","en":"Identify the optimization target and the AWS capability addressing it directly."},"explanation":{"vi":"Pipelines tích hợp các bước ML; Projects hỗ trợ mẫu CI/CD tái sử dụng.","en":"SageMaker Pipelines provides an integrated SageMaker AI mechanism to orchestrate ML workflows. SageMaker AI projects provide standardization and templating of CI/CD pipelines that build and maintain the ML pipelines. In this solution, all components in the ML pipeline are built-in SageMaker AI components. Therefore, this is the most suitable solution to integrate into a SageMaker AI pipeline. You can use SageMaker AI projects to create a template that describes the ML pipeline. Other teams can use SageMaker AI projects to deploy the solution with CI/CD pipelines into the teams' AWS accounts."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html"],"objectiveRef":"qa-49"}
+    ,{"id":"b-050","domain":3,"lessonId":"deployments","select":1,"text":{"vi":"Trước khi chuyển lưu lượng phục vụ sang mô hình mới, đội muốn sao chép yêu cầu thực tới mô hình này và ghi nhận kết quả để đánh giá. Người dùng vẫn phải nhận toàn bộ kết quả từ mô hình hiện tại. Chọn cách triển khai nào?","en":"Before moving serving traffic to a new model, a team wants to duplicate live requests to it and record outputs for evaluation. Users must continue receiving responses only from the current model. Which deployment approach fits?"},"options":[{"key":"A","text":{"vi":"Blue/green deployment.","en":"Blue/green deployment"},"explanation":{"vi":"Blue/green hỗ trợ chuyển fleet nhưng không tự thực hiện so song song cùng request mà bỏ kết quả model mới.","en":"Blue/green deployment provides two identical production environments. After testing finishes on the green environment, traffic is directed from the green environment to the blue environment. A blue/green deployment strategy does not test the new model alongside the old model by using the same data."}},{"key":"B","text":{"vi":"Canary deployment.","en":"Canary deployment"},"explanation":{"vi":"Canary vẫn phục vụ một số người dùng bằng model chưa kiểm chứng.","en":"Canary deployment would deploy the new model to a small group of users while other users continue to use the previous model. You can use canary deployment to test the new model alongside the old model. However, canary deployment does not perform inference on the same data. Additionally, this deployment strategy introduces risk because the system precision cannot be compromised."}},{"key":"C","text":{"vi":"Shadow testing.","en":"Shadow testing"},"explanation":{"vi":"Shadow nhận bản sao request, trong khi model cũ tiếp tục trả kết quả cho người dùng.","en":"Shadow testing makes the new version of the model available alongside the old version. The input data runs through both versions. This strategy performs inference on the same data. This strategy ensures that the new model works as expected while minimizing risks."}},{"key":"D","text":{"vi":"A/B testing.","en":"A/B testing"},"explanation":{"vi":"A/B phục vụ các nhóm người dùng bằng model khác nhau và có thể tác động precision.","en":"An A/B testing strategy deploys changes to a model by directing a defined portion of traffic to the new model and directing the remaining traffic to the old model. This deployment strategy does not perform inference on the same data. Additionally, this strategy introduces risk because the system precision cannot be compromised."}}],"answer":["C"],"hint":{"vi":"Xác định điều cần tối ưu và chức năng AWS đáp ứng trực tiếp điều đó.","en":"Identify the optimization target and the AWS capability addressing it directly."},"explanation":{"vi":"Shadow nhận bản sao request, trong khi model cũ tiếp tục trả kết quả cho người dùng.","en":"Shadow testing makes the new version of the model available alongside the old version. The input data runs through both versions. This strategy performs inference on the same data. This strategy ensures that the new model works as expected while minimizing risks."},"references":["https://docs.aws.amazon.com/sagemaker/latest/dg/model-shadow-deployment.html","https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html"],"objectiveRef":"qa-50"}
+  ]
+}

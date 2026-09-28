@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      APP_PASSWORD: ${APP_PASSWORD:?Set APP_PASSWORD in .env before first startup}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    volumes:
+      - learning-data:/app/runtime
+      - ./data:/app/data:ro
+    restart: unless-stopped
+volumes:
+  learning-data:
